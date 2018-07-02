@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>人力资源管理系统-首页</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/vue.js"></script>
+    <script src="./js/ele-index.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./js/echarts.common.min.js"></script>
+    <script src="./common/commData.js"></script>
+    <script src="./js/index.js"></script>
+</head>
+
+<body>
+    <div id="left-nav">
+        <div id="gxcf-title">
+            <span>人力资源管理系统</span>
+        </div>
+        <ul id="nav-list">
+            <li>
+                <img src="./images/nav1.png" alt="">
+                <a href="#">
+                    人力资源规划
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav2-on.png" alt="">
+                <a href="#" class="active">
+                    人才招聘管理
+                </a>
+                <ul>
+                    <li>
+                        <a href="./candidate.html">招聘管理</a>
+                    </li>
+                    <li>
+                        <a href="./post-manage.html">岗位管理</a>
+                    </li>
+                    <li>
+                        <a href="./resume-manage.html">简历管理</a>
+                    </li>
+                    <li>
+                        <a href="./school-cooperation.html">校企合作</a>
+                    </li>
+                    <li>
+                        <a href="./template-list.html">系统设置</a>
+                    </li>
+                </ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav3.png" alt="">
+                <a href="#">
+                    绩效考核管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav4.png" alt="">
+                <a href="#">
+                    培训开发管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav5.png" alt="">
+                <a href="#">
+                    薪资福利管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav6.png" alt="">
+                <a href="#">
+                    统计分析
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+        </ul>
+    </div>
+    <div id="right-container">
+        <div id="right-top">
+            <span class="right-title">人才招聘管理首页</span>
+            <div class="right-box">
+                <div class="search">
+                    <i class="search-icon"></i>
+                    <input type="text" class="search-input">
+                </div>
+                <span class="user-name">Hello
+                    <span>Na</span>
+                </span>
+                <span class="exit"></span>
+            </div>
+        </div>
+        <div id="right-content">
+            <!-- 首页头部 -->
+            <div class="index-header">
+                <el-row :gutter="30">
+                    <el-col :span="6">
+                        <div class="msgbox wait-interview">
+                            <div class="msg-head">
+                                <span>待面试（日）</span>
+                            </div>
+                            <p>{{needNum}}</p>
+                            <a href="./waitInterview.html">查看详情 &gt; </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="msgbox has-offered">
+                            <div class="msg-head">
+                                <span>已发offer（周）</span>
+                            </div>
+                            <p>{{sendOfferNum}}</p>
+                            <a href="./sendOffer.html">查看详情 &gt; </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="msgbox wait-work">
+                            <div class="msg-head">
+                                <span>已入职（周）</span>
+                            </div>
+                            <p>{{RzNum}}</p>
+                            <a href="./waitCome.html">查看详情 &gt; </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="msgbox weather">
+                            <div class="msg-head">
+                                <span>今天（5月12日）</span>
+                            </div>
+                            <div class="showWeather">
+                                <img src="./images/2.png" alt="">
+                                <span>31℃</span>
+                            </div>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
+            <!-- 首页中间图 -->
+            <div class="index-mid">
+                <el-row :gutter="30">
+                    <el-col :span="24">
+                        <div class="msgbox">
+                            <div class="chart-control">
+                                <el-radio-group v-model="radio3" @change="shiftValue">
+                                    <el-radio-button label="待入职"></el-radio-button>
+                                    <el-radio-button label="待面试"></el-radio-button>
+                                    <el-radio-button label="已发offer"></el-radio-button>
+                                </el-radio-group>
+                            </div>
+                            <div id="msg-chart"></div>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
+            <!-- 首页底部 -->
+            <div class="index-footer">
+                <el-row :gutter="30">
+                    <el-col :span="12">
+                        <div class="msgbox">
+                            <p class="msg-title">岗位管理</p>
+                            <el-row>
+                                <el-col :span="11">
+                                    <div class="inner-msgbox">
+                                        <p>在招岗位数</p>
+                                        <p>18</p>
+                                    </div>
+                                </el-col>
+                                <el-col :span="11" :offset="2">
+                                    <div class="inner-msgbox">
+                                        <i @click="goAddPos"></i>
+                                        <span>添加新岗位</span>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                            <p class="new-msg-title">最新招聘岗位</p>
+                            <div class="scroll-wrap">
+                                <ul class="donate_bar" :style="{ top: -posNum + '%'}" :class="{marquee_top:posNum}" @mouseleave="Scroll(posNum,'pos')" @mouseenter="clearInterval('pos')">
+                                    <li v-for="(item, index) in newPosList" :key="index">
+                                        <el-row>
+                                            <el-col :span="6">{{item.pos}}</el-col>
+                                            <el-col :span="6">{{item.num}}人</el-col>
+                                            <el-col :span="6">{{item.loc}}</el-col>
+                                            <el-col :span="6">{{item.date}}</el-col>
+                                        </el-row>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div class="msgbox">
+                            <p class="msg-title">招聘管理</p>
+                            <el-row>
+                                <el-col :span="11">
+                                    <div class="inner-msgbox">
+                                        <p>面试保温期</p>
+                                        <p>{{interviewNum}}</p>
+                                    </div>
+                                </el-col>
+                                <el-col :span="11" :offset="2">
+                                    <div class="inner-msgbox">
+                                        <p>offer保温期</p>
+                                        <p>{{offerNum}}</p>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                            <p class="new-msg-title">今日安排面试</p>
+                            <div class="scroll-wrap">
+                                <ul class="donate_bar" :style="{ top: -regNum + '%'}" :class="{marquee_top:regNum}" @mouseleave="Scroll(regNum,'reg')" @mouseenter="clearInterval('reg')">
+                                    <li v-for="(item, index) in newRegList" :key="index">
+                                        <el-row>
+                                            <el-col :span="6">{{item.name}}</el-col>
+                                            <el-col :span="6">{{item.pos}}</el-col>
+                                            <el-col :span="6">{{item.date}}</el-col>
+                                            <el-col :span="6">{{item.tel}}</el-col>
+                                        </el-row>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

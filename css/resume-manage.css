@@ -1,0 +1,26 @@
+.mian-content .mm-resume{
+    height: 133px;
+    width: 92.7%;
+    margin-left: 3.8%;
+    margin-top: 2%;
+    margin-bottom: 3%;
+    border-collapse: collapse;
+    position: relative;
+}
+.mian-content .el-row .el-col{
+    border: 1px solid #ebeef5;
+}
+.mm-resume .el-col:last-child{
+    position: absolute;
+    top: 0;
+    right: -15px;
+    background: #F7F7F7;
+}
+.mian-content .el-row .el-col>div{
+    text-align: center;
+    line-height: 60px;
+    color: #5C6170;
+}
+.mian-content .el-row .el-col>div:last-child{
+    font-size: 32px;
+}

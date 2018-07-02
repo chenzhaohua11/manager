@@ -1,0 +1,18 @@
+/* 简历导入弹框 */
+.el-dialog {
+    padding: 10px 10px !important;
+}
+.el-dialog__header {
+    border-bottom: 2px solid #ccc !important;
+}
+.el-dialog__body {
+    width:50% !important;
+    margin: auto
+}
+.el-dialog__footer{
+    border-top: 2px solid #ccc !important;
+
+}
+.el-form-item__content .el-select {
+    width: 100% !important;
+}

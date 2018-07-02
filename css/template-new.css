@@ -1,0 +1,22 @@
+#right-content .condition-filter{
+    background: transparent;
+}
+.mm-content{
+   width: 80%;
+   height: 100%; 
+   float: left;
+   padding-top: 48px;
+}
+.mm-content .el-select{
+    width: 100%;
+}
+.mm-content .el-textarea__inner{
+    width: 94.2%;
+    height: 350px;
+}
+.mm-content .el-form-item__content{
+    text-align: center
+}
+.mm-content .el-checkbox{
+    margin-left: 8.8%;
+}

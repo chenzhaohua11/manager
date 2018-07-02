@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>校企合作</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/school-cooperation.css">
+    <script src="./js/vue.js"></script>
+    <script src="./js/ele-index.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
+    <script src="./js/school-cooperation.js"></script>
+</head>
+
+<body>
+    <div id="left-nav">
+        <div id="gxcf-title">
+            <span>人力资源管理系统</span>
+        </div>
+        <ul id="nav-list">
+            <li>
+                <img src="./images/nav1.png" alt=""> 人力资源规划
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav2.png" alt="">
+                <a href="./index.html" class="active">
+                    人才招聘管理
+                </a>
+                <ul>
+                    <li>
+                        <a href="./candidate.html">招聘管理</a>
+                    </li>
+                    <li>
+                        <a href="./post-manage.html">岗位管理</a>
+                    </li>
+                    <li>
+                        <a href="./resume-manage.html">简历管理</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">校企合作</a>
+                    </li>
+                    <li>
+                        <a href="./template-list.html">系统设置</a>
+                    </li>
+                </ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav3.png" alt=""> 绩效考核管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav4.png" alt=""> 培训开发管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav5.png" alt=""> 薪资福利管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav6.png" alt=""> 统计分析
+                <ul></ul>
+            </li>
+            <i></i>
+        </ul>
+    </div>
+    <div id="right-container">
+        <div id="right-top">
+            <span class="right-title">校企合作</span>
+            <div class="right-box">
+                <div class="search">
+                    <i class="search-icon"></i>
+                    <input type="text" class="search-input">
+                </div>
+                <span class="user-name">Hello,Na</span>
+                <span class="exit"></span>
+            </div>
+        </div>
+        <div id="right-content">
+            <div class="condition-filter">
+                <div class="filter-group">
+                    <p class="group-title">筛选</p>
+                    <div class="filter-item">
+                        <p class="item-title">学校名称</p>
+                        <el-select v-model="searchValue.school" placeholder="选择学校名称">
+                            <el-option v-for="item in schoolList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="filter-item">
+                        <p class="item-title">是否签协议</p>
+                        <el-select v-model="searchValue.isSign" placeholder="选择级别">
+                            <el-option v-for="item in isSignList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="filter-item">
+                        <p class="item-title">企业对接人</p>
+                        <el-select v-model="searchValue.businessPerson" placeholder="选择对接人">
+                            <el-option v-for="item in businessPersonList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                </div>
+                <el-button type="primary" @click="searchValueChange">确认</el-button>
+            </div>
+            <div class="mian-content">
+                <p class="content-title">列表信息</p>
+                <div class="handler-button">
+                    <el-button type="primary" icon="el-icon-edit" circle plain @click="down">编辑</el-button>
+                    <el-button type="primary" icon="el-icon-delete" circle plain @click="delate">删除</el-button>
+                    <el-button type="primary" icon="el-icon-plus" circle plain @click="moveToOwn">新增</el-button>
+                </div>
+                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @row-dblclick="gotoDetail">
+                    <el-table-column prop="selected" width="55">
+                        <template slot-scope="scope">
+                            <el-checkbox v-model="scope.row.selected"></el-checkbox>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="学校名称" prop="school">
+                    </el-table-column>
+                    <el-table-column label="联系方式1" prop="mobile1">
+                    </el-table-column>
+                    <el-table-column label="校方负责人" prop="schoolPerson">
+                    </el-table-column>
+                    <el-table-column label="意向程度" prop="coopGrade">
+                    </el-table-column>
+                    <el-table-column label="联系方式2" prop="mobile2">
+                    </el-table-column>
+                    <el-table-column label="日期" prop="insTime">
+                    </el-table-column>
+                    <el-table-column label="企业对接人" prop="businessPerson">
+                    </el-table-column>
+                    <el-table-column label="复试面试官" prop="isSign">
+                    </el-table-column>
+                    <el-table-column label="情况说明" prop="situation">
+                    </el-table-column>
+                </el-table>
+                <div class="pagination">
+                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="searchValue.crrentPage"
+                        @current-change="currentChange">
+                    </el-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>岗位管理</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/template-list.css">
+    <script src="./js/vue.js"></script>
+    <script src="./js/ele-index.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
+    <script src="./js/post-manage.js"></script>
+</head>
+
+<body>
+    <div id="left-nav">
+        <div id="gxcf-title">
+            <span>人力资源管理系统</span>
+        </div>
+        <ul id="nav-list">
+            <li>
+                <img src="./images/nav1.png" alt="">
+                <a href="#">
+                    人力资源规划
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav2.png" alt="">
+                <a href="./index.html" class="active">
+                    人才招聘管理
+                </a>
+                <ul>
+                    <li>
+                        <a href="./candidate.html">招聘管理</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">岗位管理</a>
+                        <ul>
+                            <li><a href="./post-new.html">新增岗位</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="./resume-manage.html">简历管理</a>        
+                    </li>
+                    <li>
+                        <a href="./school-cooperation.html">校企合作</a>
+                    </li>
+                    <li>
+                        <a href="./template-list.html">系统设置</a>
+                    </li>
+                </ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav3.png" alt="">
+                <a href="#">
+                    绩效考核管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav4.png" alt="">
+                <a href="#">
+                    培训开发管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav5.png" alt="">
+                <a href="#">
+                    薪资福利管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav6.png" alt="">
+                <a href="#">
+                    统计分析
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+        </ul>
+    </div>
+    <div id="right-container">
+        <div id="right-top">
+            <span class="right-title">岗位管理</span>
+            <div class="right-box">
+                <div class="search">
+                    <i class="search-icon"></i>
+                    <input type="text" class="search-input">
+                </div>
+                <span class="user-name">Hello,Na</span>
+                <span class="exit"></span>
+            </div>
+        </div>
+        <div id="right-content">
+            <div class="condition-filter">
+                <div class="filter-group">
+                    <p class="group-title">岗位设置</p>
+                    <div class="filter-item">
+                        <p class="item-title">岗位名称</p>
+                        <el-select v-model="searchValue.postName" placeholder="选择岗位">
+                            <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="filter-item">
+                        <p class="item-title">职位级别</p>
+                        <el-select v-model="searchValue.postLevel" placeholder="选择级别">
+                            <el-option v-for="item in postLevelList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="filter-item">
+                        <p class="item-title">所属部门</p>
+                        <el-select v-model="searchValue.deptName" placeholder="选择所属部门">
+                            <el-option v-for="item in deptNameList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="filter-item">
+                        <p class="item-title">招聘人数</p>
+                        <el-select v-model="searchValue.recruitNum" placeholder="请输入招聘人数">
+                            <el-option v-for="item in recruitNumList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="filter-item">
+                        <p class="item-title">人事负责人</p>
+                        <el-select v-model="searchValue.chargePerson" placeholder="选择人事负责人">
+                            <el-option v-for="item in chargePersonList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="filter-item">
+                        <p class="item-title">初试面试官</p>
+                        <el-select v-model="searchValue.preinterviewer" placeholder="选择初试面试官">
+                            <el-option v-for="item in preinterviewerList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="filter-item">
+                        <p class="item-title">复试面试官</p>
+                        <el-select v-model="searchValue.reinterviewer" placeholder="选择复试面试官">
+                            <el-option v-for="item in reinterviewerList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="filter-item">
+                        <p class="item-title">岗位类型</p>
+                        <el-select v-model="searchValue.postType" placeholder="选择岗位类型">
+                            <el-option v-for="item in postTypeList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                </div>
+                <el-button type="primary" @click="searchValueChange">确认</el-button>
+            </div>
+            <div class="mian-content">
+                <p class="content-title">全部岗位</p>
+                <p class="content-dec">显示已关闭的岗位
+                    <el-switch v-model="value2" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
+                </p>
+                <div class="handler-button">
+                    <el-button type="primary" icon="el-icon-plus" circle plain @click="newPost">新增岗位</el-button>
+                </div>
+                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @select="handleSelection" @selection-change="handleSelectionChange" @row-dblclick="gotoDetail">
+                    <el-table-column label="岗位名称" prop="postName" width="180">
+                    </el-table-column>
+                    <el-table-column label="职位级别" prop="postLevel">
+                    </el-table-column>
+                    <el-table-column label="岗位类型" prop="postType">
+                    </el-table-column>
+                    <el-table-column label="所属部门" prop="deptName">
+                    </el-table-column>
+                    <el-table-column label="招聘人数" prop="recruitNum">
+                    </el-table-column>
+                    <el-table-column label="人事负责人" prop="chargePerson">
+                    </el-table-column>
+                    <el-table-column label="初试面试官" prop="preinterviewer">
+                    </el-table-column>
+                    <el-table-column label="复试面试官" prop="reinterviewer">
+                    </el-table-column>
+                    <el-table-column label="操作" width="200">
+                        <template slot-scope="scope">
+                            <el-button class="mm-see" type="text" size="small" icon="el-icon-view">查看详情</el-button>
+                            <el-button class="mm-delete" type="text" size="small" icon="el-icon-delete" @click="removeList(scope.row)">删除</el-button>
+                            <el-button class="mm-edit" type="text" size="small" @click="edit(scope.row)" icon="el-icon-edit">编辑</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div class="pagination">
+                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="searchValue.crrentPage" @current-change="currentChange">
+                    </el-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

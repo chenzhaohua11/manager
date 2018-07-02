@@ -1,0 +1,11 @@
+/* 操作列的图标颜色 */
+
+.mm-delete:hover{
+    color: #eb7474; 
+}
+.mm-delete,.mm-delete:focus,
+.mm-see,.mm-see:focus,
+.mm-down,.mm-down:focus,
+.mm-edit,.mm-edit:hover,.mm-edit:focus{
+    color: #737a80; 
+}

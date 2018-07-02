@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新增岗位</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/template-new.css">
+    <script src="./js/vue.js"></script>
+    <script src="./js/ele-index.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
+    <script src="./js/post-new.js"></script>
+</head>
+
+<body>
+    <div id="left-nav">
+        <div id="gxcf-title">
+            <span>人力资源管理系统</span>
+        </div>
+        <ul id="nav-list">
+            <li>
+                <img src="./images/nav1.png" alt=""> 人力资源规划
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav2.png" alt=""> 
+                <a href="./index.html" class="active">
+                    人才招聘管理
+                </a>
+                <ul>
+                    <li>
+                        <a href="./candidate.html">招聘管理</a>
+                    </li>
+                    <li class="active">
+                        <a href="./post-manage.html">岗位管理</a>
+                        <ul>
+                            <li class="sel"><a href="#">新增岗位</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="./resume-manage.html">简历管理</a>
+                    </li>
+                    <li>
+                        <a href="./school-cooperation.html">校企合作</a>
+                    </li>
+                    <li>
+                        <a href="./template-list.html">系统设置</a>
+                    </li>
+                </ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav3.png" alt=""> 绩效考核管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav4.png" alt=""> 培训开发管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav5.png" alt=""> 薪资福利管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav6.png" alt=""> 统计分析
+                <ul></ul>
+            </li>
+            <i></i>
+        </ul>
+    </div>
+    <div id="right-container">
+        <div id="right-top">
+            <span class="right-title">新增岗位</span>
+            <div class="right-box">
+                <div class="search">
+                    <i class="search-icon"></i>
+                    <input type="text" class="search-input">
+                </div>
+                <span class="user-name">Hello,Na</span>
+                <span class="exit"></span>
+            </div>
+        </div>
+        <div id="right-content">
+            <div class="condition-filter">
+            </div>
+            <div class="mian-content">
+                <div class="mm-content">
+                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                        <el-row :gutter="60">
+                            <el-col :span="12">
+                                <el-form-item label="岗位名称" prop="postname">
+                                    <el-input v-model="ruleForm.postname" placeholder="输入岗位名称"></el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-form-item label="职位级别" prop="postgrade">
+                                    <el-input v-model="ruleForm.postgrade"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+
+                        <el-row :gutter="60">
+                            <el-col :span="12">
+                                <el-form-item label="人事负责人" prop="postleader">
+                                    <el-input v-model="ruleForm.postleader"></el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-form-item label="所属部门" prop="postapartment">
+                                    <el-input v-model="ruleForm.postapartment"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+
+                        <el-row :gutter="60">
+                            <el-col :span="12">
+                                <el-form-item label="招聘人数" prop="postperson">
+                                    <el-input v-model="ruleForm.postperson"></el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-form-item label="岗位类型" prop="posttype">
+                                    <el-input v-model="ruleForm.posttype"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+
+                        <el-row :gutter="60">
+                            <el-col :span="12">
+                                <el-form-item label="初试面试官" prop="postpreinterviewer">
+                                    <el-input v-model="ruleForm.postpreinterviewer"></el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-form-item label="复试面试官" prop="postreinterviewer">
+                                    <el-input v-model="ruleForm.postreinterviewer"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+
+                        <el-form-item label="薪资区间" required>
+                            <el-col :span="4">
+                                <el-form-item prop="date1">
+                                    <el-date-picker type="date" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
+                                </el-form-item>
+                            </el-col>
+                            <el-col class="line" :span="1">至</el-col>
+                            <el-col :span="4">
+                                <el-form-item prop="date2">
+                                    <el-time-picker type="fixed-time" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
+                                </el-form-item>
+                            </el-col>
+                        </el-form-item>
+
+                        <el-form-item label="职位要求" prop="desc">
+                            <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+                        </el-form-item>
+                    
+                        <el-form-item>
+                            <el-button @click="resetForm('ruleForm')">清空</el-button>
+                            <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

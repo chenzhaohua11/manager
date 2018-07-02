@@ -1,0 +1,485 @@
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    outline-style: none;
+}
+
+body {
+    line-height: 1;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+    outline-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input,
+select {
+    vertical-align: middle;
+}
+
+/* 左侧导航栏 */
+
+#left-nav {
+    height: 100vh;
+    width: 12%;
+    float: left;
+}
+
+/* logo */
+
+#gxcf-title {
+    height: 5%;
+    width: 105%;
+    text-align: center;
+    background: #0D9EFF;
+    color: #fff;
+    position: relative;
+    font-family: SourceHanSansCN-Medium;
+}
+
+#gxcf-title>span {
+    line-height: 3rem;
+}
+
+#nav-list {
+    width: 100%;
+    height: 95%;
+    background: #3E4A52;
+    color: #B8C3CC;
+}
+
+#nav-list>li {
+    line-height: 3rem;
+    cursor: pointer;
+}
+
+#nav-list>li>a {
+    color: #B8C3CC;
+}
+
+#nav-list>li>a.active {
+    color: #fff;
+}
+
+#nav-list>i {
+    display: block;
+    height: 1px;
+    width: 94%;
+    margin: auto;
+    background: #4B5368;
+}
+
+#nav-list>li img {
+    height: 30%;
+    width: 8%;
+    margin-left: 9%;
+    margin-right: 5%;
+    position: relative;
+    top: 6%;
+}
+
+#nav-list>li>ul {
+    width: 100%;
+    list-style: none;
+}
+
+#nav-list>li>ul>li {
+    line-height: 2.5rem;
+    font-size: 14px;
+    text-indent: 25%;
+    background: #3E4A52;
+}
+
+#nav-list>li>ul>li a {
+    display: block;
+    color: #B8C3CC;
+}
+
+#nav-list>li>ul>li>ul>li {
+    width: 60%;
+    margin: auto;
+    list-style: none;
+}
+
+#nav-list>li>ul>li>ul>li.sel>a {
+    color: #fff;
+}
+
+#nav-list>li>ul>li.active>a {
+    background: #000;
+    color: #fff;
+}
+
+#nav-list>li>ul>li.active>a::after {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-top: 6px solid #fff;
+    position: relative;
+    top: 6px;
+    left: 30%;
+}
+
+/* 右侧部分 */
+
+#right-container {
+    float: left;
+    height: 100vh;
+    width: 88%;
+    overflow: hidden;
+}
+
+/* 右侧头部 */
+
+#right-top {
+    height: 6%;
+    background: #1793E6;
+    background-image: url("../images/zz.png");
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+}
+
+/* 右侧头部文字 */
+
+#right-top .right-title {
+    font-size: 26px;
+    position: relative;
+    top: 25%;
+    left: 2%;
+    color: #fff;
+}
+
+#right-top .right-box {
+    float: right;
+    height: 100%;
+    width: 33%;
+    margin-right: 30px;
+}
+
+#right-top .right-box>span {
+    float: left;
+    height: 100%;
+}
+
+/* 搜索框 */
+
+#right-top .right-box .search {
+    float: left;
+    height: 50%;
+    width: 57%;
+    position: relative;
+    background: #0077E6;
+    border: 1px solid #1793E6;
+    border-radius: 18px;
+    margin-top: 2.5%;
+}
+
+#right-top .right-box .search .search-icon {
+    position: absolute;
+    left: 2%;
+    z-index: 5;
+    background-image: url("../images/search.png");
+    /*引入图片图片*/
+    background-repeat: no-repeat;
+    /*设置图片不重复*/
+    background-position: left center;
+    background-size: 60% 60%;
+    /*图片显示的位置*/
+    width: 10%;
+    /*设置图片显示的宽*/
+    height: 100%;
+    /*图片显示的高*/
+}
+
+#right-top .right-box .search .search-input {
+    border: none;
+    outline: none;
+    color: #fff;
+    height: 90%;
+    background: #0077E6;
+    width: 75%;
+    margin-left: 10%;
+}
+
+/* 用户名 */
+
+#right-top .right-box .user-name {
+    color: #fff;
+    width: 18%;
+    padding-top: 4%;
+    margin-left: 4%
+}
+
+/* 退出按钮 */
+
+#right-top .right-box .exit {
+    background: #0077E6;
+    width: 14%;
+    cursor: pointer;
+    background-image: url("../images/exit.png");
+    /*引入图片图片*/
+    background-repeat: no-repeat;
+    /*设置图片不重复*/
+    background-position: center center;
+    /*图片显示的位置*/
+    background-size: 100% 100%;
+}
+
+#right-content {
+    width: 100%;
+    height: 94%;
+    background: #fff;
+}
+
+#right-content .condition-filter {
+    width: 14%;
+    float: left;
+    height: 97%;
+    padding: 1% 1% 0;
+    background: #EFF0F3
+}
+
+#right-content .condition-filter .condition-title {
+    color: #5C6170;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+#right-content .condition-filter .el-button {
+    padding: 7px 30px !important;
+    margin: auto;
+}
+
+.filter-group {
+    margin-top: 10px;
+}
+
+.filter-group .group-title {
+    margin: 10px 0;
+    color: #141C21;
+    font-weight: 600;
+}
+
+.filter-item {
+    margin-bottom: 10px;
+}
+
+.filter-item .item-title {
+    color: #5C6266;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* ele修改 */
+
+.filter-item .el-input__inner {
+    height: 26px;
+}
+
+.filter-item .el-input__icon {
+    line-height: 26px;
+}
+
+.filter-item .el-select {
+    height: 2%;
+}
+
+.filter-item .el-date-editor {
+    width: 100% !important;
+}
+
+.el-row {
+    width: 100%
+}
+
+.el-row,
+.el-col {
+    height: 100%;
+}
+
+#right-content .el-table th>.cell {
+    color: #5C6266;
+}
+
+#right-content .el-table .cell {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#right-content .el-table__row .cell {
+    height: 40px;
+    line-height: 40px;
+}
+
+#right-content .el-table td,
+.el-table th {
+    padding: 2px 0;
+}
+
+#right-content .mian-content .el-table td .el-input__inner {
+    border: none;
+}
+
+#right-content .mian-content .handler-button .el-button {
+    padding: 7px 12px;
+}
+
+/* 整体右侧主要部分 */
+
+#right-content .mian-content {
+    width: 84%;
+    float: right;
+    height: 100%;
+    position: relative;
+}
+
+#right-content .mian-content .content-title {
+    margin-top: 3%;
+    margin-left: 3%;
+    color: #5C6170;
+}
+
+#right-content .mian-content .content-dec {
+    margin-left: 3%;
+    margin-top: 10px;
+    color: #9A9FAC;
+}
+
+/* 操作 */
+
+#right-content .mian-content .handler-button {
+    float: right;
+    margin-right: 3%;
+    margin-bottom: 20px;
+}
+
+/* 通用表格 */
+
+#right-content .mian-content .candidate-table {
+    width: 94%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+/* 表格ele修改 */
+
+#right-content .mian-content .el-table {
+    margin-top: 2%
+}
+
+#right-content .mian-content .candidate-table th,
+#right-content .mian-content .candidate-table td {
+    text-align: center;
+}
+
+/* 分页 */
+
+#right-content .pagination {
+    width: 30%;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    margin-left: -15%;
+}
+
+/* 为了突出 */
+
+.el-table tbody tr:hover td {
+    box-shadow: 0px 2px 3px #ccc;
+}
+
+.el-table table {
+    margin-bottom: 3px;
+}

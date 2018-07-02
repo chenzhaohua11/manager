@@ -1,0 +1,51 @@
+﻿/* 性别选择 */
+.filter-item.sex-choice .el-select {
+    width: 30%;
+    float: left;
+    margin-right: 2%;
+}
+.sex-choice .age-choice {
+    width:66% !important;
+    border-radius: 4px;
+    float: left;
+    border:1px solid #D6DBDF;
+    height:24px;
+    line-height: 24px;
+    background: #fff
+}
+.sex-choice  .age-choice input {
+    width: 40% ;
+    height: 88%;
+    float: left;
+    text-indent: 10px;
+    outline: none;
+    border: none;
+}
+.sex-choice  .age-choice span {
+    float: left;
+    width: 20% ;
+    position: relative;
+    left: -5%;
+    text-align: center;
+    color: #5C6266;
+    height: 100%;
+}
+
+/* 简历导入弹框 */
+.el-dialog {
+    padding: 10px 10px !important;
+}
+.el-dialog__header {
+    border-bottom: 2px solid #ccc !important;
+}
+.el-dialog__body {
+    width:50% !important;
+    margin: auto
+}
+.el-dialog__footer{
+    border-top: 2px solid #ccc !important;
+
+}
+.el-form-item__content .el-select {
+    width: 100% !important;
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新建模板</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/template-new.css">
+    <script src="./js/vue.js"></script>
+    <script src="./js/ele-index.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
+    <script src="./js/template-new.js"></script>
+</head>
+
+<body>
+    <div id="left-nav">
+        <div id="gxcf-title">
+            <span>人力资源管理系统</span>
+        </div>
+        <ul id="nav-list">
+            <li>
+                <img src="./images/nav1.png" alt=""> 人力资源规划
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav2.png" alt="">
+                <a href="./index.html" class="active">
+                    人才招聘管理
+                </a>
+                <ul>
+                    <li>
+                        <a href="./candidate.html">招聘管理</a>
+                    </li>
+                    <li>
+                        <a href="./post-manage.html">岗位管理</a>
+                    </li>
+                    <li>
+                        <a href="./resume-manage.html">简历管理</a>
+                    </li>
+                    <li>
+                        <a href="./school-cooperation.html">校企合作</a>
+                    </li>
+                    <li class="active">
+                        <a href="./template-list.html">系统设置</a>
+                        <ul>
+                            <li class="sel">
+                                <a href="#">新增模板</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav3.png" alt=""> 绩效考核管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav4.png" alt=""> 培训开发管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav5.png" alt=""> 薪资福利管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav6.png" alt=""> 统计分析
+                <ul></ul>
+            </li>
+            <i></i>
+        </ul>
+    </div>
+    <div id="right-container">
+        <div id="right-top">
+            <span class="right-title">新建模板</span>
+            <div class="right-box">
+                <div class="search">
+                    <i class="search-icon"></i>
+                    <input type="text" class="search-input">
+                </div>
+                <span class="user-name">Hello,Na</span>
+                <span class="exit"></span>
+            </div>
+        </div>
+        <div id="right-content">
+            <div class="condition-filter">
+            </div>
+            <div class="mian-content">
+                <div class="mm-content">
+                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                        <el-row :gutter="60">
+                            <el-col :span="12">
+                                <el-form-item label="模板名称" prop="name">
+                                    <el-input v-model="ruleForm.name" placeholder="输入模板名称"></el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-form-item label="类型" prop="type">
+                                    <el-select v-model="ruleForm.type" placeholder="选择类型">
+                                        <el-option label="区域一" value="shanghai"></el-option>
+                                        <el-option label="区域二" value="beijing"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+
+                        <el-row :gutter="60">
+                            <el-col :span="12">
+                                <el-form-item label="状态" prop="status">
+                                    <el-select v-model="ruleForm.status" placeholder="默认开启状态">
+                                        <el-option label="区域一" value="shanghai"></el-option>
+                                        <el-option label="区域二" value="beijing"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-form-item label="模板用途" prop="tempUse">
+                                    <el-input v-model="ruleForm.tempUse"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-form-item label="邮件内容" prop="desc">
+                            <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+                        </el-form-item>
+                        <template prop="default">
+                            <el-checkbox v-model="ruleForm.default">设为默认模版</el-checkbox>
+                        </template>
+                        <el-form-item>
+                            <el-button @click="resetForm('ruleForm')">清空</el-button>
+                            <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

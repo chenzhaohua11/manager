@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>候选人简历库</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/waitInterview.css">
+    <script src="./js/vue.js"></script>
+    <script src="./js/ele-index.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
+    <script src="./js/sendOffer.js"></script>
+</head>
+
+<body>
+    <div id="left-nav">
+        <div id="gxcf-title">
+            <span>人力资源管理系统</span>
+        </div>
+        <ul id="nav-list">
+            <li>
+                <img src="./images/nav1.png" alt="">
+                <a href="#">
+                    人力资源规划
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav2.png" alt="">
+                <a href="./index.html">
+                    人才招聘管理
+                </a>
+                <ul>
+                    <li class="active">
+                        <a href="./candidate.html">招聘管理</a>
+                        <ul>
+                            <li >
+                                <a href="./waitInterview.html">待面试</a>
+                            </li>
+                            <li>
+                                <a href="./waitCome.html">待入职</a>
+                            </li>
+                            <li class="sel">
+                                <a href="#">发送offer</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="./post-manage.html">岗位管理</a>
+                    </li>
+                    <li>
+                        <a href="./resume-manage.html">简历管理</a>
+                    </li>
+                    <li>
+                        <a href="./school-cooperation.html">校企合作</a>
+                    </li>
+                    <li>
+                        <a href="./template-list.html">系统设置</a>
+                    </li>
+                </ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav3.png" alt="">
+                <span>
+                    绩效考核管理
+                </span>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav4.png" alt="">
+                <span>
+                    培训开发管理
+                </span>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav5.png" alt="">
+                <span>
+                    薪资福利管理
+                </span>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav6.png" alt="">
+                <span>
+                    统计分析
+                </span>
+                <ul></ul>
+            </li>
+            <i></i>
+        </ul>
+    </div>
+    <div id="right-container">
+        <div id="right-top">
+            <span class="right-title">发送offer</span>
+        </div>
+        <div id="right-content">
+            <div class="tabel-changge">
+                <el-radio-group v-model="radio3" @change="change">
+                    <el-radio-button label="今天"></el-radio-button>
+                    <el-radio-button label="明天"></el-radio-button>
+                    <el-radio-button label="最近一周"></el-radio-button>
+                </el-radio-group>
+            </div>
+            <div class="tabel-contant">
+                <el-table :data="tableData" border max-height="100%" style="width: 100%">
+                    <el-table-column prop="name" label="姓名">
+                    </el-table-column>
+                    <el-table-column prop="mobile" label="手机号码">
+                    </el-table-column>
+                    <el-table-column prop="intentJob" label="应聘岗位">
+                    </el-table-column>
+                    <el-table-column prop="hrname" label="人事负责人">
+                    </el-table-column>
+                    <el-table-column prop="time" label="面试时间">
+                    </el-table-column>
+                    <el-table-column prop="jobAge" label="工作年限">
+                    </el-table-column>
+                    <el-table-column prop="source" label="渠道来源">
+                    </el-table-column>
+                    <el-table-column prop="education" label="学历">
+                    </el-table-column>
+                    <el-table-column prop="location" label="面试地点">
+                    </el-table-column>
+                </el-table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

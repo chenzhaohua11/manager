@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模板列表</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/template-list.css">
+    <script src="./js/vue.js"></script>
+    <script src="./js/ele-index.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./js/template-list.js"></script>
+</head>
+
+<body>
+    <div id="left-nav">
+        <div id="gxcf-title">
+            <span>人力资源管理系统</span>
+        </div>
+        <ul id="nav-list">
+            <li>
+                <img src="./images/nav1.png" alt=""> 人力资源规划
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav2.png" alt="">
+                <a href="./index.html" class="active">
+                    人才招聘管理
+                </a>
+                <ul>
+                    <li>
+                        <a href="./candidate.html">招聘管理</a>
+                    </li>
+                    <li>
+                        <a href="./post-manage.html">岗位管理</a>
+                    </li>
+                    <li>
+                        <a href="./resume-manage.html">简历管理</a>
+                    </li>
+                    <li >
+                        <a href="./school-cooperation.html">校企合作</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">系统设置</a>
+                        <ul>
+                            <li>
+                                <a href="./template-new.html">新增模板</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav3.png" alt=""> 绩效考核管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav4.png" alt=""> 培训开发管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav5.png" alt=""> 薪资福利管理
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav6.png" alt=""> 统计分析
+                <ul></ul>
+            </li>
+            <i></i>
+        </ul>
+    </div>
+    <div id="right-container">
+        <div id="right-top">
+            <span class="right-title">模板列表</span>
+            <div class="right-box">
+                <div class="search">
+                    <i class="search-icon"></i>
+                    <input type="text" class="search-input">
+                </div>
+                <span class="user-name">Hello,Na</span>
+                <span class="exit"></span>
+            </div>
+        </div>
+        <div id="right-content">
+            <div class="condition-filter">
+                <div class="filter-group">
+                    <p class="group-title">筛选</p>
+                    <div class="filter-item">
+                        <p class="item-title">模板名称</p>
+                        <el-select v-model="searchValue.name" placeholder="选择模板名称">
+                            <el-option v-for="item in tempNameList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="filter-item">
+                        <p class="item-title">类型</p>
+                        <el-select v-model="searchValue.type" placeholder="默认显示所有">
+                            <el-option v-for="item in tempTypeList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div class="filter-item">
+                        <p class="item-title">模板用途</p>
+                        <el-select v-model="searchValue.used" placeholder="选择模板用途">
+                            <el-option v-for="item in tempUsedList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                </div>
+                <el-button type="primary" @click="searchValueChange">确认</el-button>
+            </div>
+            <div class="mian-content">
+                <p class="content-title">全部岗位</p>
+                <p class="content-dec">显示已禁止的模板
+                    <el-switch v-model="value2" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
+                </p>
+                <div class="handler-button">
+                    <el-button type="primary" icon="el-icon-plus" circle plain @click="newPost">新增岗位</el-button>
+                </div>
+                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @select="handleSelection" @selection-change="handleSelectionChange"
+                    @row-dblclick="gotoDetail">
+                    </el-table-column>
+                    <el-table-column label="模板名称" prop="name" width="255">
+                    </el-table-column>
+                    <el-table-column label="类型" prop="type">
+                    </el-table-column>
+                    <el-table-column label="模板用途" prop="used">
+                    </el-table-column>
+                    <el-table-column label="状态" prop="state">
+                    </el-table-column>
+                    <el-table-column label="创建日期" prop="insTime">
+                    </el-table-column>
+                    <el-table-column label="创建人" prop="insertName">
+                    </el-table-column>
+                    <el-table-column label="操作" prop="reason" width="225">
+                        <template slot-scope="scope">
+                            <el-button class="mm-see" type="text" size="small" icon="el-icon-view">查看详情</el-button>
+                            <el-button class="mm-delete" type="text" size="small" icon="el-icon-delete" @click="removeList(scope.row)">删除</el-button>
+                            <el-button class="mm-edit" type="text" size="small" @click="edit(scope.row)" icon="el-icon-edit">编辑</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <div class="pagination">
+                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="searchValue.crrentPage"
+                        @current-change="currentChange">
+                    </el-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
