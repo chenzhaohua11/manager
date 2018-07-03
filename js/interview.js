@@ -118,7 +118,7 @@ function init() {
                         res = JSON.parse(res.body);
                         console.log(res);
                         that.interviewee = res;
-                        that.$data.status = res.state;
+                        // that.$data.status = res.state;
                     }
                 });
             },

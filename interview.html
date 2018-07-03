@@ -43,7 +43,7 @@
                                 <a href="./waitInterview.html">待面试</a>
                             </li>
                             <li>
-                                <a href="./waitCome.html">待入职</a>
+                                <a href="./waitCome.html">已入职</a>
                             </li>
                             <li>
                                 <a href="./sendOffer.html">发送offer</a>
@@ -101,7 +101,7 @@
     </div>
     <div id="right-container">
         <div id="right-top">
-            <span class="right-title">{{interviewee.name}} - UI设计师 - {{interviewee.education}} - {{interviewee.jobAge}}工作经验</span>
+            <span class="right-title">{{interviewee.name}} - {{interviewee.intentJob}} - {{interviewee.education}} - {{interviewee.jobAge}}工作经验</span>
         </div>
         <div id="right-content">
             <!-- 确认条件 根据简历的状态显示不同的条件 -->
@@ -293,7 +293,7 @@
                                         姓名:{{interviewee.name}}
                                     </p>
                                     <p>
-                                        应聘职位：UI设计师
+                                        应聘职位：{{interviewee.intentJob}}
                                     </p>
                                     <p>
                                         日期：2018-06-11 10:20:12
@@ -314,7 +314,7 @@
                                     <el-col :span="3">性别：女</el-col>
                                     <el-col :span="3">年龄：24</el-col>
                                     <el-col :span="3">学历：{{interviewee.education}}</el-col>
-                                    <el-col :span="6">应聘岗位：UI设计师</el-col>
+                                    <el-col :span="6">应聘岗位：{{interviewee.intentJob}}</el-col>
                                     <el-col :span="6">邮箱：123456789@qq.com</el-col>
                                 </el-row>
                             </div>
@@ -421,7 +421,7 @@
                                     <el-col :span="3">性别：女</el-col>
                                     <el-col :span="3">年龄：24</el-col>
                                     <el-col :span="3">学历：{{interviewee.education}}</el-col>
-                                    <el-col :span="6">应聘岗位：UI设计师</el-col>
+                                    <el-col :span="6">应聘岗位：{{interviewee.intentJob}}</el-col>
                                     <el-col :span="6">邮箱：123456789@qq.com</el-col>
                                 </el-row>
                             </div>
@@ -534,7 +534,7 @@
                                     <el-col :span="3">性别：女</el-col>
                                     <el-col :span="3">年龄：24</el-col>
                                     <el-col :span="3">学历：{{interviewee.education}}</el-col>
-                                    <el-col :span="6">应聘岗位：UI设计师</el-col>
+                                    <el-col :span="6">应聘岗位：{{interviewee.intentJob}}</el-col>
                                     <el-col :span="6">邮箱：123456789@qq.com</el-col>
                                 </el-row>
                             </div>
@@ -548,7 +548,7 @@
                                 <tbody>
                                     <tr>
                                         <td>入职岗位</td>
-                                        <td colspan="2">UI设计师</td>
+                                        <td colspan="2">{{interviewee.intentJob}}</td>
                                         <td>试用期工资</td>
                                         <td colspan="4">
                                             <el-input type="text" :rows="1" placeholder="请输入" v-model="employApply.probationSalary" @blur="isNumber">
@@ -633,7 +633,7 @@
                                         <el-col :span="3">性别：女</el-col>
                                         <el-col :span="3">年龄：24</el-col>
                                         <el-col :span="3">学历：{{interviewee.education}}</el-col>
-                                        <el-col :span="6">应聘岗位：UI设计师</el-col>
+                                        <el-col :span="6">应聘岗位：{{interviewee.intentJob}}</el-col>
                                         <el-col :span="6">邮箱：123456789@qq.com</el-col>
                                     </el-row>
                                 </div>
@@ -833,7 +833,7 @@
                                     <el-col :span="3">性别：女</el-col>
                                     <el-col :span="3">年龄：24</el-col>
                                     <el-col :span="3">学历：{{interviewee.education}}</el-col>
-                                    <el-col :span="6">应聘岗位：UI设计师</el-col>
+                                    <el-col :span="6">应聘岗位：{{interviewee.intentJob}}</el-col>
                                     <el-col :span="6">邮箱：123456789@qq.com</el-col>
                                 </el-row>
                             </div>
@@ -881,7 +881,7 @@
                                     <el-col :span="3">性别：女</el-col>
                                     <el-col :span="3">年龄：24</el-col>
                                     <el-col :span="3">学历：{{interviewee.education}}</el-col>
-                                    <el-col :span="6">应聘岗位：UI设计师</el-col>
+                                    <el-col :span="6">应聘岗位：{{interviewee.intentJob}}</el-col>
                                     <el-col :span="6">邮箱：123456789@qq.com</el-col>
                                 </el-row>
                             </div>

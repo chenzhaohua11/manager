@@ -12,8 +12,8 @@
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
-    <script src="./js/waitCome.js"></script>
     <script src="./common/commData.js"></script>
+    <script src="./js/waitCome.js"></script>
 </head>
 
 <body>
@@ -43,7 +43,7 @@
                                 <a href="./waitInterview.html">待面试</a>
                             </li>
                             <li class="sel">
-                                <a href="#">待入职</a>
+                                <a href="#">已入职</a>
                             </li>
                             <li>
                                 <a href="./sendOffer.html">发送offer</a>
@@ -101,7 +101,7 @@
     </div>
     <div id="right-container">
         <div id="right-top">
-            <span class="right-title">待入职</span>
+            <span class="right-title">已入职</span>
         </div>
         <div id="right-content">
             <div class="tabel-changge">
@@ -110,10 +110,6 @@
                     <el-radio-button label="明天"></el-radio-button>
                     <el-radio-button label="最近一周"></el-radio-button>
                 </el-radio-group>
-                <span>显示所有入职人员</span>
-                <el-switch v-model="value2" active-color="#13ce66" inactive-color="#BDC2C7" @change="showHad">
-                </el-switch>
-
             </div>
             <div class="tabel-contant">
                 <el-table :data="tableData" border max-height="100%" style="width: 100%">
@@ -127,7 +123,7 @@
                     </el-table-column>
                     <el-table-column prop="dept" label="所属部门">
                     </el-table-column>
-                    <el-table-column prop="comeTime" label="到岗日期">
+                    <el-table-column prop="arriveTime" label="到岗日期">
                     </el-table-column>
                     <el-table-column prop="level" label="职位级别">
                     </el-table-column>
@@ -136,14 +132,6 @@
                     <el-table-column prop="age" label="年龄">
                     </el-table-column>
                     <el-table-column prop="manager" label="直接上级">
-                    </el-table-column>
-                    <el-table-column prop="iscome" label="勾选是否入职">
-                        <template slot-scope="scope">
-                            <el-radio-group v-model="scope.row.iscome" @change="changeState(scope.row)">
-                                    <el-radio label="1">是</el-radio>
-                                    <el-radio label="0">否</el-radio>                        
-                            </el-radio-group>                        
-                        </template>
                     </el-table-column>
                 </el-table>
             </div>

@@ -26,10 +26,10 @@ var commData = {
         label: '入职'
     }],
     sexList: [{
-        itemId: '1',
+        itemId: '男',
         itemValue: '男'
     }, {
-        itemId: '2',
+        itemId: '女',
         itemValue: '女'
     }],
     reasonList: [{
@@ -75,7 +75,7 @@ var commMethod = {
         }
         return year + '-' + month + '-' + day;
     },
-    //格式化开始时间，结束时间
+    //格式化时间
     formatTimeArr: function (date) {
         if (date) {
             var d = new Date(date),

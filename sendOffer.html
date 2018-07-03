@@ -43,7 +43,7 @@
                                 <a href="./waitInterview.html">待面试</a>
                             </li>
                             <li>
-                                <a href="./waitCome.html">待入职</a>
+                                <a href="./waitCome.html">已入职</a>
                             </li>
                             <li class="sel">
                                 <a href="#">发送offer</a>
@@ -129,7 +129,13 @@
                     </el-table-column>
                     <el-table-column prop="education" label="学历">
                     </el-table-column>
-                    <el-table-column prop="location" label="面试地点">
+                    <el-table-column prop="iscome" label="勾选是否入职">
+                        <template slot-scope="scope">
+                            <el-radio-group v-model="scope.row.iscome" @change="changeState(scope.row)">
+                                    <el-radio label="1">是</el-radio>
+                                    <el-radio label="0">否</el-radio>                        
+                            </el-radio-group>                        
+                        </template>
                     </el-table-column>
                 </el-table>
             </div>

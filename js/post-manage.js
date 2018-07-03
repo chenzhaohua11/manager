@@ -204,7 +204,7 @@ function postManageInit() {
             //筛选条件变化
             searchValueChange() {
                 this.tableData3.forEach(element => {
-                    element.insTime = parseInt(element.insTime) + 1
+                    element.postLevel = parseInt(element.postLevel) + 1
                 });
 
             },

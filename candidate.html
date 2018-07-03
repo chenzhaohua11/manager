@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>候选人简历库</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -40,7 +41,7 @@
                         <a href="#">招聘管理</a>
                         <ul>
                             <li><a href="./waitInterview.html">待面试</a> </li>
-                            <li><a href="./waitCome.html">待入职</a></li>
+                            <li><a href="./waitCome.html">已入职</a></li>
                             <li><a href="./sendOffer.html">发送offer</a></li>
                         </ul>
                     </li>
@@ -132,7 +133,7 @@
                     <div class="filter-item">
                         <p class="item-title">工作经验</p>
                         <el-select clearable v-model="searchValue.jobAge" placeholder="请选择">
-                            <el-option v-for="item in workExpList" :key="item.itemId" :label="item.itemValue" :value="item.itemId">
+                            <el-option v-for="item in workExpList" :key="item.itemId" :label="item.itemValue" :value="item.itemValue">
                             </el-option>
                         </el-select>
                     </div>
@@ -201,7 +202,7 @@
                     <el-button type="primary" circle plain @click="moveToOwn">移入内部人才库</el-button>
                 </div>
                 <!-- 导入简历 -->
-                <el-dialog title="简历导入" :visible.sync="addRegVisible" width="30%" @close="fileList = []" center>
+                <el-dialog title="简历导入" :visible.sync="addRegVisible" width="40%" @close="fileList = []" center>
                     <el-form ref="regForm" :model="regForm" label-width="80px" :rules="rules">
                         <el-form-item label="关联职位" prop="postId">
                             <el-select clearable v-model="regForm.postId" placeholder="请选择关联职位">
@@ -216,7 +217,7 @@
                             </el-select>
                         </el-form-item>
                         <el-form-item label="简历来源" prop="channel">
-                            <el-input v-model="regForm.channel"></el-input>
+                            <el-input v-model="regForm.channel" placeholder="例如 王帅"></el-input>
                         </el-form-item>
                         <el-form-item label="文件上传" prop="fileList">
                             <el-upload class="upload-demo" multiple :file-list="fileList" ref="uploadfile" action="https://jsonplaceholder.typicode.com/posts/"

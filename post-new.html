@@ -12,7 +12,6 @@
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
-    <script src="./common/commData.js"></script>
     <script src="./js/post-new.js"></script>
 </head>
 
@@ -149,13 +148,15 @@
                         <el-form-item label="薪资区间" required>
                             <el-col :span="4">
                                 <el-form-item prop="date1">
-                                    <el-date-picker type="date" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
+                                    <!-- <el-date-picker type="date" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker> -->
+                                    <el-input v-model="ruleForm.postpreinterviewer"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col class="line" :span="1">至</el-col>
                             <el-col :span="4">
                                 <el-form-item prop="date2">
-                                    <el-time-picker type="fixed-time" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
+                                    <!-- <el-time-picker type="fixed-time" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker> -->
+                                    <el-input v-model="ruleForm.postpreinterviewer"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-form-item>

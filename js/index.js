@@ -7,7 +7,7 @@ function init() {
         el: "#right-container",
         data: {
             apiUrl: commData.baseUrl,
-            radio3: '待入职',
+            radio3: '入职', //状态对应7
             posTime: "",
             regTime: '',
             posNum: 0,
@@ -15,10 +15,13 @@ function init() {
             needNum: 0,
             sendOfferNum: 0,
             RzNum: 0,
-            interviewNum:0,
-            offerNum:0,
-            x:[],
-            y:[],
+            interviewNum: 0,
+            offerNum: 0,
+            jobNum: 0,
+            state: 7,
+            wendu:"30",
+            x: [],
+            y: [],
             newPosList: [{
                     pos: '微信组长',
                     num: '1',
@@ -75,10 +78,10 @@ function init() {
             this.Scroll(this.regNum, "reg");
             this.GetNeedNum();
             this.GetRequestData();
-            // this.GetJobMsg();
+            this.GetJobMsg();
+            // this.GetWeather();
         },
-        mounted: function () {
-        },
+        mounted: function () {},
         methods: {
             GetNeedNum: function () {
                 var that = this;
@@ -93,8 +96,9 @@ function init() {
                     },
                     dataType: 'text',
                     success: function (res) {
-                        res = JSON.parse(res)
+                        res = JSON.parse(res);
                         res = JSON.parse(res.body);
+                        console.log(res);
                         that.$data.needNum = res;
                     }
                 });
@@ -107,13 +111,13 @@ function init() {
                     },
                     dataType: 'text',
                     success: function (res) {
-                        res = JSON.parse(res)
+                        res = JSON.parse(res);
                         res = JSON.parse(res.body);
                         that.$data.interviewNum = res;
                     }
                 });
-                 //获取offer保温期
-                 $.ajax({
+                //获取offer保温期
+                $.ajax({
                     type: 'POST',
                     url: that.apiUrl + '/queryResumeBwqCountByState',
                     data: {
@@ -121,8 +125,8 @@ function init() {
                     },
                     dataType: 'text',
                     success: function (res) {
-                        res = JSON.parse(res)
-                        res = JSON.parse(res.body);                  
+                        res = JSON.parse(res);
+                        res = JSON.parse(res.body);
                         that.$data.offerNum = res;
                     }
                 });
@@ -136,8 +140,8 @@ function init() {
                     },
                     dataType: 'text',
                     success: function (res) {
-                        res = JSON.parse(res)
-                        res = JSON.parse(res.body);               
+                        res = JSON.parse(res);
+                        res = JSON.parse(res.body);
                         that.$data.sendOfferNum = res;
                     }
                 });
@@ -151,36 +155,53 @@ function init() {
                     },
                     dataType: 'text',
                     success: function (res) {
-                        res = JSON.parse(res)
+                        res = JSON.parse(res);
                         res = JSON.parse(res.body);
                         that.$data.RzNum = res;
                     }
                 });
             },
             //获取岗位信息
-            GetJobMsg:function () { 
+            GetJobMsg: function () {
                 var that = this;
                 $.ajax({
                     type: 'POST',
                     url: that.apiUrl + '/queryResumeAll',
-                    data: {
-                    },
+                    data: {},
                     dataType: 'text',
                     success: function (res) {
-                        res = JSON.parse(res)
-                        res = JSON.parse(res.body);
+                        res = JSON.parse(res);
+                        res = res.body;
                         console.log(res);
+                        that.$data.jobNum = res.total;
                     }
                 });
-             },
-
+            },
+            //获取天气
+            GetWeather:function() {
+                var that = this;
+                $.ajax({
+                    type:'POST',
+                    url:'http://wthrcdn.etouch.cn/weather_mini',
+                    data:{
+                        city:"长沙"
+                    },
+                    dataType:"jsonp",
+                    success:function (res) { 
+                       that.$data.wendu = res.data.wendu;
+                       console.log(res);
+                     }
+                })
+            },
             // 获取数据
             GetRequestData: function () {
                 var that = this;
                 $.ajax({
                     type: 'POST',
                     url: that.apiUrl + '/homeChartData',
-                    data: {},
+                    data: {
+                        state: that.state
+                    },
                     dataType: 'text',
                     success: function (res) {
                         res = JSON.parse(res)
@@ -192,10 +213,22 @@ function init() {
                 });
             },
             //切换条件 
-            shiftValue:function (val) { 
-                console.log(val);
+            shiftValue: function (val) {
+                switch (val) {
+                    case "入职":
+                        this.state = 7;
+                        break;
+                    case "已发offer":
+                        this.state = 6;
+                        break;
+                    case "待面试":
+                        this.state = 1;
+                        break;
+                    default:
+                        break;
+                }
                 this.GetRequestData();
-             }, 
+            },
             // 画图
             DrawChartBy: function () {
                 var that = this;
@@ -205,7 +238,7 @@ function init() {
                 let option = {
                     xAxis: {
                         type: 'category',
-                        data:  that.x
+                        data: that.x
                     },
                     legend: {
                         data: ['王帅', '王帅1', '王帅2', '王帅3'],
@@ -220,10 +253,10 @@ function init() {
                     },
                     series: that.y,
                     color: ["#FFC30D", "#F75D5C", "#148DFE", "#1BDE6E"]
-                }; 
-                that.y.forEach(function (item) { 
+                };
+                that.y.forEach(function (item) {
                     legendData.push(item.name);
-                 });
+                });
                 option.legend.data = legendData;
                 option.series.forEach(function (item) {
                     item.smooth = true;
@@ -233,7 +266,7 @@ function init() {
                 //清除画布缓存;
                 myChart.clear();
                 //设置画布参数
-                myChart.setOption(option)
+                myChart.setOption(option);
             },
             //滚屏
             Scroll: function (num, value) {
@@ -312,8 +345,8 @@ function init() {
                         break;
                 }
             },
-            goAddPos:function() {
-                window.location.href="../waitCome.html";
+            goAddPos: function () {
+                window.location.href = "./post-new.html";
             }
         }
     });

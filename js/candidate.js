@@ -103,6 +103,7 @@ function init() {
                         res = JSON.parse(res);
                         res = res.body;
                         res = JSON.parse(res);
+                        console.log(res);
                         that.tableData3 = res.rows;
                         that.$data.total = res.total;
                         that.$data.pageCount = res.pageCount;
