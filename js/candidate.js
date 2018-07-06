@@ -122,7 +122,7 @@ function init() {
                     dataType: 'text',
                     success: function (res) {
                         res = JSON.parse(res)
-                        res = JSON.parse(res.body)
+                        res = JSON.parse(res.body);
                         that.$data.eduBackgroundList = res;
                     }
                 });
@@ -146,9 +146,24 @@ function init() {
             },
             //下载
             down: function () {
-                console.log(this.multipleSelection.length);
+                var that = this;
+                var data = [];
+                that.multipleSelection.forEach(function (item) { 
+                    if(item) {           
+                        data.push(item.resumeId);
+                    }
+                 })
                 if (this.multipleSelection.length > 0) {
-                    console.log("有选中")
+                    let IForm = $("<form></form>");
+                    IForm.attr("style","display:none");
+                    IForm.attr("target","");
+                    IForm.attr("method","post");
+                    $("body").append(IForm);
+                    data.forEach(function (item) { 
+                        IForm.attr("action",that.apiUrl + '/downloadResumeFile?resumeId='+item);
+                        IForm.submit();
+                    })
+                    IForm.remove();
                 } else {
                     this.$message({
                         showClose: true,
@@ -226,7 +241,7 @@ function init() {
             },
             //详情页
             gotoDetail: function (row, ev) {
-                window.location.href = "./interview.html";
+                window.location.href = "./interviewStepOne.html";
                 commMethod.setCookie("resumeId",row.resumeId,0.5)
             },
             //弹框

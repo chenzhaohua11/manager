@@ -1,18 +1,39 @@
-/* 简历导入弹框 */
-.el-dialog {
+/* 预览 */
+.mian-content .el-dialog {
     padding: 10px 10px !important;
+    border-radius: 12px !important;
 }
-.el-dialog__header {
-    border-bottom: 2px solid #ccc !important;
+.mian-content .el-dialog table{
+    width: 100%;
+    border:1px solid #E1E7ED; 
+    table-layout: fixed;
 }
-.el-dialog__body {
-    width:50% !important;
-    margin: auto
+.mian-content .el-dialog td {
+    border:1px solid #E1E7ED; 
+    height: 50px;
+    line-height: 50px;
+    padding-left: 10px;
+} 
+.mian-content .el-dialog table tr:last-child {
+    margin-bottom: 10px;
 }
-.el-dialog__footer{
-    border-top: 2px solid #ccc !important;
+.mian-content .el-dialog .el-form-item{
+    margin: 0;
+}
+.mian-content .el-dialog .el-input__inner,.mian-content .el-dialog .el-textarea__inner{
+    border-radius: 0px;
+    border: 1px solid transparent;
+    padding: 0;
+    
+}
+.mian-content .el-dialog .el-input__inner{
+    height: 50px;
+    line-height: 50px;
+}
+.mian-content .el-dialog .el-form-item__content{
+    text-align: center;
+}
+.mian-content .el-dialog .el-button{
+    margin-top: 30px;
 
-}
-.el-form-item__content .el-select {
-    width: 100% !important;
 }

@@ -365,15 +365,15 @@ select {
 /* ele修改 */
 
 .filter-item .el-input__inner {
-    height: 26px;
+    height: 26px !important;
 }
 
 .filter-item .el-input__icon {
-    line-height: 26px;
+    line-height: 26px !important;
 }
 
 .filter-item .el-select {
-    height: 2%;
+    height: 2% !important;
 }
 
 .filter-item .el-date-editor {
@@ -381,21 +381,21 @@ select {
 }
 
 .el-row {
-    width: 100%
+    width: 100% !important
 }
 
 .el-row,
 .el-col {
-    height: 100%;
+    height: 100% !important; 
 }
 
 #right-content .el-table th>.cell {
-    color: #5C6266;
+    color: #5C6266 !important;
 }
 
 #right-content .el-table .cell {
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
 }
 
 #right-content .el-table__row .cell {
@@ -405,15 +405,15 @@ select {
 
 #right-content .el-table td,
 .el-table th {
-    padding: 2px 0;
+    padding: 2px 0 !important;
 }
 
 #right-content .mian-content .el-table td .el-input__inner {
-    border: none;
+    border: none !important;
 }
 
 #right-content .mian-content .handler-button .el-button {
-    padding: 7px 12px;
+    padding: 7px 12px !important;
 }
 
 /* 整体右侧主要部分 */
@@ -456,12 +456,12 @@ select {
 /* 表格ele修改 */
 
 #right-content .mian-content .el-table {
-    margin-top: 2%
+    margin-top: 2% !important
 }
 
 #right-content .mian-content .candidate-table th,
 #right-content .mian-content .candidate-table td {
-    text-align: center;
+    text-align: center !important;
 }
 
 /* 分页 */
@@ -482,4 +482,16 @@ select {
 
 .el-table table {
     margin-bottom: 3px;
+}
+
+
+/* 操作列的图标颜色 */
+.mm-delete:hover{
+    color: #eb7474; 
+}
+.mm-delete,.mm-delete:focus,
+.mm-see,.mm-see:focus,
+.mm-down,.mm-down:focus,
+.mm-edit,.mm-edit:hover,.mm-edit:focus{
+    color: #737a80; 
 }

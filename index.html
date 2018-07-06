@@ -16,7 +16,6 @@
     <script src="./common/commData.js"></script>
     <script src="./js/index.js"></script>
 </head>
-
 <body>
     <div id="left-nav">
         <div id="gxcf-title">
@@ -41,7 +40,7 @@
                         <a href="./candidate.html">招聘管理</a>
                     </li>
                     <li>
-                        <a href="./post-manage.html">岗位管理</a>
+                        <a href="./post-manage.html">招聘任务</a>
                     </li>
                     <li>
                         <a href="./resume-manage.html">简历管理</a>
@@ -144,7 +143,8 @@
                                 <span>{{wendu}}℃</span>
                             </div>
                         </div> -->
-                        <iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=112" width="100%" height="100%" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+                        <iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=112" width="100%" height="100%" frameborder="0" marginwidth="0"
+                            marginheight="0" scrolling="no"></iframe>
                     </el-col>
                 </el-row>
             </div>
@@ -190,10 +190,10 @@
                                 <ul class="donate_bar" :style="{ top: -posNum + '%'}" :class="{marquee_top:posNum}" @mouseleave="Scroll(posNum,'pos')" @mouseenter="clearInterval('pos')">
                                     <li v-for="(item, index) in newPosList" :key="index">
                                         <el-row>
-                                            <el-col :span="6">{{item.pos}}</el-col>
-                                            <el-col :span="6">{{item.num}}人</el-col>
-                                            <el-col :span="6">{{item.loc}}</el-col>
-                                            <el-col :span="6">{{item.date}}</el-col>
+                                            <el-col :span="6">{{item.postName}}</el-col>
+                                            <el-col :span="6">{{item.recruitNum}}人</el-col>
+                                            <el-col :span="6">{{item.interviewAddress}}</el-col>
+                                            <el-col :span="6">{{item.updTime}}</el-col>
                                         </el-row>
                                     </li>
                                 </ul>
@@ -222,10 +222,10 @@
                                 <ul class="donate_bar" :style="{ top: -regNum + '%'}" :class="{marquee_top:regNum}" @mouseleave="Scroll(regNum,'reg')" @mouseenter="clearInterval('reg')">
                                     <li v-for="(item, index) in newRegList" :key="index">
                                         <el-row>
-                                            <el-col :span="6">{{item.name}}</el-col>
+                                            <!-- <el-col :span="6">{{item.name}}</el-col>
                                             <el-col :span="6">{{item.pos}}</el-col>
                                             <el-col :span="6">{{item.date}}</el-col>
-                                            <el-col :span="6">{{item.tel}}</el-col>
+                                            <el-col :span="6">{{item.tel}}</el-col> -->
                                         </el-row>
                                     </li>
                                 </ul>

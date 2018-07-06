@@ -1,294 +1,78 @@
-.el-button {
-    padding: 10px 40px;
+ul{
+    list-style:none;
 }
-.progress-title {
-    margin: 2% 0 2% 2%;
+#right-container #right-content{
+    background: #EDF1F5;
+    padding: 1%;
 }
-.progress-title span {
-    color: #5C6170
-}
-.progress-step {
-    width: 96%;
-    margin: auto;
-    height: 92%;
-}
-/* 步骤条 */
-.step-content {
-    width: 100%;
-    height: 5%;
-    display: flex;
-}
-.step-content .step-item {
-    float: left;
-    cursor: pointer;
-    line-height: 2.6;
-    text-indent: 40px;
-    list-style: none;
-    flex: 1;
-    color: #5C6170;
-    margin-left: -6px;
-    background-image: url(../images/2-1.png);
-    background-position: center center;
-    background-size: 100% 100%;
-}
-.step-content .step-item.sel {
-    background-image: url(../images/2-2.png);
-    color: #fff;
-}
-.step-content .step-item:first-child {
-    background-image: url(../images/1-1.png);
-   
-}
-.step-content .step-item:last-child {
-    background-image: url(../images/3-1.png);
-    
-}
-.step-content .step-item:first-child.sel {
-   background-image: url(../images/1-2.png);  
-}
-.step-content .step-item:last-child.sel {
-    background-image: url(../images/3-2.png);
-}
-/* 时间 */
-.progress-step .step-time {
-    margin-top: 1%;
-    width: 100%;
-    height: 2%;
-    color: #9A9FAC
-}
-.progress-step .step-time .el-col {
-    text-align: center;
-}
-/* 不同步骤内容 */
-.step-container {
-    height: 90%;
-    padding: 2% 0 0 0;
-    width: 100%
-}
-.step-container>div {
-    height: 100%;
-    width: 100%;
-}
-.step-container .reg-show {
-    height: 96%;
-    float: left;
-    width: 40%;
-    border: 1px solid #ccc;
-}
-
-/* 通知面试 */
-.notice-interview .to-pre {
-    width: 40%;
-    float: left;
-    margin-left: 10%;
-    margin-top: 4%;
-}
-.to-pre>p {
-    color: #5C6170;
-    font-size: 18px;
-    font-weight: 600;
-}
-.to-pre>div {
-    width: 90%;
-    margin: auto;
-    margin-top: 8%;
-}
-.to-pre>div>p {
-    margin-bottom: 5%
-}
-.to-pre>div>.el-button {
-    margin-top: 10%
-}
-
-/* 不同面试状态的条件删选 */
-.condition-filter>div {
-    height: 100%;
-}
-/* 初试 */
-.interviewee-msg{
-    width: 100%;
-    height: 5%;
-    line-height: 2;
-    text-indent: 20px;
-}
-/* 面试意见 */
-.interview-condition {
-    width: 100%;
-    border: 1px solid #E1E7ED;
-    table-layout:fixed;
-}
-.interview-condition th ,.interview-condition td {
-    border: 1px solid #E1E7ED;
-    text-align: left;
-    text-indent: 12px;
-    line-height: 36px;
-    overflow:hidden
-}
-.interview-condition tbody tr td:first-child {
-    color: #45494D;
-    font-weight: 550;
-}
-.interview-condition tbody tr td:last-child  {
-    text-indent: 0;
-}
-.advice-for-pre td {
-    height: 120px;
-    line-height: 120px;
-    text-align: center;
-}
-/* 初试提交 */
-.pre-interview .el-button,.employ-apply  .el-button,.employ-consider  .el-button,.employ-done  .el-button{
-    display: block;
-    position: relative;
-    top: 10%;
-    margin: auto;
-}
-/* 复试提交 */
-.second-interview  .submit-box{
-    height: 5%;
-    max-width: 20%;
-    margin: auto;
-    margin-top: 4%;
-}
-.second-interview .submit-box .el-button {
-    float: left;
-    padding:5% 8%;
-}
-
-
-/* 录用审批 */
-/* 左侧缩略图 */
-.small-img {
-    width: 100%;
-    height: 34%;
-    cursor: pointer;
+#right-content .content-header,
+#right-content .content-choice,
+#right-content .content-main,
+#right-content .content-message{
     background: #fff;
-    font-size: 3px;
 }
-.small-img img {
-    width: 100%;
-    height: 100%;
+#right-content .content-title{
+    width: 10%;
+    float:left;
+    text-align: center;
+    font-size: 18px;
+    color: #3F424D;
+    padding-right: 2%;
 }
-/* 右侧表格 */
-.employ-apply tbody tr td:nth-of-type(3) {
-    color: #45494D;
-    font-weight: 550;
+#right-content .content-header{
+    height: 7%;
+}
+#right-content .content-header .content-title{
+    margin-top: 1.3%;
+}
+#right-content .content-header ul li.sel{
+    color: #E88C02;
+}
+#right-content .content-header ul li{
+    float: left;
+    width: 15%;
+    text-align: center;
+    /* border: 1px solid #000; */
+    position: relative;
+    margin-top: 1.1%;
+    font-size: 24px;
+}
+#right-content .content-header ul li i{
+   position: absolute;
+   right: -10px;
+   top: 0;
+}
+#right-content .content-choice{
+    margin-top: 1.2%;
+    height: 22%;
+    padding-right: 12%;
+    padding-top: 1.5%;
+}
+#right-content .content-choice .content-title{
+    margin-top: 5.3%;
+}
+#right-content .content-choice .content-choice-body{
+    float: left;
+    width: 88%;
 } 
-.employ-apply .el-select{
-    width: 100%;
-    position: relative;
-    left: -12px;
+#right-content .content-choice .content-choice-contact{
+    width: 70.0%;
 }
-.employ-apply tbody tr td:nth-of-type(2) .el-date-editor,.employ-apply tbody tr td:nth-of-type(2)>.el-input {
-    position: relative;
-    left: -12px;
+#right-content .content-message{
+    margin-top: 1.2%;
+    height: 10%;
 }
-.employ-apply tbody tr td.leader .el-input__inner {
-    position: relative;
-    left: -12px;
+#right-content .content-message .content-title{
+    margin-top: 2.1%;
 }
-.employ-apply .el-select .el-input__inner {
-    position: relative;
-    left: -12px;
+#right-content .content-main{
+    margin-top: 1.2%;
+    height: 40%;
+    padding: 20px 0px;
 }
-.employ-apply .el-input__inner {
-    border: 0;
+#right-content .content-main .content-title{
+    margin-top: 10.1%;
 }
-.employ-apply .el-input__icon {
-    float: left;
-}
-/* 预览 */
-.employ-apply  .el-dialog {
-    margin-top: 2vh !important;
-}
-.employ-apply .el-dialog .pre-look td {
-    height: 50px;
-    line-height: 50px;
-}
-.el-dialog  .el-button {
-    margin-top: 20px
-}
-.employ-apply   .el-radio__input.is-disabled.is-checked .el-radio__inner {
-     background-color: #409EFF !important;
-     border-color: #e4e7ed;
-}
-.employ-apply  .el-radio__input.is-disabled+span.el-radio__label {
-    color: #666 !important;
-    cursor: not-allowed;
-}
-.employ-apply  .el-dialog__title {
-    font-weight: 600 !important;
-}   
-/* 录用审批 */
-.consider-steps {
-    height: 45%;
-    margin-top: 2%;
-    position: relative;
-    border: 1px solid #E1E7ED;
-}
-.consider-steps .el-steps {
-    height: 66%;
-    width: 95%;
-    margin: auto;
-    margin-top: 3%;
-}
-.consider-steps .consider>span{
-    font-size: 14px;
-    margin-left: 40px;
-    color: #737A80
-}
-.consider-steps .consider>input {
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #ccc;
-}
-.zf-consider {
-    position: absolute;
-    top: 30%;
-    left: 12%;
-}
-.manager-consider {
-    position: absolute;
-    top: 60%;
-    left: 12%;
-}
-.boss-consider {
-    position: absolute;
-    top: 89%;
-    left: 12%;
-}
-/* 录用完成 */
-.employ-done .interview-condition {
-    height: 70%;
-}
-.employ-done .interview-condition .offer-header {
-    height: 8%;
-}
-.offer-header .el-row {
-    border-bottom: 1px solid  #D8DCE6 !important;
-}
-.offer-header .el-row .el-col:first-child {
-    border-right: 1px solid  #D8DCE6 !important;
-}
-.offer-header .el-row .el-col>span {
-    float: left;
-    line-height: 2.5;
-    margin-left: 20px;
-    height: 100%;
-}
-.offer-header .el-row .el-col>.el-radio-group {
-    margin-left: 40px;
-    margin-top: 14px;
-    float: left;
-}
-.offer-header .el-row .el-col .el-select {
-    float: left;
-    margin-left: 40px;
-}
-.employ-done .interview-condition .offer-container {
-    height: 86%;
-    width: 90%;
-    margin: auto;
-    padding-top: 2%;
-    overflow: auto;
+#right-content .content-main .content-step{
+    height:100%;
 }

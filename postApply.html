@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>完善信息</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+    <script src="./js/rem.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .step-header {
+            height: 3.25rem;
+        }
+
+        .about-you {
+            padding: 1rem 0.4rem 0 0.4rem;
+            font-size: 0.4rem;
+            font-weight: 550;
+            float: left;
+        }
+
+        .app-avater {
+            float: right;
+            margin-right: 0.8rem;
+            width: 2rem;
+            height: 2rem;
+            margin-top: .5rem;
+            border: 1pt solid #ccc;
+            border-radius: 50%;
+        }
+
+        .app-avater img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .apply-form .mint-cell-text {
+            font-size: 0.4rem !important;
+            letter-spacing: 3px;
+        }
+
+        .apply-form .mint-cell-title {
+            width: 2.4rem !important;
+        }
+
+        .apply-form .mint-field-core:-moz-placeholder {
+            font-size: 0.4rem !important;
+        }
+
+        .apply-form .mint-field-core:-moz-placeholder {
+            font-size: 0.4rem !important;
+        }
+
+        .apply-form .mint-field-core::-webkit-input-placeholder {
+            font-size: 0.4rem !important;
+        }
+
+        .apply-form .mint-cell-wrapper {
+            width: 94%;
+            margin: auto;
+            border-bottom: 3pt solid #EDEDED !important;
+        }
+
+        .apply-form .mint-field-core:-ms-input-placeholder {
+            font-size: 0.4rem !important;
+        }
+
+        .mint-popup {
+            width: 100%;
+        }
+
+        .next-step {
+            margin-top: 10pt;
+            padding: 0.5rem 0.3rem;
+            position: relative;
+            top: -3pt;
+            background: #E8E8ED;
+        }
+
+        .next-step .mint-button {
+            padding: 0.3rem 4rem;
+            font-size: 0.4rem;
+        }
+
+        /* 第二部分 */
+
+        .exp-title {
+            height: 1.3rem;
+            padding-left: .5rem;
+            color: #666666;
+            background: #E8E8ED;
+            line-height: 1.34rem;
+        }
+
+        .mint-cell-title {
+            flex: 1 !important;
+        }
+
+        .mint-cell-text,
+        .mint-field-core {
+            font-size: 0.4rem !important;
+        }
+
+        .mint-cell-value {
+            flex: 2 !important;
+        }
+
+        /* 第四部分 */
+
+        .other .mint-radiolist .mint-cell {
+            width: 40%;
+            float: left;
+        }
+
+        .other .mint-radiolist .mint-cell-title {
+            flex: 4 !important;
+        }
+
+        .other .mint-radiolist .mint-radiolist-title {
+            color: #333333 !important;
+            font-size: 0.4rem !important;
+        }
+        .footer-notice{
+            padding: 0.2rem 0.3rem
+        }
+        .footer-notice span {
+            width: 100%;
+            display: block;
+            margin-top: 10pt;
+            color: #666666;
+            word-wrap:break-word; 
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 第一步 -->
+        <div v-show="step==1" class="step first-step">
+            <div class="step-header">
+                <div class="about-you">
+                    <p>关于你,</p>
+                    <p>我们想多了解些</p>
+                </div>
+                <div class="app-avater">
+                    <img src="./images/avater.jpg" alt="">
+                </div>
+            </div>
+            <div class="apply-form">
+                <mt-field label="姓名" placeholder="请输入姓名" v-model="form.username"></mt-field>
+                <mt-field label="性别" placeholder="--请选择--" v-model="form.sex" readonly disable-clear @click.native.capture="sexHandler"></mt-field>
+                <mt-popup v-model="sexVisible" position="bottom">
+                    <mt-picker :slots="sexSlots" @change="sexValuesChange"></mt-picker>
+                </mt-popup>
+                <mt-field label="身份证" placeholder="请输入身份证" :attr="{ maxlength: 18 }" v-model="form.IDcard" @blur.native.capture="IDfomatter"></mt-field>
+                <mt-field label="手机号" placeholder="请输入手机号"  type="tel" :attr="{ maxlength: 11 }" v-model="form.mobile" ></mt-field>
+                <mt-field label="年龄" placeholder="自动获取年龄" readonly disable-clear v-model="form.age"></mt-field>
+                <mt-field label="婚否" placeholder="--请选择--" v-model="form.marry" readonly disable-clear @click.native.capture="marryHandler"></mt-field>
+                <mt-popup v-model="marryVisible" position="bottom">
+                    <mt-picker :slots="marrySlots" @change="marryValuesChange"></mt-picker>
+                </mt-popup>
+                <mt-field label="现居地址" placeholder="街道，楼牌号" v-model="form.address"></mt-field>
+                <mt-field label="申请职位" placeholder="--请选择--" v-model="form.marry" readonly disable-clear @click.native.capture="marryHandler"></mt-field>
+                <mt-popup v-model="marryVisible" position="bottom">
+                    <mt-picker :slots="marrySlots" @change="marryValuesChange"></mt-picker>
+                </mt-popup>
+                <mt-field label="最高学历" placeholder="--请选择--" v-model="form.marry" readonly disable-clear @click.native.capture="marryHandler"></mt-field>
+                <mt-popup v-model="marryVisible" position="bottom">
+                    <mt-picker :slots="marrySlots" @change="marryValuesChange"></mt-picker>
+                </mt-popup>
+            </div>
+            <div class="next-step">
+                <mt-button type="primary">下一步</mt-button>
+            </div>
+        </div>
+        <!-- 第二步 -->
+        <div v-show="step==2" class="step second-step">
+            <div class="step-header">
+                <div class="about-you">
+                    <p>你的教育及培训经历</p>
+                </div>
+                <div class="app-avater">
+                    <img src="./images/avater.jpg" alt="">
+                </div>
+            </div>
+            <div class="eduExp">
+                <div class="exp-title">
+                    本科/大专
+                </div>
+                <mt-cell title="起止日期">
+                    <mt-field placeholder="--请选择--" v-model="form.eduExp1.startTime" readonly disable-clear @click.native.capture="openPick('marjor1Start')"></mt-field>
+                    <span>至</span>
+                    <mt-field placeholder="--请选择--" v-model="form.eduExp1.endTime" readonly disable-clear @click.native.capture="openPick('marjor1End')"></mt-field>
+                </mt-cell>
+                <mt-cell title="学校名称">
+                    <mt-field placeholder="请输入学校名称" v-model="form.eduExp1.schoolName"></mt-field>
+                </mt-cell>
+                <mt-cell title="学历">
+                    <mt-field placeholder="--请选择--" v-model="form.eduExp1.eduction" readonly disable-clear @click.native.capture="openSelect('eduExp1')"></mt-field>
+                </mt-cell>
+                <mt-cell title="专业">
+                    <mt-field placeholder="请输入专业（选填）" v-model="form.eduExp1.major"></mt-field>
+                </mt-cell>
+            </div>
+            <div class="eduExp">
+                <div class="exp-title">
+                    高中及以下学历
+                </div>
+                <mt-cell title="起止日期">
+                    <mt-field placeholder="--请选择--" v-model="form.eduExp2.startTime" readonly disable-clear @click.native.capture="openPick('marjor2Start')"></mt-field>
+                    <span>至</span>
+                    <mt-field placeholder="--请选择--" v-model="form.eduExp2.endTime" readonly disable-clear @click.native.capture="openPick('marjor2End')"></mt-field>
+                </mt-cell>
+                <mt-cell title="学校名称">
+                    <mt-field placeholder="请输入学校名称" v-model="form.eduExp2.schoolName"></mt-field>
+                </mt-cell>
+                <mt-cell title="学历">
+                    <mt-field placeholder="--请选择--" v-model="form.eduExp2.eduction" readonly disable-clear @click.native.capture="openSelect('eduExp2')"></mt-field>
+                </mt-cell>
+                <mt-cell title="专业">
+                    <mt-field placeholder="请输入专业（选填）" v-model="form.eduExp2.major"></mt-field>
+                </mt-cell>
+            </div>
+            <div class="next-step">
+                <mt-button type="primary">下一步</mt-button>
+            </div>
+            <mt-datetime-picker type="date" :start-date="startDate" ref="picker" year-format="{value}年" month-format="{value}月" date-format="{value}日"
+                @confirm="handleConfirm">
+            </mt-datetime-picker>
+            <mt-actionsheet :actions="actions" v-model="sheetVisible">
+            </mt-actionsheet>
+        </div>
+        <!-- 第三步 -->
+        <div v-show="step==3" class="step thrid-step">
+            <div class="step-header">
+                <div class="about-you">
+                    <p>你的工作经历及</p>
+                    <p>期望待遇</p>
+                </div>
+                <div class="app-avater">
+                    <img src="./images/avater.jpg" alt="">
+                </div>
+            </div>
+            <div class="eduExp">
+                <div class="exp-title">
+                    工作经历1
+                </div>
+                <mt-cell title="起止日期">
+                    <mt-field placeholder="--请选择--" v-model="form.workExp1.startTime" readonly disable-clear @click.native.capture="openPick('work1Start')"></mt-field>
+                    <span>至</span>
+                    <mt-field placeholder="--请选择--" v-model="form.workExp1.endTime" readonly disable-clear @click.native.capture="openPick('work1End')"></mt-field>
+                </mt-cell>
+                <mt-cell title="公司名称">
+                    <mt-field placeholder="请输入" v-model="form.workExp1.companyName"></mt-field>
+                </mt-cell>
+                <mt-cell title="职位">
+                    <mt-field placeholder="请输入" v-model="form.workExp1.post"></mt-field>
+                </mt-cell>
+                <mt-cell title="最后薪资">
+                    <mt-field placeholder="请输入" v-model="form.workExp1.salay"></mt-field>
+                </mt-cell>
+                <mt-cell title="证明人">
+                    <mt-field placeholder="请输入(可不填)" v-model="form.workExp1.proveName"></mt-field>
+                </mt-cell>
+                <mt-cell title="离职原因">
+                    <mt-field placeholder="请输入(可不填)" v-model="form.workExp1.leaveReson"></mt-field>
+                </mt-cell>
+            </div>
+            <div class="eduExp">
+                <div class="exp-title">
+                    工作经历2
+                </div>
+                <mt-cell title="起止日期">
+                    <mt-field placeholder="--请选择--" v-model="form.workExp2.startTime" readonly disable-clear @click.native.capture="openPick('work2Start')"></mt-field>
+                    <span>至</span>
+                    <mt-field placeholder="--请选择--" v-model="form.workExp2.endTime" readonly disable-clear @click.native.capture="openPick('work2End')"></mt-field>
+                </mt-cell>
+                <mt-cell title="公司名称">
+                    <mt-field placeholder="请输入" v-model="form.workExp2.companyName"></mt-field>
+                </mt-cell>
+                <mt-cell title="职位">
+                    <mt-field placeholder="请输入" v-model="form.workExp2.post"></mt-field>
+                </mt-cell>
+                <mt-cell title="最后薪资">
+                    <mt-field placeholder="请输入" v-model="form.workExp2.salay"></mt-field>
+                </mt-cell>
+                <mt-cell title="证明人">
+                    <mt-field placeholder="请输入(可不填)" v-model="form.workExp2.proveName"></mt-field>
+                </mt-cell>
+                <mt-cell title="离职原因">
+                    <mt-field placeholder="请输入(可不填)" v-model="form.workExp2.leaveReson"></mt-field>
+                </mt-cell>
+            </div>
+            <div class="eduExp">
+                <div class="exp-title">
+                    工作经历2
+                </div>
+                <mt-cell title="起止日期">
+                    <mt-field placeholder="--请选择--" v-model="form.workExp3.startTime" readonly disable-clear @click.native.capture="openPick('work3Start')"></mt-field>
+                    <span>至</span>
+                    <mt-field placeholder="--请选择--" v-model="form.workExp3.endTime" readonly disable-clear @click.native.capture="openPick('work3End')"></mt-field>
+                </mt-cell>
+                <mt-cell title="公司名称">
+                    <mt-field placeholder="请输入" v-model="form.workExp3.companyName"></mt-field>
+                </mt-cell>
+                <mt-cell title="职位">
+                    <mt-field placeholder="请输入" v-model="form.workExp3.post"></mt-field>
+                </mt-cell>
+                <mt-cell title="最后薪资">
+                    <mt-field placeholder="请输入" v-model="form.workExp3.salay"></mt-field>
+                </mt-cell>
+                <mt-cell title="证明人">
+                    <mt-field placeholder="请输入(可不填)" v-model="form.workExp3.proveName"></mt-field>
+                </mt-cell>
+                <mt-cell title="离职原因">
+                    <mt-field placeholder="请输入(可不填)" v-model="form.workExp3.leaveReson"></mt-field>
+                </mt-cell>
+            </div>
+            <div>
+                <div class="exp-title">
+                    你期望的待遇
+                </div>
+                <mt-cell title="期望待遇">
+                    <mt-field placeholder="请输入" v-model="form.wishSalary"></mt-field>
+                </mt-cell>
+                <mt-cell title="到岗日期">
+                    <mt-field placeholder="--请选择--" v-model="form.arriveTime" readonly disable-clear @click.native.capture="openPick('arriveTime')"></mt-field>
+                </mt-cell>
+            </div>
+            <div class="next-step">
+                <mt-button type="primary">下一步</mt-button>
+            </div>
+            <mt-datetime-picker type="date" :start-date="startDate" ref="picker" year-format="{value}年" month-format="{value}月" date-format="{value}日"
+                @confirm="handleConfirm">
+            </mt-datetime-picker>
+            <mt-actionsheet :actions="actions" v-model="sheetVisible">
+            </mt-actionsheet>
+        </div>
+        <!-- 第四步 -->
+        <div v-show="step==4" class="step forth-step">
+            <div class="step-header">
+                <div class="about-you">
+                    <p>你的紧急联系人及</p>
+                    <p>其它情况</p>
+                </div>
+                <div class="app-avater">
+                    <img src="./images/avater.jpg" alt="">
+                </div>
+            </div>
+            <div>
+                <div class="exp-title">
+                    紧急情况下联系人
+                </div>
+                <mt-cell title="与本人关系">
+                    <mt-field placeholder="请输入" v-model="form.contactor.relation"></mt-field>
+                </mt-cell>
+                <mt-cell title="姓 名">
+                    <mt-field placeholder="请输入" v-model="form.contactor.name"></mt-field>
+                </mt-cell>
+                <mt-cell title="联系电话">
+                    <mt-field placeholder="请输入" v-model="form.contactor.mobile"></mt-field>
+                </mt-cell>
+                <mt-cell title="联系地址">
+                    <mt-field placeholder="请输入" v-model="form.contactor.address"></mt-field>
+                </mt-cell>
+            </div>
+            <div>
+                <div class="exp-title">
+                    你的其它情况
+                </div>
+                <div class="other">
+                    <mt-radio title="1、是否曾因行为或工作不佳而被辞退" v-model="form.value1" :options="['是', '否']">
+                    </mt-radio>
+                    <div style="clear: both;"></div>
+                    <mt-cell title="说明情况" v-show="form.value1=='是'">
+                        <mt-field placeholder="请输入" type="text" v-model="form.value1Reason"></mt-field>
+                    </mt-cell>
+                </div>
+                <div class="other">
+                    <mt-radio title="2、曾是否因违反法律行为而被判刑或劳动教养" v-model="form.value2" :options="['是', '否']">
+                    </mt-radio>
+                    <div style="clear: both;"></div>
+                    <mt-cell title="说明情况" v-show="form.value2=='是'">
+                        <mt-field placeholder="请输入" type="text" v-model="form.value2Reason"></mt-field>
+                    </mt-cell>
+                </div>
+                <div class="other">
+                    <mt-radio title="3、曾是否患有严重疾病、受伤或接受手术治疗" v-model="form.value3" :options="['是', '否']">
+                    </mt-radio>
+                    <div style="clear: both;"></div>
+                    <mt-cell title="说明情况" v-show="form.value3=='是'">
+                        <mt-field placeholder="请输入" type="text" v-model="form.value3Reason"></mt-field>
+                    </mt-cell>
+                </div>
+                <div class="other">
+                    <mt-radio title="4、是否愿意接受公司对仪容仪表方面的要求" v-model="form.value4" :options="['是', '否']">
+                    </mt-radio>
+                    <div style="clear: both;"></div>
+                    <mt-cell title="说明情况" v-show="form.value4=='是'">
+                        <mt-field placeholder="请输入" type="text" v-model="form.value4Reason"></mt-field>
+                    </mt-cell>
+                </div>
+                <div class="other">
+                    <mt-radio title="5、公司有无亲属及朋友" v-model="form.value5" :options="['是', '否']">
+                    </mt-radio>
+                    <div style="clear: both;"></div>
+                    <div v-show="form.value5=='是'">
+                        <mt-cell title="姓名">
+                            <mt-field placeholder="请输入" type="text" v-model="form.innerRelative.name"></mt-field>
+                        </mt-cell>
+                        <mt-cell title="部门">
+                            <mt-field placeholder="请输入" type="text" v-model="form.innerRelative.dept"></mt-field>
+                        </mt-cell>
+                        <mt-cell title="职务">
+                            <mt-field placeholder="请输入" type="text" v-model="form.innerRelative.pos"></mt-field>
+                        </mt-cell>
+                        <mt-cell title="关系">
+                            <mt-field placeholder="请输入你们的关系" type="text" v-model="form.innerRelative.relation"></mt-field>
+                        </mt-cell>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-notice">
+                <h3>应聘声明</h3>
+                <span>
+                    本人兹声明此申请表内所填写之资料均属正确，并无任何缺漏及虚报，否则将无条件接受解雇处分。本人在此授权公司，可向本人目前或前任雇主调查有关本人之任何资料。本人同意接受身体检查，并在获得通过后方正式受雇于贵公司
+                </span>
+            </div>
+            <div class="next-step">
+                <mt-button type="primary">完成</mt-button>
+            </div>
+        </div>
+    </div>
+    <script src="./js/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+    <script>
+        function formatDate(date, fmt) {
+            if (/(y+)/.test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+            }
+            let o = {
+                'M+': date.getMonth() + 1,
+                'd+': date.getDate(),
+                'h+': date.getHours(),
+                'm+': date.getMinutes(),
+                's+': date.getSeconds()
+            };
+            for (let k in o) {
+                if (new RegExp(`(${k})`).test(fmt)) {
+                    let str = o[k] + '';
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str));
+                }
+            }
+            return fmt;
+        };
+
+        function padLeftZero(str) {
+            return ('00' + str).substr(str.length);
+        }
+        new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    form: {
+                        username: '',
+                        sex: "",
+                        IDcard: '',
+                        mobile:'',
+                        age: "",
+                        marry: "",
+                        address: "",
+                        eduExp1: {
+                            startTime: "",
+                            endTime: '',
+                            schoolName: "",
+                            eduction: "",
+                            major: ""
+                        },
+                        eduExp2: {
+                            startTime: "",
+                            endTime: '',
+                            schoolName: "",
+                            eduction: "",
+                            major: ""
+                        },
+                        workExp1: {
+                            startTime: '',
+                            endTime: '',
+                            companyName: "",
+                            post: '',
+                            salay: '',
+                            proveName: '',
+                            leaveReson: "",
+                        },
+                        workExp2: {
+                            startTime: '',
+                            endTime: '',
+                            companyName: "",
+                            post: '',
+                            salay: '',
+                            proveName: '',
+                            leaveReson: "",
+                        },
+                        workExp3: {
+                            startTime: '',
+                            endTime: '',
+                            companyName: "",
+                            post: '',
+                            salay: '',
+                            proveName: '',
+                            leaveReson: "",
+                        },
+                        arriveTime: '',
+                        wishSalary: '',
+                        contactor: {
+                            relation: '',
+                            name: '',
+                            mobile: '',
+                            address: ''
+                        },
+                        value1: "否",
+                        value1Reason: "",
+                        value2: "否",
+                        value2Reason: "",
+                        value3: "否",
+                        value3Reason: "",
+                        value4: "否",
+                        value4Reason: "",
+                        value5: "否",
+                        innerRelative: {
+                            dept: '',
+                            pos: '',
+                            name: '',
+                            relation: ''
+                        }
+                    },
+                    type: "",
+                    step: 1,
+                    sexVisible: false,
+                    marryVisible: false,
+                    sheetVisible: false,
+                    startDate: new Date("1995-01-01"),
+                    target: "",
+                    actions: [{
+                        name: '拍照',
+                        method: this.selectConfirm
+                    }, {
+                        name: '从相册中选择',
+                        method: this.selectConfirm
+                    }],
+                    sexSlots: [{
+                        values: ["", '男', "女"],
+                        textAlign: 'center'
+                    }],
+                    marrySlots: [{
+                        values: ["", "是", "否"],
+                        textAlign: 'center'
+                    }]
+                }
+            },
+            methods: {
+                sexHandler: function () {
+                    this.sexVisible = true;
+                },
+                marryHandler: function () {
+                    this.marryVisible = true;
+                },
+                sexValuesChange: function (picker, values) {
+                    this.form.sex = values[0];
+                },
+                marryValuesChange: function (picker, values) {
+                    this.form.marry = values[0];
+                },
+                IDfomatter: function () {
+                    console.log(this.form.IDcard);
+                },
+                openPick: function (type) {
+                    this.type = type;
+                    this.$refs.picker.open();
+                },
+                openSelect: function (target) {
+                    this.sheetVisible = true
+                    this.target = target;
+                },
+                selectConfirm: function (parma) {
+                    if (this.target == "eduExp1") {
+                        this.form.eduExp1.eduction = parma.name;
+                    } else if (this.target == "eduExp2") {
+                        this.form.eduExp2.eduction = parma.name;
+                    }
+                },
+                handleConfirm: function (date) {
+                    let newDate = formatDate(date, "yyyy/MM/dd")
+                    if (this.type == 'marjor1Start') {
+                        this.form.eduExp1.startTime = newDate;
+                    } else if (this.type == 'marjor1End') {
+                        this.form.eduExp1.endTime = newDate;
+                    } else if (this.type == 'marjor2Start') {
+                        this.form.eduExp2.startTime = newDate;
+                    } else if (this.type == 'marjor2End') {
+                        this.form.eduExp2.endTime = newDate;
+                    } else if (this.type == 'work1Start') {
+                        this.form.workExp1.startTime = newDate;
+                    } else if (this.type == 'work1End') {
+                        this.form.workExp1.endTime = newDate;
+                    } else if (this.type == 'work2Start') {
+                        this.form.workExp2.startTime = newDate;
+                    } else if (this.type == 'work2End') {
+                        this.form.workExp2.endTime = newDate;
+                    } else if (this.type == 'work3Start') {
+                        this.form.workExp3.startTime = newDate;
+                    } else if (this.type == 'work3End') {
+                        this.form.workExp3.endTime = newDate;
+                    } else if (this.type == 'arriveTime') {
+                        this.form.arriveTime = newDate;
+                    }
+                }
+
+            }
+        })
+    </script>
+
+</body>
+
+</html>

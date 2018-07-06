@@ -1,8 +1,8 @@
 ﻿/* 性别选择 */
 .filter-item.sex-choice .el-select {
-    width: 30%;
-    float: left;
-    margin-right: 2%;
+    width: 30% !important;
+    float: left !important;
+    margin-right: 2% !important;
 }
 .sex-choice .age-choice {
     width:66% !important;

@@ -40,13 +40,22 @@
                     <li class="active">
                         <a href="#">招聘管理</a>
                         <ul>
-                            <li><a href="./waitInterview.html">待面试</a> </li>
-                            <li><a href="./waitCome.html">已入职</a></li>
-                            <li><a href="./sendOffer.html">发送offer</a></li>
+                            <li>
+                                <a href="#">职位申请列表</a>
+                            </li>
+                            <li>
+                                <a href="./waitInterview.html">待面试</a>
+                            </li>
+                            <li>
+                                <a href="./sendOffer.html">待入职</a>
+                            </li>
+                            <li >
+                                <a href="./waitCome.html">已入职</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="./post-manage.html">岗位管理</a>
+                        <a href="./post-manage.html">招聘任务</a>
                     </li>
                     <li>
                         <a href="./resume-manage.html">简历管理</a>
@@ -62,33 +71,33 @@
             <i></i>
             <li>
                 <img src="./images/nav3.png" alt="">
-                <span>
+                <a href="#">
                     绩效考核管理
-                </span>
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
                 <img src="./images/nav4.png" alt="">
-                <span>
+                <a href="#">
                     培训开发管理
-                </span>
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
                 <img src="./images/nav5.png" alt="">
-                <span>
+                <a href="#">
                     薪资福利管理
-                </span>
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
                 <img src="./images/nav6.png" alt="">
-                <span>
+                <a href="#">
                     统计分析
-                </span>
+                </a>
                 <ul></ul>
             </li>
             <i></i>
@@ -221,7 +230,7 @@
                         </el-form-item>
                         <el-form-item label="文件上传" prop="fileList">
                             <el-upload class="upload-demo" multiple :file-list="fileList" ref="uploadfile" action="https://jsonplaceholder.typicode.com/posts/"
-                                :on-remove="handleRemove" :on-error="fileUploadError" :before-upload="newFiles"  :auto-upload="false">
+                                :on-remove="handleRemove" :on-error="fileUploadError" :before-upload="newFiles" :auto-upload="false">
                                 <el-button size="small" type="primary">点击上传</el-button>
                             </el-upload>
                         </el-form-item>

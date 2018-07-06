@@ -57,7 +57,7 @@ var commData = {
         value: '前端工程师',
         label: '前端工程师'
     }],
-    baseUrl: "http://172.16.1.101:8080/HRM2018", //接口地址
+    baseUrl: "http://172.16.1.79:8080/HRM2018", //接口地址
 };
 
 var commMethod = {
@@ -125,5 +125,14 @@ var commMethod = {
         var d = new Date;
         d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
         window.document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
-    }
+    },
+    ajax:function (url,data,cb) { 
+        $.ajax({
+            type:"POSt",
+            url:url,
+            data:data,
+            dataType:"text",
+            success:cb
+        })
+     }
 }

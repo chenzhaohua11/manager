@@ -39,19 +39,22 @@
                     <li class="active">
                         <a href="./candidate.html">招聘管理</a>
                         <ul>
-                            <li >
-                                <a href="./waitInterview.html">待面试</a>
+                            <li>
+                                <a href="#">职位申请列表</a>
                             </li>
                             <li>
-                                <a href="./waitCome.html">已入职</a>
+                                <a href="./waitInterview.html">待面试</a>
                             </li>
                             <li class="sel">
-                                <a href="#">发送offer</a>
+                                <a href="#">待入职</a>
+                            </li>
+                            <li >
+                                <a href="./waitCome.html">已入职</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="./post-manage.html">岗位管理</a>
+                        <a href="./post-manage.html">招聘任务</a>
                     </li>
                     <li>
                         <a href="./resume-manage.html">简历管理</a>
@@ -67,33 +70,33 @@
             <i></i>
             <li>
                 <img src="./images/nav3.png" alt="">
-                <span>
+                <a href="#">
                     绩效考核管理
-                </span>
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
                 <img src="./images/nav4.png" alt="">
-                <span>
+                <a href="#">
                     培训开发管理
-                </span>
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
                 <img src="./images/nav5.png" alt="">
-                <span>
+                <a href="#">
                     薪资福利管理
-                </span>
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
                 <img src="./images/nav6.png" alt="">
-                <span>
+                <a href="#">
                     统计分析
-                </span>
+                </a>
                 <ul></ul>
             </li>
             <i></i>
@@ -132,9 +135,9 @@
                     <el-table-column prop="iscome" label="勾选是否入职">
                         <template slot-scope="scope">
                             <el-radio-group v-model="scope.row.iscome" @change="changeState(scope.row)">
-                                    <el-radio label="1">是</el-radio>
-                                    <el-radio label="0">否</el-radio>                        
-                            </el-radio-group>                        
+                                <el-radio label="1">是</el-radio>
+                                <el-radio label="0">否</el-radio>
+                            </el-radio-group>
                         </template>
                     </el-table-column>
                 </el-table>

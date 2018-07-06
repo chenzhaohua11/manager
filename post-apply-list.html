@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>职位申请表</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+    <script src="./js/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .nav {
+            margin-bottom: 3pt;
+        }
+
+        .nav .mint-tab-item-label {
+            font-size: 18pt;
+            font-family: PingFang-SC-Medium;
+        }
+
+        .table-list li {
+            height: 67pt;
+            width: 100%;
+            overflow: hidden;
+            background: #fff;
+            margin-bottom: 3pt;
+            margin-top: 3pt
+        }
+
+        .table-list li div {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .table-list li div.avater {
+            width: 51pt;
+            float: left;
+            height: 51pt;
+            margin: 8pt 20pt;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+        }
+
+        .table-list li div.avater>img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 50%;
+        }
+
+        .table-list li div.msg {
+            height: 40pt;
+            width: 246pt;
+            float: left;
+            margin: 15pt 0pt;
+            background: #fff;
+        }
+
+        .table-list li div.state {
+            width: 64pt;
+            height: 22pt;
+            line-height: 22pt;
+            border-radius: 2pt;
+            float: right;
+            overflow: visible;
+            margin: 25pt 0pt;
+            margin-right: 40pt;
+            text-align: center;
+            position: relative;
+        }
+
+        .table-list li div.state.state1 {
+            border: 1px solid #10AC31;
+            color: #10AC31;
+        }
+
+        .table-list li div.state.state2 {
+            border: 1px solid #E70B0B;
+            color: #E70B0B;
+        }
+
+        .table-list li div.state.state3 {
+            border: 1px solid #007DFF;
+            color: #007DFF;
+        }
+
+        .table-list li div.state.state4 {
+            border: 1px solid #D88406;
+            color: #D88406;
+        }
+
+        .table-list li div.state i {
+            position: absolute;
+            width: 22pt;
+            height: 22pt;
+            right: -32pt;
+        }
+
+        .msg .name {
+            width: 50pt;
+            font-size: 15pt;
+        }
+
+        .table-list {
+            background: #F5F7FA;
+            padding-bottom: 6pt;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="nav">
+            <mt-navbar v-model="selected">
+                <mt-tab-item id="1">全部(10)</mt-tab-item>
+                <mt-tab-item id="2">初试(4)</mt-tab-item>
+                <mt-tab-item id="3">复试(6)</mt-tab-item>
+
+            </mt-navbar>
+        </div>
+        <div class="contanier">
+            <mt-tab-container v-model="selected">
+                <mt-tab-container-item id="1">
+                    <ul class="table-list">
+                        <li @click="toDetial">
+                            <div class="avater">
+                                <img src="./images/avater.jpg" alt="">
+                            </div>
+                            <div class="msg">
+                                <p class="name">某先生</p>
+                                <p class="desc">
+                                    UI设计师 | 29岁 | 15800001236 | 未婚 | 本科
+                                </p>
+                            </div>
+                            <div class="state state1">
+                                进入复试
+                                <i class="mint-cell-allow-right"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </mt-tab-container-item>
+                <mt-tab-container-item id="2">
+                    <ul class="table-list">
+                        <li @click="toDetial">
+                            <div class="avater">
+                                <img src="./images/avater.jpg" alt="">
+                            </div>
+                            <div class="msg">
+                                <p class="name">某先生</p>
+                                <p class="desc">
+                                    UI设计师 | 29岁 | 15800001236 | 未婚 | 本科
+                                </p>
+                            </div>
+                            <div class="state state1">
+                                进入复试
+                                <i class="mint-cell-allow-right"></i>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </mt-tab-container-item>
+                <mt-tab-container-item id="3">
+                    <ul class="table-list">
+                        <li @click="toDetial">
+                            <div class="avater">
+                                <img src="./images/avater.jpg" alt="">
+                            </div>
+                            <div class="msg">
+                                <p class="name">某先生</p>
+                                <p class="desc">
+                                    UI设计师 | 29岁 | 15800001236 | 未婚 | 本科
+                                </p>
+                            </div>
+                            <div class="state state1">
+                                进入复试
+                                <i class="mint-cell-allow-right"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </mt-tab-container-item>
+            </mt-tab-container>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    selected: "1"
+                }
+            },
+            created: function () {
+
+            },
+            methods: {
+                getRequestData:function() {},
+                toDetial: function (val) {
+                    console.log(val)
+                },
+
+            }
+        })
+    </script>
+</body>
+
+</html>

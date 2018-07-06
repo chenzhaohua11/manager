@@ -22,7 +22,10 @@
         </div>
         <ul id="nav-list">
             <li>
-                <img src="./images/nav1.png" alt=""> 人力资源规划
+                <img src="./images/nav1.png" alt="">
+                <a href="#">
+                    人力资源规划
+                </a> 
                 <ul></ul>
             </li>
             <i></i>
@@ -36,7 +39,7 @@
                         <a href="./candidate.html">招聘管理</a>
                     </li>
                     <li>
-                        <a href="./post-manage.html">岗位管理</a>
+                        <a href="./post-manage.html">招聘任务</a>
                     </li>
                     <li>
                         <a href="./resume-manage.html">简历管理</a>
@@ -51,22 +54,37 @@
             </li>
             <i></i>
             <li>
-                <img src="./images/nav3.png" alt=""> 绩效考核管理
+                <img src="./images/nav3.png" alt=""> 
+                <a href="#">
+
+                    绩效考核管理
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
-                <img src="./images/nav4.png" alt=""> 培训开发管理
+                <img src="./images/nav4.png" alt=""> 
+                <a href="#">
+
+                    培训开发管理
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
-                <img src="./images/nav5.png" alt=""> 薪资福利管理
+                <img src="./images/nav5.png" alt="">
+                <a href="#">
+
+                    薪资福利管理
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
-                <img src="./images/nav6.png" alt=""> 统计分析
+                <img src="./images/nav6.png" alt=""> 
+                <a href="#">
+                    统计分析
+                </a>
                 <ul></ul>
             </li>
             <i></i>
@@ -117,8 +135,87 @@
                 <div class="handler-button">
                     <el-button type="primary" icon="el-icon-edit" circle plain @click="down">编辑</el-button>
                     <el-button type="primary" icon="el-icon-delete" circle plain @click="delate">删除</el-button>
-                    <el-button type="primary" icon="el-icon-plus" circle plain @click="moveToOwn">新增</el-button>
+                    <el-button type="primary" icon="el-icon-plus" circle plain @click="centerDialogVisible = true">新增</el-button>
                 </div>
+                <!-- 新增弹窗 -->
+                <el-dialog title="新增校企合作" :visible.sync="centerDialogVisible" width="65%" center>
+                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+                        <table>
+                            <tr>
+                                <td>学校名称</td>
+                                <td colspan="3">
+                                    <el-form-item prop="school">
+                                        <el-input v-model="ruleForm.school"></el-input>
+                                    </el-form-item>
+                                </td>
+                                <td>意向程度</td>
+                                <td colspan="3">
+                                    <el-form-item prop="name">
+                                        <el-input v-model="ruleForm.name"></el-input>
+                                    </el-form-item>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>校方负责人</td>
+                                <td colspan="3">
+                                    <el-form-item prop="name">
+                                        <el-input v-model="ruleForm.name"></el-input>
+                                    </el-form-item>
+                                </td>
+                                <td>日期</td>
+                                <td colspan="3">
+                                    <el-form-item prop="name">
+                                        <el-input v-model="ruleForm.name"></el-input>
+                                    </el-form-item>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>联系方式1</td>
+                                <td colspan="3" prop="name">
+                                    <el-form-item>
+                                        <el-input v-model="ruleForm.name"></el-input>
+                                    </el-form-item>
+                                </td>
+                                <td>企业对接人</td>
+                                <td colspan="3">
+                                    <el-form-item prop="name">
+                                        <el-input v-model="ruleForm.name"></el-input>
+                                    </el-form-item>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>联系方式2</td>
+                                <td colspan="3">
+                                    <el-form-item prop="name">
+                                        <el-input v-model="ruleForm.name"></el-input>
+                                    </el-form-item>
+                                </td>
+                                <td>是否签协议</td>
+                                <td colspan="3">
+                                    <el-form-item prop="name">
+                                        <el-input v-model="ruleForm.name"></el-input>
+                                    </el-form-item>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">情况描述</td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">
+                                    <el-form-item prop="name">
+                                        <el-input type="textarea" :rows="5" placeholder="请输入" v-model="ruleForm.name"></el-input>
+                                    </el-form-item>
+                                </td>
+                            </tr>
+                        </table>
+                        <el-form-item>
+                            <el-button @click="centerDialogVisible = false">取 消</el-button>
+                            <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+                        </el-form-item>
+                    </el-form>
+
+                </el-dialog>
+
                 <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @row-dblclick="gotoDetail">
                     <el-table-column prop="selected" width="55">
                         <template slot-scope="scope">

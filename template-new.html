@@ -23,7 +23,10 @@
         </div>
         <ul id="nav-list">
             <li>
-                <img src="./images/nav1.png" alt=""> 人力资源规划
+                <img src="./images/nav1.png" alt=""> 
+                <a href="#">
+                    人力资源规划
+                </a>
                 <ul></ul>
             </li>
             <i></i>
@@ -37,7 +40,7 @@
                         <a href="./candidate.html">招聘管理</a>
                     </li>
                     <li>
-                        <a href="./post-manage.html">岗位管理</a>
+                        <a href="./post-manage.html">招聘任务</a>
                     </li>
                     <li>
                         <a href="./resume-manage.html">简历管理</a>
@@ -57,22 +60,34 @@
             </li>
             <i></i>
             <li>
-                <img src="./images/nav3.png" alt=""> 绩效考核管理
+                <img src="./images/nav3.png" alt="">
+                <a href="#">
+                    绩效考核管理
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
-                <img src="./images/nav4.png" alt=""> 培训开发管理
+                <img src="./images/nav4.png" alt="">
+                <a href="#">
+                    培训开发管理
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
-                <img src="./images/nav5.png" alt=""> 薪资福利管理
+                <img src="./images/nav5.png" alt="">
+                <a href="#">
+                    薪资福利管理
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
-                <img src="./images/nav6.png" alt=""> 统计分析
+                <img src="./images/nav6.png" alt="">
+                <a href="#">
+                    统计分析
+                </a>
                 <ul></ul>
             </li>
             <i></i>
@@ -105,8 +120,8 @@
                             <el-col :span="12">
                                 <el-form-item label="类型" prop="type">
                                     <el-select v-model="ruleForm.type" placeholder="选择类型">
-                                        <el-option label="区域一" value="shanghai"></el-option>
-                                        <el-option label="区域二" value="beijing"></el-option>
+                                        <el-option v-for="item in typeList" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
@@ -114,21 +129,21 @@
 
                         <el-row :gutter="60">
                             <el-col :span="12">
-                                <el-form-item label="状态" prop="status">
-                                    <el-select v-model="ruleForm.status" placeholder="默认开启状态">
-                                        <el-option label="区域一" value="shanghai"></el-option>
-                                        <el-option label="区域二" value="beijing"></el-option>
+                                <el-form-item label="状态" prop="state">
+                                    <el-select v-model="ruleForm.state" placeholder="默认开启状态">
+                                        <el-option v-for="item in stateList" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
-                                <el-form-item label="模板用途" prop="tempUse">
-                                    <el-input v-model="ruleForm.tempUse"></el-input>
+                                <el-form-item label="模板用途" prop="used">
+                                    <el-input v-model="ruleForm.used"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <el-form-item label="邮件内容" prop="desc">
-                            <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+                        <el-form-item label="邮件内容" prop="content">
+                            <el-input type="textarea" v-model="ruleForm.content"></el-input>
                         </el-form-item>
                         <template prop="default">
                             <el-checkbox v-model="ruleForm.default">设为默认模版</el-checkbox>

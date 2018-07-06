@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>复试</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/interview.css">
+    <script src="./js/vue.js"></script>
+    <script src="./js/ele-index.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
+    <script src="./js/interviewStepOne.js"></script>
+</head>
+
+<body>
+    <div id="left-nav">
+        <div id="gxcf-title">
+            <span>人力资源管理系统</span>
+        </div>
+        <ul id="nav-list">
+            <li>
+                <img src="./images/nav1.png" alt="">
+                <a href="#">
+                    人力资源规划
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav2.png" alt="">
+                <a href="./index.html">
+                    人才招聘管理
+                </a>
+                <ul>
+                    <li class="active">
+                        <a href="./candidate.html">招聘管理</a>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="./post-manage.html">岗位管理</a>
+                    </li>
+                    <li>
+                        <a href="./resume-manage.html">简历管理</a>
+                    </li>
+                    <li>
+                        <a href="./school-cooperation.html">校企合作</a>
+                    </li>
+                    <li>
+                        <a href="./template-list.html">系统设置</a>
+                    </li>
+                </ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav3.png" alt="">
+                <a href="#">
+                    绩效考核管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav4.png" alt="">
+                <a href="#">
+                    培训开发管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav5.png" alt="">
+                <a href="#">
+                    薪资福利管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav6.png" alt="">
+                <a href="#">
+                    统计分析
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+        </ul>
+    </div>
+    <div id="right-container">
+        <div id="right-top">
+            <span class="right-title">{{interviewee.name}} - {{interviewee.intentJob}} - {{interviewee.education}} - {{interviewee.jobAge}}工作经验</span>
+        </div>
+        <div id="right-content">
+            <div class="content-header">
+                <div class="content-title">面试流程</div>
+                <ul>
+                    <li class="sel">
+                        <span>通知面试 </span>
+                        <i>&Gt;</i>
+                    </li>
+                    <li>
+                        <span>面试记录</span>
+                        <i>&Gt;</i>
+                    </li>
+                    <li>
+                        <span>发送offer</span>
+                        <i>&Gt;</i>
+                    </li>
+                    <li>
+                        <span>完成</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-choice">
+                <div class="content-title">条件筛选</div>
+                <div class="content-choice-body">
+                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                        <el-row :gutter="20">
+                            <el-col :span="8">
+                                <el-form-item label="面试类型" prop="postName">
+                                    <el-select v-model="ruleForm.postName" placeholder="面试类型">
+                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item label="通知方式" prop="postName">
+                                    <el-select v-model="ruleForm.postName" placeholder="请选择通知方式">
+                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item label="面试时间" prop="postName">
+                                    <el-select v-model="ruleForm.postName" placeholder="请选择面试时间">
+                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="20">
+                            <el-col :span="8">
+                                <el-form-item label="面试官" prop="postName">
+                                    <el-select v-model="ruleForm.postName" placeholder="请选择面试官">
+                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item label="人事负责人" prop="postName">
+                                    <el-select v-model="ruleForm.postName" placeholder="请选择人事负责人">
+                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item label="联系方式" prop="recruitNum">
+                                    <el-input v-model="ruleForm.recruitNum" placeholder="请输入人事负责人联系方式" class="content-choice-contact"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="20">
+                            <el-col :span="8">
+                                <el-form-item label="发送模板" prop="postName">
+                                    <el-select v-model="ruleForm.postName" placeholder="请选择模板">
+                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item label="面试地点" prop="postName">
+                                    <el-select v-model="ruleForm.postName" placeholder="请选择面试地点">
+                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item>
+                                    <el-button type="primary" @click="submitForm('ruleForm')">发送</el-button>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </el-form>
+                </div>
+            </div>
+            <div class="content-message">
+                <div class="content-title">基本信息</div>
+            </div>
+            <div class="content-main">
+                <div class="content-title">信息记录</div>
+                <div class="content-step">
+                    <el-steps direction="vertical" :active="1">
+                        <el-step title="步骤 1"></el-step>
+                        <el-step title="步骤 2"></el-step>
+                        <el-step title="步骤 3" description="我是小可爱"></el-step>
+                        <el-step title="步骤 4" description="这是一段很长很长很长的描述性文字"></el-step>
+                    </el-steps>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

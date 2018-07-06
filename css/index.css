@@ -141,15 +141,15 @@
 }
 /* 内方块 */
 .index-footer .msgbox>.el-row {
-    height: 30%;
-    width: 100%;
-    margin: auto;
-    margin-bottom: 20px;
+    height: 30% !important;
+    width: 100% !important;
+    margin: auto !important;
+    margin-bottom: 20px !important;
 }
 .index-footer .msgbox>.el-row>.el-col {
-    background: #EFF6FC;
-    color: #666;
-    border-radius: 10px;
+    background: #EFF6FC !important;
+    color: #666 !important ;
+    border-radius: 10px !important;
 }
 .inner-msgbox {
     height: 100%;
@@ -210,5 +210,5 @@
     cursor: pointer;
 }
 .donate_bar .el-row .el-col:last-child {
-    text-align: right;
+    text-align: right !important;
 }

@@ -42,7 +42,6 @@ function init() {
                         res = JSON.parse(res);
                         res = JSON.parse(res.body);
                         that.tableData = res.rows;
-                        console.log(res);
                         that.$data.loading = false;
                     }
                 });
