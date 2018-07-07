@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面试记录</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/interview.css">
+    <script src="./js/vue.js"></script>
+    <script src="./js/ele-index.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
+    <script src="./js/interviewStepTwo.js"></script>
+</head>
+
+<body>
+    <div id="left-nav">
+        <div id="gxcf-title">
+            <span>人力资源管理系统</span>
+        </div>
+        <ul id="nav-list">
+            <li>
+                <img src="./images/nav1.png" alt="">
+                <a href="#">
+                    人力资源规划
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav2.png" alt="">
+                <a href="./index.html">
+                    人才招聘管理
+                </a>
+                <ul>
+                    <li class="active">
+                        <a href="./candidate.html">招聘管理</a>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="./post-manage.html">岗位管理</a>
+                    </li>
+                    <li>
+                        <a href="./resume-manage.html">简历管理</a>
+                    </li>
+                    <li>
+                        <a href="./school-cooperation.html">校企合作</a>
+                    </li>
+                    <li>
+                        <a href="./template-list.html">系统设置</a>
+                    </li>
+                </ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav3.png" alt="">
+                <a href="#">
+                    绩效考核管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav4.png" alt="">
+                <a href="#">
+                    培训开发管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav5.png" alt="">
+                <a href="#">
+                    薪资福利管理
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+            <li>
+                <img src="./images/nav6.png" alt="">
+                <a href="#">
+                    统计分析
+                </a>
+                <ul></ul>
+            </li>
+            <i></i>
+        </ul>
+    </div>
+    <div id="right-container">
+        <div id="right-top">
+            <span class="right-title">{{interviewee.name}} - {{interviewee.intentJob}} - {{interviewee.education}} - {{interviewee.jobAge}}工作经验</span>
+        </div>
+        <div id="right-content">
+            <div class="content-header">
+                <div class="content-title">面试流程</div>
+                <ul>
+                    <li class="sel">
+                        <span>通知面试 </span>
+                        <b>&Gt;</b>
+                    </li>
+                    <li class="sel">
+                        <span>面试记录</span>
+                        <b>&Gt;</b>
+                    </li>
+                    <li>
+                        <span>发送offer</span>
+                        <b>&Gt;</b>
+                    </li>
+                    <li>
+                        <span>完成</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-message">
+                <div class="content-title">基本信息</div>
+                <div class="content-message-body">
+                    <div class="content-message-introduce">
+                        <div>
+                            <b>♂格瑞特</b>&nbsp;
+                            <span>UI设计师</span>&nbsp;|&nbsp;
+                            <span>8岁</span>&nbsp;|&nbsp;
+                            <span>132000000000</span>&nbsp;|&nbsp;
+                            <span>本科</span>&nbsp;|&nbsp;
+                            <span>湖南大学</span>
+                        </div>
+                        <p>个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简</p>
+                    </div>
+                    <div class="content-message-btn">
+                        <el-row>
+                            <el-button type="primary" plain>职位申请表</el-button>
+                            <el-button type="primary" plain>个人简历</el-button>
+                        </el-row>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-table clearfix">
+                <div class="content-title">面试记录<span>一</span></div>
+                <div class="content-table-body">
+                    <div class="table-header">符合岗位要求，推荐下一轮面试</div>
+                    <div class="table-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="1">评价维度</th>
+                                    <th colspan="3">评价结果</th>
+                                    <th colspan="4">情况描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="1">学历</td>
+                                    <td colspan="3">符合</td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">专业技能</td>
+                                    <td colspan="3">符合</td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">工作经验</td>
+                                    <td colspan="3">符合</td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">岗位意向</td>
+                                    <td colspan="3">一般</td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">文化匹配度</td>
+                                    <td colspan="3">符合</td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">面试意见</td>
+                                    <td colspan="7">从沟通能力/专业技能/离职原因/个人期望/职业发展综合素质整体进行评价，从沟通能力/专业技能/离职原因/个人期望/职业发展综合素质整体进行评价。</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-table clearfix">
+                <div class="content-title">面试记录<span>二</span></div>
+                <div class="content-table-body">
+                    <div class="table-header">面试记录</div>
+                    <div class="table-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="1">评价维度</th>
+                                    <th colspan="3">评价结果</th>
+                                    <th colspan="4">情况描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="1">学历</td>
+                                    <td colspan="2">
+                                        <template>
+                                            <el-radio label="1">符合</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">不符合</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">专业技能</td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">优秀</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">良好</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">差</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">工作经验</td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">符合</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">部分符合</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">不符合</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">岗位意向</td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">强烈</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">一般</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">无意向</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">文化匹配度</td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">符合</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">基本符合</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="1">
+                                        <template>
+                                            <el-radio label="1">不符合</el-radio>
+                                        </template>
+                                    </td>
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">面试意见</td>
+                                    <td colspan="7">从沟通能力/专业技能/离职原因/个人期望/职业发展综合素质整体进行评价，从沟通能力/专业技能/离职原因/个人期望/职业发展综合素质整体进行评价。</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8">
+                                        <template>
+                                            <el-radio-group>
+                                                <el-radio :label="3">符合，建议录用</el-radio>
+                                                <el-radio :label="6">符合岗位基本要求，推荐下一轮面试
+                                                    <el-select v-model="form.region" placeholder="请指定面试官">
+                                                        <el-option label="区域一" value="shanghai"></el-option>
+                                                        <el-option label="区域二" value="beijing"></el-option>
+                                                    </el-select>
+                                                </el-radio>
+                                                <el-radio :label="9">基本符合，备选</el-radio>
+                                                <el-radio :label="10">不符合，回绝</el-radio>
+                                            </el-radio-group>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-btn">
+                        <el-row>
+                            <el-button type="primary">确认</el-button>
+                        </el-row>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

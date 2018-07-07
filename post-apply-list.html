@@ -9,6 +9,8 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
     <script src="./js/vue.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./js/rem.js"></script>
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
     <style>
@@ -16,27 +18,26 @@
             margin: 0;
             padding: 0;
         }
-
+        body {
+            background: #F5F7FA;
+        }
         li {
             list-style: none;
         }
-
-        .nav {
-            margin-bottom: 3pt;
+        .title {
+            height: 22pt;
+            padding: 3pt 0;
+            line-height: 22pt;
+            text-align: center;
+            font-size: 20pt;
+            background: #ccc;
         }
-
-        .nav .mint-tab-item-label {
-            font-size: 18pt;
-            font-family: PingFang-SC-Medium;
-        }
-
         .table-list li {
             height: 67pt;
             width: 100%;
             overflow: hidden;
             background: #fff;
             margin-bottom: 3pt;
-            margin-top: 3pt
         }
 
         .table-list li div {
@@ -48,7 +49,7 @@
             width: 51pt;
             float: left;
             height: 51pt;
-            margin: 8pt 20pt;
+            margin: 8pt 10pt 8pt 20pt;
             border: 1px solid #ccc;
             border-radius: 50%;
         }
@@ -62,9 +63,9 @@
 
         .table-list li div.msg {
             height: 40pt;
-            width: 246pt;
+            width: 200pt;
             float: left;
-            margin: 15pt 0pt;
+            margin: 18pt 0pt;
             background: #fff;
         }
 
@@ -107,90 +108,34 @@
             height: 22pt;
             right: -32pt;
         }
-
         .msg .name {
             width: 50pt;
             font-size: 15pt;
-        }
-
-        .table-list {
-            background: #F5F7FA;
-            padding-bottom: 6pt;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <div class="nav">
-            <mt-navbar v-model="selected">
-                <mt-tab-item id="1">全部(10)</mt-tab-item>
-                <mt-tab-item id="2">初试(4)</mt-tab-item>
-                <mt-tab-item id="3">复试(6)</mt-tab-item>
-
-            </mt-navbar>
-        </div>
+        <div class="title">职位申请列表</div>
         <div class="contanier">
-            <mt-tab-container v-model="selected">
-                <mt-tab-container-item id="1">
-                    <ul class="table-list">
-                        <li @click="toDetial">
-                            <div class="avater">
-                                <img src="./images/avater.jpg" alt="">
-                            </div>
-                            <div class="msg">
-                                <p class="name">某先生</p>
-                                <p class="desc">
-                                    UI设计师 | 29岁 | 15800001236 | 未婚 | 本科
-                                </p>
-                            </div>
-                            <div class="state state1">
-                                进入复试
-                                <i class="mint-cell-allow-right"></i>
-                            </div>
-                        </li>
-                    </ul>
-                </mt-tab-container-item>
-                <mt-tab-container-item id="2">
-                    <ul class="table-list">
-                        <li @click="toDetial">
-                            <div class="avater">
-                                <img src="./images/avater.jpg" alt="">
-                            </div>
-                            <div class="msg">
-                                <p class="name">某先生</p>
-                                <p class="desc">
-                                    UI设计师 | 29岁 | 15800001236 | 未婚 | 本科
-                                </p>
-                            </div>
-                            <div class="state state1">
-                                进入复试
-                                <i class="mint-cell-allow-right"></i>
-                            </div>
-                        </li>
-                        
-                    </ul>
-                </mt-tab-container-item>
-                <mt-tab-container-item id="3">
-                    <ul class="table-list">
-                        <li @click="toDetial">
-                            <div class="avater">
-                                <img src="./images/avater.jpg" alt="">
-                            </div>
-                            <div class="msg">
-                                <p class="name">某先生</p>
-                                <p class="desc">
-                                    UI设计师 | 29岁 | 15800001236 | 未婚 | 本科
-                                </p>
-                            </div>
-                            <div class="state state1">
-                                进入复试
-                                <i class="mint-cell-allow-right"></i>
-                            </div>
-                        </li>
-                    </ul>
-                </mt-tab-container-item>
-            </mt-tab-container>
+            <ul class="table-list">
+                <li @click="toDetial">
+                    <div class="avater">
+                        <img src="./images/avater.jpg" alt="">
+                    </div>
+                    <div class="msg">
+                        <p class="name">某先生</p>
+                        <p class="desc">
+                            UI设计师 | 29岁 | 15800001236 | 未婚 | 本科
+                        </p>
+                    </div>
+                    <div class="state state1">
+                        进入复试
+                        <i class="mint-cell-allow-right"></i>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
     <script>
@@ -205,7 +150,7 @@
 
             },
             methods: {
-                getRequestData:function() {},
+                getRequestData: function () {},
                 toDetial: function (val) {
                     console.log(val)
                 },

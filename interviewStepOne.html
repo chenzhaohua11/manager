@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>复试</title>
+    <title>通知面试</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/interview.css">
@@ -100,15 +100,15 @@
                 <ul>
                     <li class="sel">
                         <span>通知面试 </span>
-                        <i>&Gt;</i>
+                        <b>&Gt;</b>
                     </li>
                     <li>
                         <span>面试记录</span>
-                        <i>&Gt;</i>
+                        <b>&Gt;</b>
                     </li>
                     <li>
                         <span>发送offer</span>
-                        <i>&Gt;</i>
+                        <b>&Gt;</b>
                     </li>
                     <li>
                         <span>完成</span>
@@ -142,6 +142,8 @@
                                         <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
+                                    <span class="content-choice-person">已通知
+                                        <b>15</b>人</span>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -196,6 +198,25 @@
             </div>
             <div class="content-message">
                 <div class="content-title">基本信息</div>
+                <div class="content-message-body">
+                    <div class="content-message-introduce">
+                        <div>
+                            <b>♂格瑞特</b>&nbsp;
+                            <span>UI设计师</span>&nbsp;|&nbsp;
+                            <span>8岁</span>&nbsp;|&nbsp;
+                            <span>132000000000</span>&nbsp;|&nbsp;
+                            <span>本科</span>&nbsp;|&nbsp;
+                            <span>湖南大学</span>
+                        </div>
+                        <p>个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简</p>
+                    </div>
+                    <div class="content-message-btn">
+                        <el-row>
+                            <el-button type="primary" plain>职位申请表</el-button>
+                            <el-button type="primary" plain>个人简历</el-button>
+                        </el-row>
+                    </div>
+                </div>
             </div>
             <div class="content-main">
                 <div class="content-title">信息记录</div>
@@ -204,7 +225,7 @@
                         <el-step title="步骤 1"></el-step>
                         <el-step title="步骤 2"></el-step>
                         <el-step title="步骤 3" description="我是小可爱"></el-step>
-                        <el-step title="步骤 4" description="这是一段很长很长很长的描述性文字"></el-step>
+                        <el-step title="步骤 4" description="我们一起学猫叫"></el-step>
                     </el-steps>
                 </div>
             </div>

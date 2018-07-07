@@ -1,14 +1,25 @@
 ul{
     list-style:none;
 }
+.clearfix:after {
+    content: '';
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+    overflow: hidden;
+}
 #right-container #right-content{
     background: #EDF1F5;
     padding: 1%;
+    overflow: auto
 }
 #right-content .content-header,
 #right-content .content-choice,
 #right-content .content-main,
-#right-content .content-message{
+#right-content .content-message,
+#right-content .content-table{
     background: #fff;
 }
 #right-content .content-title{
@@ -35,44 +46,121 @@ ul{
     /* border: 1px solid #000; */
     position: relative;
     margin-top: 1.1%;
-    font-size: 24px;
+    font-size: 23px;
 }
-#right-content .content-header ul li i{
+#right-content .content-header ul li b{
    position: absolute;
    right: -10px;
    top: 0;
 }
 #right-content .content-choice{
     margin-top: 1.2%;
-    height: 22%;
-    padding-right: 12%;
-    padding-top: 1.5%;
+    height: 24%;
+    padding-right: 11.9%;
+    padding-top: 1.2%;
+}
+#right-content .content-choice .el-button{
+    padding: 9px 35px;
 }
 #right-content .content-choice .content-title{
-    margin-top: 5.3%;
+    margin-top: 5.6%;
 }
 #right-content .content-choice .content-choice-body{
     float: left;
     width: 88%;
 } 
 #right-content .content-choice .content-choice-contact{
-    width: 70.0%;
+    width: 69%;
+}
+#right-content .content-choice .content-choice-person{
+    padding-left: 10px;
+    color: #E80A0A;
 }
 #right-content .content-message{
     margin-top: 1.2%;
     height: 10%;
+    border-bottom: 2px solid #F4F4F6;
+}
+#right-content .content-message .content-message-body{
+    float: left;
+    width: 88%;
 }
 #right-content .content-message .content-title{
     margin-top: 2.1%;
 }
+#right-content .content-message .content-message-introduce{
+    width: 76%;
+    float: left;
+    margin-top: 1.1%;
+    padding-right: 2%;
+}
+#right-content .content-message .content-message-introduce>div{
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+}
+#right-content .content-message .content-message-introduce>div b{
+    font-weight: normal;
+    font-size: 24px;
+}
+#right-content .content-message .content-message-introduce>div span{
+    color: #5C5E66;
+}
+#right-content .content-message .content-message-introduce p{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #919399;
+    margin-top: 8px;
+}
+#right-content .content-message .content-message-btn{
+    width: 22%;
+    float: left;
+    margin-top: 1.8%;
+}
 #right-content .content-main{
-    margin-top: 1.2%;
     height: 40%;
-    padding: 20px 0px;
+    padding: 22px 0px;
 }
 #right-content .content-main .content-title{
     margin-top: 10.1%;
 }
 #right-content .content-main .content-step{
     height:100%;
+}
+#right-content .content-table{
+    padding: 1% 0;
+    margin-bottom: 10px;
+    text-align: center;
+} 
+#right-content .content-table .content-title{
+    margin-top: 9%;
+}
+#right-content .content-table .content-table-body{
+    float: left;
+    width: 88%;
+}
+#right-content .content-table .content-table-body .table-header{
+    height: 38px;
+    line-height: 38px;
+    color: #11A810;
+    font-size: 24px;
+    text-align: left
+}
+#right-content .content-table .content-table-body table{
+    width: 93.5%;
+    border:1px solid #E1E7ED; 
+    table-layout: fixed;
+}
+#right-content .content-table .content-table-body th,
+#right-content .content-table .content-table-body td {
+    border:1px solid #E1E7ED; 
+    height: 38px;
+    line-height: 38px;
+    padding-left: 10px;
+    text-align: left;
+}
+#right-content .content-table .table-btn {
+    margin-top: 15px;
 }
