@@ -22,7 +22,7 @@
         </div>
         <ul id="nav-list">
             <li>
-                <img src="./images/nav1.png" alt=""> 
+                <img src="./images/nav1.png" alt="">
                 <a href="#">
                     人力资源规划
                 </a>
@@ -38,7 +38,7 @@
                     <li>
                         <a href="./candidate.html">招聘管理</a>
                     </li>
-                    <li >
+                    <li>
                         <a href="./post-manage.html">招聘任务</a>
                     </li>
                     <li class="active">
@@ -62,7 +62,7 @@
             </li>
             <i></i>
             <li>
-                <img src="./images/nav4.png" alt=""> 
+                <img src="./images/nav4.png" alt="">
                 <a href="#">
                     培训开发管理
                 </a>
@@ -71,12 +71,12 @@
             <i></i>
             <li>
                 <img src="./images/nav5.png" alt="">
-                <a href="#"> 薪资福利管理 </a> 
+                <a href="#"> 薪资福利管理 </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
-                <img src="./images/nav6.png" alt=""> 
+                <img src="./images/nav6.png" alt="">
                 <a href="#">
                     统计分析
                 </a>
@@ -136,8 +136,15 @@
                             </el-option>
                         </el-select>
                     </div>
+                    <div class="filter-item">
+                        <p class="item-title">应聘职位</p>
+                        <el-select v-model="searchValue.state" placeholder="选择应聘职位">
+                            <el-option v-for="item in stateList" :key="item.value" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
                 </div>
-                <el-button type="primary" @click="searchValueChange">确认</el-button>
+                <el-button type="primary" @click="searchValueChange">查询</el-button>
             </div>
             <div class="mian-content">
                 <div class="mm-resume">
@@ -151,7 +158,7 @@
                             <div class="mm-number">0</div>
                         </el-col>
                         <el-col :span="6">
-                            <div class="grid-content">删除</div>
+                            <div class="grid-content">黑名单</div>
                             <div class="mm-number">5</div>
                         </el-col>
                         <el-col :span="6">
@@ -173,7 +180,7 @@
                     </el-table-column>
                     <el-table-column label="年龄" prop="age">
                     </el-table-column>
-                    <el-table-column label="应聘时间" prop="arriveTime">
+                    <el-table-column label="入库时间" prop="arriveTime">
                     </el-table-column>
                     <el-table-column label="操作" prop="reason">
                         <template slot-scope="scope">
@@ -181,7 +188,7 @@
                             <el-button class="mm-delete" type="text" size="small" icon="el-icon-delete" @click="removeList(scope.row)">删除</el-button>
                         </template>
                     </el-table-column>
-                    <el-table-column label="入库原因" prop="insReason">
+                    <el-table-column label="备注" prop="insReason">
                     </el-table-column>
                 </el-table>
                 <div class="pagination">

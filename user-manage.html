@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>招聘任务</title>
+    <title>用户管理</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./css/base.css">
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
-    <script src="./js/post-manage.js"></script>
+    <script src="./js/user-manage.js"></script>
 </head>
 
 <body>
@@ -37,12 +37,9 @@
                     <li>
                         <a href="./candidate.html">招聘管理</a>
                     </li>
-                    <li class="active">
-                        <a href="#">招聘任务</a>
-                        <ul>
-                            <li>
-                                <a href="./post-new.html">发布任务</a>
-                            </li>
+                    <li >
+                        <a href="./post-manage.html">招聘任务</a>
+                        <ul>                        
                         </ul>
                     </li>
                     <li>
@@ -51,8 +48,19 @@
                     <li>
                         <a href="./school-cooperation.html">校企合作</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="./template-list.html">系统设置</a>
+                        <ul>
+                            <li>
+                                <a href="./template-new.html">模版管理</a>
+                            </li>
+                            <li class="sel">
+                                <a href="#">用户管理</a>
+                            </li>
+                            <li>
+                                <a href="./system-setting.html">系统配置</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
@@ -93,7 +101,7 @@
     </div>
     <div id="right-container">
         <div id="right-top">
-            <span class="right-title">招聘任务</span>
+            <span class="right-title">用户管理</span>
             <div class="right-box">
                 <div class="search">
                     <i class="search-icon"></i>
@@ -108,67 +116,49 @@
                 <div class="filter-group">
                     <p class="group-title">筛选</p>
                     <div class="filter-item">
-                        <p class="item-title">岗位类型</p>
-                        <el-select v-model="searchValue.postName" placeholder="选择岗位类型">
-                            <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </div>
-                    <div class="filter-item">
-                        <p class="item-title">所属部门</p>
-                        <el-select v-model="searchValue.postLevel" placeholder="选择所属部门">
+                        <p class="item-title">部门</p>
+                        <el-select v-model="searchValue.postLevel" placeholder="默认显示所有">
                             <el-option v-for="item in postLevelList" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
-                        <p class="item-title">岗位名称</p>
-                        <el-select v-model="searchValue.deptName" placeholder="选择岗位名称">
+                        <p class="item-title">姓名</p>
+                        <el-select v-model="searchValue.deptName" placeholder="默认显示所有">
                             <el-option v-for="item in deptNameList" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
-                        <p class="item-title">紧急程度</p>
-                        <el-select v-model="searchValue.recruitNum" placeholder="选择紧急程度">
+                        <p class="item-title">角色</p>
+                        <el-select v-model="searchValue.recruitNum" placeholder="选择角色">
                             <el-option v-for="item in recruitNumList" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                         </el-select>
                     </div>
                 </div>
-                <el-button type="primary" @click="searchValueChange">确认</el-button>
+                <el-button type="primary" @click="searchValueChange">查询</el-button>
             </div>
             <div class="mian-content">
-                <p class="content-title">全部岗位</p>
-                <p class="content-dec">显示已关闭的岗位
+                <p class="content-title">列表信息</p>
+                <p class="content-dec">显示已禁止的角色
                     <el-switch v-model="value2" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
                 </p>
-                <div class="handler-button">
-                    <el-button type="primary" icon="el-icon-plus" circle plain @click="newPost">发布任务</el-button>
-                </div>
                 <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @select="handleSelection" @selection-change="handleSelectionChange"
                     @row-dblclick="gotoDetail">
-                    <el-table-column label="岗位名称" prop="postName" width="180">
+                    <el-table-column label="ID" prop="postName" width="180">
                     </el-table-column>
-                    <el-table-column label="需招人数" prop="postLevel">
+                    <el-table-column label="姓名" prop="postLevel">
                     </el-table-column>
-                    <el-table-column label="已招人数" prop="postType">
+                    <el-table-column label="角色" prop="postType">
                     </el-table-column>
-                    <el-table-column label="所属部门" prop="deptName">
-                    </el-table-column>
-                    <el-table-column label="紧急程度" prop="recruitNum">
-                    </el-table-column>
-                    <el-table-column label="人事负责人" prop="chargePerson">
-                    </el-table-column>
-                    <el-table-column label="发布时间" prop="preinterviewer">
+                    <el-table-column label="部门" prop="deptName">
                     </el-table-column>
                     <el-table-column label="状态" prop="reinterviewer">
                         <el-switch v-model="value2" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
                     </el-table-column>
                     <el-table-column label="操作" width="200">
                         <template slot-scope="scope">
-                            <el-button class="mm-see" type="text" size="small" icon="el-icon-view">查看详情</el-button>
-                            <el-button class="mm-delete" type="text" size="small" icon="el-icon-delete" @click="removeList(scope.row)">删除</el-button>
                             <el-button class="mm-edit" type="text" size="small" @click="edit(scope.row)" icon="el-icon-edit">编辑</el-button>
                         </template>
                     </el-table-column>

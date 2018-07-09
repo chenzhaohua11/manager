@@ -33,8 +33,6 @@ function init() {
             RsHandlerList: commData.RsHandlerList,
             //渠道列表
             newsChannelList: commData.newsChannelList,
-            //标签列表
-            markList: commData.markList,
             //api地址
             apiUrl: commData.baseUrl,
             //删选字段
@@ -47,7 +45,6 @@ function init() {
                 sex: '',
                 hrname: '',
                 source: '',
-                mark: '',
                 age1: '',
                 age2: '',
                 crrentPage: 1,

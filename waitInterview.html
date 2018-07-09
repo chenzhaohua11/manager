@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>候选人简历库</title>
+    <title>待面试</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/waitInterview.css">
@@ -40,7 +40,7 @@
                         <a href="./candidate.html">招聘管理</a>
                         <ul>
                             <li>
-                                <a href="#">职位申请列表</a>
+                                <a href="./postList.html">职位申请列表</a>
                             </li>
                             <li class="sel">
                                 <a href="#">待面试</a>
@@ -135,6 +135,11 @@
                     <el-table-column prop="education" label="学历">
                     </el-table-column>
                 </el-table>
+                <div class="pagination">
+                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="crrentPage"
+                        @current-change="currentChange">
+                    </el-pagination>
+                </div>
             </div>
         </div>
     </div>

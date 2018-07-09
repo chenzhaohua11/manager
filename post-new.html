@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>新增岗位</title>
+    <title>发布任务</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/template-new.css">
@@ -22,7 +22,7 @@
         </div>
         <ul id="nav-list">
             <li>
-                <img src="./images/nav1.png" alt=""> 
+                <img src="./images/nav1.png" alt="">
                 <a href="#">
                     人力资源规划
                 </a>
@@ -67,7 +67,7 @@
             </li>
             <i></i>
             <li>
-                <img src="./images/nav4.png" alt=""> 
+                <img src="./images/nav4.png" alt="">
                 <a href="#">
                     培训开发管理
                 </a>
@@ -75,15 +75,15 @@
             </li>
             <i></i>
             <li>
-                <img src="./images/nav5.png" alt=""> 
+                <img src="./images/nav5.png" alt="">
                 <a href="#">
                     薪资福利管理
-                </a> 
+                </a>
                 <ul></ul>
             </li>
             <i></i>
             <li>
-                <img src="./images/nav6.png" alt=""> 
+                <img src="./images/nav6.png" alt="">
                 <a href="#">
                     统计分析
                 </a>
@@ -94,7 +94,7 @@
     </div>
     <div id="right-container">
         <div id="right-top">
-            <span class="right-title">新增岗位</span>
+            <span class="right-title">发布任务</span>
             <div class="right-box">
                 <div class="search">
                     <i class="search-icon"></i>
@@ -112,31 +112,27 @@
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                         <el-row :gutter="60">
                             <el-col :span="12">
-                                <el-form-item label="岗位名称" prop="postName">
-                                    <!-- <el-input v-model="ruleForm.postname" placeholder="输入岗位名称"></el-input> -->
-                                    <el-select v-model="ruleForm.postName" placeholder="请选择岗位名称">
-                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                <el-form-item label="岗位类型" prop="postType">
+                                    <!-- <el-input v-model="ruleForm.posttype"></el-input> -->
+                                    <el-select v-model="ruleForm.postType" placeholder="请选择岗位类型">
+                                        <el-option v-for="item in postTypeList" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
-                                <el-form-item label="职位级别" prop="postLevel">
-                                    <!-- <el-input v-model="ruleForm.postgrade"></el-input> -->
-                                    <el-select v-model="ruleForm.postLevel" placeholder="请选择职位级别">
-                                        <el-option v-for="item in postLevelList" :key="item.value" :label="item.label" :value="item.value">
-                                        </el-option>
-                                    </el-select>
+                                <el-form-item label="招聘人数" prop="recruitNum">
+                                    <el-input v-model="ruleForm.recruitNum"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
 
                         <el-row :gutter="60">
                             <el-col :span="12">
-                                <el-form-item label="人事负责人" prop="chargePerson">
-                                    <!-- <el-input v-model="ruleForm.postleader"></el-input> -->
-                                    <el-select v-model="ruleForm.chargePerson" placeholder="请选择人事负责人">
-                                        <el-option v-for="item in chargePersonList" :key="item.value" :label="item.label" :value="item.value">
+                                <el-form-item label="岗位名称" prop="postName">
+                                    <!-- <el-input v-model="ruleForm.postname" placeholder="输入岗位名称"></el-input> -->
+                                    <el-select v-model="ruleForm.postName" placeholder="请选择岗位名称">
+                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
@@ -151,36 +147,14 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-
                         <el-row :gutter="60">
                             <el-col :span="12">
-                                <el-form-item label="招聘人数" prop="recruitNum">
+                                <el-form-item label="紧急程度" prop="recruitNum">
                                     <el-input v-model="ruleForm.recruitNum"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
-                                <el-form-item label="岗位类型" prop="postType">
-                                    <!-- <el-input v-model="ruleForm.posttype"></el-input> -->
-                                    <el-select v-model="ruleForm.postType" placeholder="请选择岗位类型">
-                                        <el-option v-for="item in postTypeList" :key="item.value" :label="item.label" :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-
-                        <el-row :gutter="60">
-                            <el-col :span="12">
-                                <el-form-item label="初试面试官" prop="interviewer">
-                                    <!-- <el-input v-model="ruleForm.postpreinterviewer"></el-input> -->
-                                    <el-select v-model="ruleForm.interviewer" placeholder="请选择初试面试官">
-                                        <el-option v-for="item in interviewerList" :key="item.value" :label="item.label" :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="12">
-                                <el-form-item label="复试面试官" prop="postreinterviewer">
+                                <el-form-item label="任务有效期" prop="postreinterviewer">
                                     <!-- <el-input v-model="ruleForm.postreinterviewer"></el-input> -->
                                     <el-select v-model="ruleForm.postreinterviewer" placeholder="请选择复试面试官">
                                         <el-option v-for="item in postreinterviewerList" :key="item.value" :label="item.label" :value="item.value">
@@ -191,33 +165,9 @@
                         </el-row>
 
                         <el-row :gutter="60">
-                            <el-col :span="12">
-                                <el-form-item label="薪资区间" required class="mm-wages">
-                                    <el-row>
-                                        <el-col :span="11">
-                                            <el-form-item prop="wagesMin">
-                                                <!-- <el-date-picker type="date" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker> -->
-                                                <el-input v-model="ruleForm.wagesMin"></el-input>
-                                            </el-form-item>
-                                        </el-col>
-
-                                        <el-col class="line" :span="2">至</el-col>
-                                        <el-col :span="11">
-                                            <el-form-item prop="wagesMax">
-                                                <!-- <el-time-picker type="fixed-time" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker> -->
-                                                <el-input v-model="ruleForm.wagesMax"></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="12">
-                                <el-form-item label="面试地点" prop="interviewAddress">
-                                    <!-- <el-input v-model="ruleForm.postreinterviewer"></el-input> -->
-                                    <el-select v-model="ruleForm.interviewAddress" placeholder="请选择面试地点">
-                                        <el-option v-for="item in interviewAddressList" :key="item.value" :label="item.label" :value="item.value">
-                                        </el-option>
-                                    </el-select>
+                            <el-col :span="2">
+                                <el-form-item label="状态" prop="delivery">
+                                    <el-switch v-model="ruleForm.delivery"></el-switch>
                                 </el-form-item>
                             </el-col>
                         </el-row>

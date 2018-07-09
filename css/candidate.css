@@ -14,7 +14,7 @@
     background: #fff
 }
 .sex-choice  .age-choice input {
-    width: 40% ;
+    width: 40% !important;
     height: 88%;
     float: left;
     text-indent: 10px;
@@ -29,6 +29,11 @@
     text-align: center;
     color: #5C6266;
     height: 100%;
+}
+
+/* 申请表 */
+.opera {
+    cursor: pointer;
 }
 
 /* 简历导入弹框 */

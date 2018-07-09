@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>候选人简历库</title>
+    <title>待入职</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/waitInterview.css">
@@ -40,7 +40,7 @@
                         <a href="./candidate.html">招聘管理</a>
                         <ul>
                             <li>
-                                <a href="#">职位申请列表</a>
+                                <a href="./postList.html">职位申请列表</a>
                             </li>
                             <li>
                                 <a href="./waitInterview.html">待面试</a>
@@ -48,7 +48,7 @@
                             <li class="sel">
                                 <a href="#">待入职</a>
                             </li>
-                            <li >
+                            <li>
                                 <a href="./waitCome.html">已入职</a>
                             </li>
                         </ul>
@@ -104,7 +104,7 @@
     </div>
     <div id="right-container">
         <div id="right-top">
-            <span class="right-title">发送offer</span>
+            <span class="right-title">待入职</span>
         </div>
         <div id="right-content">
             <div class="tabel-changge">
@@ -116,6 +116,8 @@
             </div>
             <div class="tabel-contant">
                 <el-table :data="tableData" border max-height="100%" style="width: 100%">
+                    <el-table-column type="index" width="30">
+                    </el-table-column>
                     <el-table-column prop="name" label="姓名">
                     </el-table-column>
                     <el-table-column prop="mobile" label="手机号码">
@@ -134,13 +136,15 @@
                     </el-table-column>
                     <el-table-column prop="iscome" label="勾选是否入职">
                         <template slot-scope="scope">
-                            <el-radio-group v-model="scope.row.iscome" @change="changeState(scope.row)">
-                                <el-radio label="1">是</el-radio>
-                                <el-radio label="0">否</el-radio>
-                            </el-radio-group>
+                            <el-button>确认入职</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
+                <div class="pagination">
+                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="crrentPage"
+                        @current-change="currentChange">
+                    </el-pagination>
+                </div>
             </div>
         </div>
     </div>

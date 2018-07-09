@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>候选人简历库</title>
+    <title>职位申请列表</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/candidate.css">
@@ -14,7 +14,7 @@
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
     <script src="./common/commData.js"></script>
-    <script src="./js/candidate.js"></script>
+    <script src="./js/postList.js"></script>
 </head>
 
 <body>
@@ -38,10 +38,10 @@
                 </a>
                 <ul>
                     <li class="active">
-                        <a href="#">招聘管理</a>
+                        <a href="./candidate.html">招聘管理</a>
                         <ul>
-                            <li>
-                                <a href="./postList.html">职位申请列表</a>
+                            <li class="sel">
+                                <a href="#">职位申请列表</a>
                             </li>
                             <li>
                                 <a href="./waitInterview.html">待面试</a>
@@ -129,13 +129,6 @@
                             </el-option>
                         </el-select>
                     </div>
-                    <div class="filter-item">
-                        <p class="item-title">原因</p>
-                        <el-select clearable v-model="searchValue.reason" placeholder="请选择">
-                            <el-option v-for="item in reasonList" :key="item.value" :label="item.label" :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </div>
                 </div>
                 <div class="filter-group">
                     <p class="group-title">候选人信息</p>
@@ -143,13 +136,6 @@
                         <p class="item-title">工作经验</p>
                         <el-select clearable v-model="searchValue.jobAge" placeholder="请选择">
                             <el-option v-for="item in workExpList" :key="item.itemId" :label="item.itemValue" :value="item.itemValue">
-                            </el-option>
-                        </el-select>
-                    </div>
-                    <div class="filter-item">
-                        <p class="item-title">当前状态</p>
-                        <el-select clearable v-model="searchValue.state" placeholder="请选择">
-                            <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                         </el-select>
                     </div>
@@ -180,13 +166,6 @@
                             </el-option>
                         </el-select>
                     </div>
-                    <div class="filter-item">
-                        <p class="item-title">渠道来源</p>
-                        <el-select clearable v-model="searchValue.source" placeholder="请选择">
-                            <el-option v-for="item in newsChannelList" :key="item.value" :label="item.label" :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </div>
                 </div>
                 <el-button type="primary" @click="searchValueChange">查询</el-button>
             </div>
@@ -195,48 +174,8 @@
                     <span>{{total}}</span>人
                 </p>
                 <p class="content-dec">您可以使用左方的筛选栏快速寻找符合需求的候选人.</p>
-                <div class="handler-button">
-                    <el-button type="primary" icon="el-icon-sold-out" circle plain class="add-reg" @click="add">
-                        简历导入
-                    </el-button>
-                    <el-button type="primary" icon="el-icon-download" circle plain @click="down">下载</el-button>
-                    <el-button type="primary" icon="el-icon-delete" circle plain @click="delate">删除</el-button>
-                    <el-button type="primary" circle plain @click="moveToOwn">移入内部人才库</el-button>
-                </div>
-                <!-- 导入简历 -->
-                <el-dialog title="简历导入" :visible.sync="addRegVisible" width="40%" @close="fileList = []" center>
-                    <el-form ref="regForm" :model="regForm" label-width="80px" :rules="rules">
-                        <el-form-item label="关联职位" prop="postId">
-                            <el-select clearable v-model="regForm.postId" placeholder="请选择关联职位">
-                                <el-option v-for="item in positionList" :key="item.value" :label="item.label" :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item label="招聘渠道" prop="source">
-                            <el-select clearable v-model="regForm.source" placeholder="请选择活动区域">
-                                <el-option v-for="item in newsChannelList" :key="item.value" :label="item.label" :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item label="简历来源" prop="channel">
-                            <el-input v-model="regForm.channel" placeholder="例如 王帅"></el-input>
-                        </el-form-item>
-                        <el-form-item label="文件上传" prop="fileList">
-                            <el-upload class="upload-demo" multiple :file-list="fileList" ref="uploadfile" action="https://jsonplaceholder.typicode.com/posts/"
-                                :on-remove="handleRemove" :on-error="fileUploadError" :before-upload="newFiles" :auto-upload="false">
-                                <el-button size="small" type="primary">点击上传</el-button>
-                            </el-upload>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="regAdd">确认</el-button>
-                            <el-button type="info" @click="regCancel">重置</el-button>
-                        </el-form-item>
-                    </el-form>
-                </el-dialog>
-
-                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @select="handleSelection" @selection-change="handleSelectionChange"
-                    @row-dblclick="gotoDetail" v-loading="loading">
-                    <el-table-column type="selection" width="55">
+                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @row-click="gotoDetail">
+                    <el-table-column type="index" width="30">
                     </el-table-column>
                     <el-table-column label="姓名" prop="name">
                     </el-table-column>
@@ -244,27 +183,25 @@
                     </el-table-column>
                     <el-table-column label="应聘岗位" prop="intentJob">
                     </el-table-column>
-                    <el-table-column label="人事负责人" prop="hrname">
+                    <el-table-column label="性别" prop="sex">
                     </el-table-column>
-                    <el-table-column label="状态" prop="state" :formatter="formatterColumn">
+                    <el-table-column label="最后薪酬" prop="endSalary">
                     </el-table-column>
-                    <el-table-column label="工作年限" prop="jobAge">
+                    <el-table-column label="期望待遇" prop="wishSalary">
                     </el-table-column>
-                    <el-table-column label="频道来源" prop="source">
+                    <el-table-column label="申请日期" prop="intentData">
                     </el-table-column>
                     <el-table-column label="学历" prop="education">
                     </el-table-column>
-                    <el-table-column label="原因" prop="reason">
+                    <el-table-column label="操作" width="170">
                         <template slot-scope="scope">
-                            <el-select v-model="scope.row.reason" placeholder=" 请选择" @change="valueChange(scope.row)">
-                                <el-option v-for="item in reasonList" :key="item.value" :label="item.label" :value="item.value">
-                                </el-option>
-                            </el-select>
+                            <span class="opera">查看详情</span>
+                            <span class="opera">简历预览</span>
                         </template>
                     </el-table-column>
                 </el-table>
                 <div class="pagination">
-                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="searchValue.crrentPage"
+                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="crrentPage"
                         @current-change="currentChange">
                     </el-pagination>
                 </div>

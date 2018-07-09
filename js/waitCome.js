@@ -10,21 +10,26 @@ function init() {
             apiUrl: commData.baseUrl,
             tableData: [{
                 name: 'alex',
-                mobile:'13111111111',
-                intentJob:'前端开发',
-                hrname:'王帅',
-                dept:'技术中心',
-                comeTime:'2018-06-12',
-                level:'p1',
-                sex:'男',
-                age:'22',
-                manager:'jade',
-                iscome:'0'
+                mobile: '13111111111',
+                intentJob: '前端开发',
+                hrname: '王帅',
+                dept: '技术中心',
+                comeTime: '2018-06-12',
+                level: 'p1',
+                sex: '男',
+                age: '22',
+                manager: 'jade',
+                iscome: '0'
             }],
             sjd: "1",
-            loading:true
+            //分页控制
+            crrentPage: 1,
+            pageCount: 1,
+            size: 10,
+            total: 1,
+            loading: true
         },
-        created:function () {
+        created: function () {
             this.getResData();
         },
         methods: {
@@ -35,7 +40,7 @@ function init() {
                     url: that.apiUrl + '/queryResumeList',
                     data: {
                         state: "7",
-                        sjd:that.sjd
+                        sjd: that.sjd
                     },
                     dataType: 'text',
                     success: function (res) {
@@ -49,20 +54,24 @@ function init() {
             change: function (value) {
                 switch (value) {
                     case "今天":
-                    this.sjd = "1";
+                        this.sjd = "1";
                         break;
                     case "明天":
-                    this.sjd = "2";
+                        this.sjd = "2";
                         break;
                     case "最近一周":
-                    this.sjd = "3";
+                        this.sjd = "3";
                         break;
 
                     default:
                         break;
                 }
                 this.getResData();
-            }    
+            },
+            //分页
+            currentChange: function (val) {
+                console.log(val)
+            },
         }
     })
 }

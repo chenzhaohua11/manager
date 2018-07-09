@@ -21,10 +21,15 @@ function init() {
                 iscome: '0'
             }],
             sjd: "1",
-            loading:true
+            //分页控制
+            crrentPage: 1,
+            pageCount: 1,
+            size: 10,
+            total: 1,
+            loading: true
         },
-        created:function () {
-            this.getResData();
+        created: function () {
+            // this.getResData();
         },
         methods: {
             getResData: function () {
@@ -34,7 +39,7 @@ function init() {
                     url: that.apiUrl + '/queryResumeList',
                     data: {
                         state: "6",
-                        sjd:that.sjd
+                        sjd: that.sjd
                     },
                     dataType: 'text',
                     success: function (res) {
@@ -49,13 +54,13 @@ function init() {
             change: function (value) {
                 switch (value) {
                     case "今天":
-                    this.sjd = "1";
+                        this.sjd = "1";
                         break;
                     case "明天":
-                    this.sjd = "2";
+                        this.sjd = "2";
                         break;
                     case "最近一周":
-                    this.sjd = "3";
+                        this.sjd = "3";
                         break;
 
                     default:
@@ -66,7 +71,11 @@ function init() {
             //确认入职
             changeState: function (val) {
                 console.log(val)
-            }
+            },
+            //分页
+            currentChange: function (val) {
+                console.log(val)
+            },
         }
     })
 }

@@ -30,3 +30,9 @@
     position: relative;
     top: 1px;
 }
+.el-button  {
+    padding: 8px 18px !important;
+}
+#right-content .pagination {
+    margin-left: -3% !important;
+}

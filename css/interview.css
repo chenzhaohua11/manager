@@ -19,8 +19,18 @@ ul{
 #right-content .content-choice,
 #right-content .content-main,
 #right-content .content-message,
-#right-content .content-table{
-    background: #fff;
+#right-content .content-table,
+#right-content .content-record{
+    width: 98%;
+    background: #fff;    
+}
+#right-content .content-header .content-header-body,
+#right-content .content-choice .content-choice-body,
+#right-content .content-main .content-step,
+#right-content .content-message .content-message-body,
+#right-content .content-table .content-table-body,
+#right-content .content-record .content-record-body{
+    padding-left: 2%;
 }
 #right-content .content-title{
     width: 10%;
@@ -28,7 +38,7 @@ ul{
     text-align: center;
     font-size: 18px;
     color: #3F424D;
-    padding-right: 2%;
+    /* padding-right: 2%; */
 }
 #right-content .content-header{
     height: 7%;
@@ -56,7 +66,7 @@ ul{
 #right-content .content-choice{
     margin-top: 1.2%;
     height: 24%;
-    padding-right: 11.9%;
+    /* padding-right: 11.9%; */
     padding-top: 1.2%;
 }
 #right-content .content-choice .el-button{
@@ -70,7 +80,7 @@ ul{
     width: 88%;
 } 
 #right-content .content-choice .content-choice-contact{
-    width: 69%;
+    width: 60%;
 }
 #right-content .content-choice .content-choice-person{
     padding-left: 10px;
@@ -128,6 +138,7 @@ ul{
 }
 #right-content .content-main .content-step{
     height:100%;
+    margin-left: 10%;
 }
 #right-content .content-table{
     padding: 1% 0;
@@ -163,4 +174,19 @@ ul{
 }
 #right-content .content-table .table-btn {
     margin-top: 15px;
+}
+#right-content .content-record .content-record-body{
+    float: left;
+    width: 88%;
+}
+#right-content .content-record .content-record-body .record-header{
+    background: #F7FAFC;
+    height: 48px;
+    line-height: 48px;
+}
+#right-content .content-record .content-record-body .record-header .el-col{
+    border-right: 1px solid #E1E7ED;
+}
+#right-content .content-record .content-record-body .record-header b{
+    margin-left: 20px;
 }
