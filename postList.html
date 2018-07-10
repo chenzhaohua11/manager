@@ -95,7 +95,7 @@
             <i></i>
             <li>
                 <img src="./images/nav6.png" alt="">
-                <a href="#">
+                <a href="./statistical-analysis.html">
                     统计分析
                 </a>
                 <ul></ul>
@@ -174,7 +174,7 @@
                     <span>{{total}}</span>人
                 </p>
                 <p class="content-dec">您可以使用左方的筛选栏快速寻找符合需求的候选人.</p>
-                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @row-click="gotoDetail">
+                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @row-dblclick="gotoDetail">
                     <el-table-column type="index" width="30">
                     </el-table-column>
                     <el-table-column label="姓名" prop="name">

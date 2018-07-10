@@ -82,7 +82,7 @@
             <i></i>
             <li>
                 <img src="./images/nav6.png" alt="">
-                <a href="#">
+                <a href="./statistical-analysis.html">
                     统计分析
                 </a>
                 <ul></ul>
@@ -146,13 +146,45 @@
                         <el-row>
                             <el-col :span="12">
                                 <b>发送方式</b>
+                                <template>
+                                    <el-radio v-model="radio" label="1">邮件</el-radio>
+                                    <el-radio v-model="radio" label="2">短信</el-radio>
+                                </template>
                             </el-col>
                             <el-col :span="12">
                                 <b>模板</b>
+                                <template>
+                                    <el-select v-model="value" placeholder="请选择">
+                                        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </template>
                             </el-col>
                         </el-row>
                     </div>
-                    <div class="record-body"></div>
+                    <div class="record-body">
+                        <p> 脱下鞋子跳舞</p>
+                        <p>赤着脚太空漫步</p>
+                        <p>我笑了你还装酷</p>
+                        <p>阳光晒过的路</p>
+                        <p>正好是年轻的温度</p>
+                        <p>温暖舒服</p>
+                        <p>吵醒了闹区的树木</p>
+                        <p>吸一口纯氧就漂浮</p>
+                        <p>蓝色背景下我练习飞行的角度</p>
+                        <p>保持我的态度</p>
+                        <p></p>
+                        <p>我的未来式 由我做主</p>
+                        <p>跳整天的舞 玩耍整片荧幕</p>
+                        <p>不断电的梦 直线加速</p>
+                        <p>奔跑在我画的地图</p>                        
+                        <p> </p>
+                    </div>
+                    <div class="record-btn">
+                        <el-row>
+                            <el-button type="primary">确认</el-button>
+                        </el-row>
+                    </div>
                 </div>
             </div>
         </div>

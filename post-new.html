@@ -84,7 +84,7 @@
             <i></i>
             <li>
                 <img src="./images/nav6.png" alt="">
-                <a href="#">
+                <a href="./statistical-analysis.html">
                     统计分析
                 </a>
                 <ul></ul>
@@ -113,7 +113,6 @@
                         <el-row :gutter="60">
                             <el-col :span="12">
                                 <el-form-item label="岗位类型" prop="postType">
-                                    <!-- <el-input v-model="ruleForm.posttype"></el-input> -->
                                     <el-select v-model="ruleForm.postType" placeholder="请选择岗位类型">
                                         <el-option v-for="item in postTypeList" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
@@ -130,7 +129,6 @@
                         <el-row :gutter="60">
                             <el-col :span="12">
                                 <el-form-item label="岗位名称" prop="postName">
-                                    <!-- <el-input v-model="ruleForm.postname" placeholder="输入岗位名称"></el-input> -->
                                     <el-select v-model="ruleForm.postName" placeholder="请选择岗位名称">
                                         <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
@@ -139,7 +137,6 @@
                             </el-col>
                             <el-col :span="12">
                                 <el-form-item label="所属部门" prop="deptName">
-                                    <!-- <el-input v-model="ruleForm.postapartment"></el-input> -->
                                     <el-select v-model="ruleForm.deptName" placeholder="请选择所属部门">
                                         <el-option v-for="item in deptNameList" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
@@ -155,7 +152,6 @@
                             </el-col>
                             <el-col :span="12">
                                 <el-form-item label="任务有效期" prop="postreinterviewer">
-                                    <!-- <el-input v-model="ruleForm.postreinterviewer"></el-input> -->
                                     <el-select v-model="ruleForm.postreinterviewer" placeholder="请选择复试面试官">
                                         <el-option v-for="item in postreinterviewerList" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
@@ -167,11 +163,10 @@
                         <el-row :gutter="60">
                             <el-col :span="2">
                                 <el-form-item label="状态" prop="delivery">
-                                    <el-switch v-model="ruleForm.delivery"></el-switch>
+                                    <el-switch v-model="ruleForm.delivery" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
                                 </el-form-item>
                             </el-col>
                         </el-row>
-
 
                         <el-form-item label="职位要求" prop="content">
                             <el-input type="textarea" v-model="ruleForm.content"></el-input>

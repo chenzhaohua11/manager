@@ -175,18 +175,46 @@ ul{
 #right-content .content-table .table-btn {
     margin-top: 15px;
 }
+#right-content .content-record{
+    padding: 30px 0 50px;
+}
+#right-content .content-record .content-title{
+    margin-top: 15%;
+}
 #right-content .content-record .content-record-body{
     float: left;
-    width: 88%;
+    width: 86%;
+    padding-right: 2%;
 }
 #right-content .content-record .content-record-body .record-header{
     background: #F7FAFC;
     height: 48px;
-    line-height: 48px;
+    line-height: 48px;   
+    border: 1px solid #E1E7ED;
 }
 #right-content .content-record .content-record-body .record-header .el-col{
-    border-right: 1px solid #E1E7ED;
+    /* border-right: 1px solid #E1E7ED; */
 }
 #right-content .content-record .content-record-body .record-header b{
-    margin-left: 20px;
+    margin:0 20px;
+}
+#right-content .content-record .content-record-body .record-header span{
+    color: #666;
+}
+#right-content .content-record .content-record-body .record-header .el-input__inner{
+    border: 1px solid transparent;
+}
+#right-content .content-record .content-record-body .record-body{
+    border-right: 1px solid #E1E7ED;
+    border-left: 1px solid #E1E7ED;
+    border-bottom: 1px solid #E1E7ED;
+    padding: 20px;
+}
+#right-content .content-record .content-record-body .record-body{
+    color: #666;
+   line-height: 30px;
+}
+#right-content .content-record .content-record-body .record-btn{
+    text-align: center;
+    padding-top: 20px;
 }

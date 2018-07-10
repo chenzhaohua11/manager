@@ -11,10 +11,16 @@
     border: 1px solid #ebeef5;
 }
 .mm-resume .el-col:last-child{
-    position: absolute;
+    position: absolute !important;
     top: 0;
-    right: -15px;
+    right: -15px !important;
     background: #F7F7F7;
+}
+.mm-resume .el-col {
+    cursor: pointer;
+}
+.mm-resume .el-col.active {
+    border: 1px solid #1F9BED;
 }
 .mian-content .el-row .el-col>div{
     text-align: center;

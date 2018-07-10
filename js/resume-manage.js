@@ -141,14 +141,15 @@ function tempListInit() {
             size: 10,
             total: 1,
             loading: true,
-            value2: false
+            value2: false,
+            findValue:"1"
         },
-        created() {
+        created:function() {
 
         },
         methods: {
             //分页
-            currentChange(val) {
+            currentChange:function(val) {
                 console.log(val)
             },
             //table修改
@@ -185,6 +186,14 @@ function tempListInit() {
             },
             edit(val) {
                 window.location.href = "./post-new.html?id=" + val.id
+            },
+            find:function(val) {
+                var that = this
+                that.findValue = val;
+                this.tableData3.forEach(function(item){
+                    console.log(that.findValue)
+                    item.mobile = parseInt(that.findValue)+parseInt(item.mobile)
+                })
             }
         }
     })

@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>职位申请表详情</title>
+    <link rel="stylesheet" href="./css/style.css">
     <script src="./js/vue.js"></script>
+    <script src="./js/mintui.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
     <script src="./js/rem.js"></script>
     <style>
@@ -19,16 +21,136 @@
             border-collapse: collapse;
         }
 
-        .app-header {
+        /* 选项卡 */
+
+        .app-header .mint-navbar .mint-tab-item {
+            padding: 20pt 10pt !important;
+        }
+
+        .app-header .mint-tab-item-label {
+            font-size: 0.4rem !important;
+        }
+
+        .app-container {
+            margin-top: 3pt;
+        }
+
+        /* 面试记录 */
+        .record {
+            width: 100%;
+            margin-top: 3pt;
+            background: #E9EDF0;
+        }
+
+        .record-title {
+            padding: 10pt 20pt;
+            font-size: .3rem;
+            font-weight: 530;
+            background: #F7FAFC;
+        }
+
+        .record-title span {
+            color: #D98814
+        }
+
+        .record table {
+            width: 100%;
+            margin: auto;
+            border: 1px solid #F1F4F6;
+            table-layout: fixed;
+        }
+
+        .record table td,
+        .record table th {
+            border: 1px solid #F1F4F6;
+            padding: 8pt 0;
+            background: #fff;
+            text-align: center;
+        }
+
+        .record table tr th:first-child,
+        .record table tr td:first-child {
+            text-align: left;
+            text-indent: 2%;
+        }
+
+        .record table tr td.record-advice {
+            text-align: left;
+            word-break: break-all;
+            text-indent: 4%;
+        }
+
+        td.record-advice p {
+            padding: 3pt 0;
+            text-align: right;
+        }
+        td.record-advice textarea {
+            width: 90% ;
+            border: none;
+            outline: none;
+        }
+        td.record-advice p span {
+            margin-left: 20pt;
+            margin-right: 20pt;
+        }
+        /* 面试评估 */
+        .record .check-radio .mint-cell {
+            width: 33% !important;
+            float: left;
+            min-height: 20px !important;
+        }
+
+        .record .desc-input .mint-cell {
+            width: 100% !important;
+
+        }
+
+        .record .desc-input .mint-cell input {
+            text-indent: 20px !important;
+        }
+
+        .record .mint-cell:last-child {
+            background-size: 100% 0 !important;
+        }
+
+        .record .mint-cell>.mint-cell-wrapper {
+            border: none !important;
+            background-size: 100% 0 !important;
+            box-sizing: content-box !important;
+            font-size: 8px !important;
+            padding: 0;
+        }
+
+        .record .check-radio .mint-cell .mint-radiolist-label {
+            width: 90%;
+        }
+        .record .check-radio .mint-cell .mint-cell-title {
+            text-align: left;
+        }
+        .record .decison-radio .mint-cell {
+            width: 50% !important;
+            float: left;
+        }
+        /* 提交 */
+        .submit {
+            padding: 10pt 0;
+        }
+        .submit .mint-button {
+            display: block;
+            width: 96%;
+            margin: auto;
+        }
+        /* 职位申请表 */
+
+        .apply-header {
             height: 81pt;
         }
 
-        .app-header div {
+        .apply-header>div {
             display: inline-block;
-            overflow: hidden;
         }
 
-        .app-header div.avater {
+        .apply-header div.avater {
             width: 51pt;
             float: left;
             height: 51pt;
@@ -37,43 +159,62 @@
             border-radius: 50%;
         }
 
-        .app-header div.avater>img {
+        .apply-header div.avater>img {
             width: 100%;
             height: 100%;
             display: block;
             border-radius: 50%;
         }
 
-        .app-header div.msg {
+        .apply-header div.msg {
             height: 60pt;
             float: left;
             margin: 13pt 0pt;
             background: #fff;
         }
 
-        .app-header div.msg p {
+        .apply-header div.msg p {
             padding: 2pt 0;
         }
 
-        .app-header div.msg .name {
+        .apply-header div.msg .name {
             width: 50pt;
             font-size: 13pt;
+            position: relative;
         }
 
-        .app-header div.msg .desc {
+        .msg .name .man {
+            position: absolute;
+            width: 18pt;
+            height: 18pt;
+            left: 40pt;
+            background: url("./images/boy.png");
+            background-size: 100% 100%;
+        }
+
+        .msg .name .woman {
+            position: absolute;
+            width: 20pt;
+            height: 20pt;
+            left: 50pt;
+            background: url("./images/girl.png");
+            background-size: 100% 100%;
+        }
+
+        .apply-header div.msg .desc {
             font-size: 9pt;
         }
 
-        .app-header div.msg .id-msg {
+        .apply-header div.msg .id-msg {
             font-size: 8pt;
             color: #5C6266;
         }
 
-        .app-header div.msg .id-msg span:last-child {
+        .apply-header div.msg .id-msg span:last-child {
             margin-left: 10pt;
         }
 
-        .app-container {
+        .apply-contianer {
             background: #EDF1F5;
             width: 100%;
             padding-top: 2%;
@@ -114,122 +255,357 @@
 <body>
     <div id="app">
         <div class="app-header">
-            <div class="avater">
-                <img src="./images/avater.jpg" alt="">
-            </div>
-            <div class="msg">
-                <p class="name">某先生</p>
-                <p class="desc">
-                    UI设计师 | 29岁 | 15800001236 | 未婚 | 本科
-                </p>
-                <p class="id-msg">
-                    <span>
-                        身份证号：430626199001011236
-                    </span>
-                    <span>
-                        现居地址：长沙市岳麓区麓谷企业广场F4栋14楼
-                    </span>
-                </p>
-            </div>
+            <mt-navbar v-model="selected">
+                <mt-tab-item id="1">面试记录</mt-tab-item>
+                <mt-tab-item id="2">职位申请表</mt-tab-item>
+                <mt-tab-item id="3">个人简历</mt-tab-item>
+            </mt-navbar>
         </div>
         <div class="app-container">
-            <div class="detial-table edu-exp">
-                <div class="detial-title">教育及培训经历</div>
-                <table>
-                    <tr>
-                        <th>起止年月</th>
-                        <th>学校名称</th>
-                        <th>专业</th>
-                        <th>所获学历</th>
-                    </tr>
-                    <tr>
-                        <td>2013/9-2018/6</td>
-                        <td>湖南大学设计艺术学院</td>
-                        <td>视觉传达设计</td>
-                        <td>本科</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="detial-table work-exp">
-                <div class="detial-title">工作经历</div>
-                <table>
-                    <tr>
-                        <th>起止年月</th>
-                        <th>单位名称</th>
-                        <th>职位</th>
-                        <th>最后薪酬</th>
-                        <th>证明人</th>
-                        <th>离职原因</th>
-                    </tr>
-                    <tr>
-                        <td>2013/9-2018/6</td>
-                        <td>长沙公信诚丰信息技术服务…</td>
-                        <td>UI设计师</td>
-                        <td>6000</td>
-                        <td>王帅</td>
-                        <td>------</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="detial-table wish-salary">
-                <div class="detial-title">期望待遇</div>
-                <table>
-                    <tr>
-                        <th>期望待遇</th>
-                        <th>7000-8000</th>
-                        <th>到岗日期</th>
-                        <th>一周以内</th>
-                    </tr>
-                </table>
-            </div>
-            <div class="detial-table emerg-contacter">
-                <div class="detial-title">紧急联系人</div>
-                <table>
-                    <tr>
-                        <th>与本人的关系</th>
-                        <th>姓名</th>
-                        <th>联系电话</th>
-                        <th>联系地址</th>
-                    </tr>
-                    <tr>
-                        <td>父子</td>
-                        <td>某某某</td>
-                        <td>15812345678</td>
-                        <td>锦和园小区5栋3单元606</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="detial-table other-thing">
-                <div class="detial-title">其它情况</div>
-                <table>
-                    <tr>
-                        <th>情况描述</th>
-                        <th>结果</th>
-                        <th>详情说明</th>
-                    </tr>
-                    <tr>
-                        <td>曾是否因行为或工作不佳而被辞退</td>
-                        <td>否</td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
+            <mt-tab-container v-model="selected">
+                <mt-tab-container-item id="1">
+                    <div class="record">
+                        <div class="record-title">
+                            面试记录1
+                            <span class="state1">推荐下一轮面试</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="2">评价维度</th>
+                                    <th colspan="2">情况描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>学历</td>
+                                    <td>符合</td>
+                                    <td colspan="2">曾经很强大</td>
+                                </tr>
+                                <tr>
+                                    <td>专业技能</td>
+                                    <td>符合</td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td>工作经验</td>
+                                    <td>不符合</td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td>岗位意向</td>
+                                    <td>强烈</td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td>文化匹配度</td>
+                                    <td>符合</td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td>面试意见</td>
+                                    <td class="record-advice" colspan="3">
+                                        推荐下一轮面试推荐下一轮面试推荐下一轮面试推荐下一轮面试
+                                        <p>
+                                            <span>
+                                                面试官:岑凯路
+                                            </span>
+                                            <span>
+                                                2018-07-03 09:20
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="record">
+                        <div class="record-title">
+                            面试评估
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>评价维度</th>
+                                    <th colspan="2">评价结果</th>
+                                    <th colspan="2">情况描述</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>学历</td>
+                                    <td colspan="2" class="check-radio">
+                                        <mt-radio v-model="interviewee.education" :options="options1">
+                                        </mt-radio>
+                                    </td>
+                                    <td colspan="2" class="check-radio desc-input">
+                                        <mt-field v-model="interviewee.eduDec"></mt-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>专业技能</td>
+                                    <td colspan="2" class="check-radio">
+                                        <mt-radio v-model="interviewee.major" :options="options2">
+                                        </mt-radio>
+                                    </td>
+                                    <td colspan="2" class="check-radio desc-input">
+                                        <mt-field v-model="interviewee.majorDec"></mt-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>工作经验</td>
+                                    <td colspan="2" class="check-radio">
+                                        <mt-radio v-model="interviewee.jobAge" :options="options1">
+                                        </mt-radio>
+                                    </td>
+                                    <td colspan="2" class="check-radio desc-input">
+                                        <mt-field v-model="interviewee.jobDec"></mt-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>岗位意向</td>
+                                    <td colspan="2" class="check-radio">
+                                        <mt-radio v-model="interviewee.wishPos" :options="options3">
+                                        </mt-radio>
+                                    </td>
+                                    <td colspan="2" class="check-radio desc-input">
+                                        <mt-field v-model="interviewee.wishDec"></mt-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>文化匹配度</td>
+                                    <td colspan="2" class="check-radio">
+                                        <mt-radio v-model="interviewee.character" :options="options1">
+                                        </mt-radio>
+                                    </td>
+                                    <td colspan="2" class="check-radio desc-input">
+                                        <mt-field v-model="interviewee.chrtDec"></mt-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>面试意见</td>
+                                    <td class="record-advice" colspan="4">
+                                        <textarea rows="4" placeholder="请填写意见" v-model="interviewee.advice" ></textarea>
+                                        <p>
+                                            <span>
+                                                面试官:岑凯路
+                                            </span>
+                                            <span>
+                                                2018-07-03 09:20
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <mt-radio class="decison-radio" v-model="interviewee.decision" :options="decisionOptions">
+                                        </mt-radio>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="submit">
+                            <mt-button type="primary">提交</mt-button>
+                        </div>
+                    </div>
+                </mt-tab-container-item>
+                <mt-tab-container-item id="2">
+                    <div class="apply-header">
+                        <div class="avater">
+                            <img src="./images/avater.jpg" alt="">
+                        </div>
+                        <div class="msg">
+                            <p class="name">某先生
+                                <i class="man"></i>
+                            </p>
+                            <p class="desc">
+                                UI设计师 | 29岁 | 15800001236 | 未婚 | 本科
+                            </p>
+                            <p class="id-msg">
+                                <span>
+                                    身份证号：430626199001011236
+                                </span>
+                                <span>
+                                    现居地址：长沙市岳麓区麓谷企业广场F4栋14楼
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="apply-contianer">
+                        <div class="detial-table edu-exp">
+                            <div class="detial-title">教育及培训经历</div>
+                            <table>
+                                <tr>
+                                    <th>起止年月</th>
+                                    <th>学校名称</th>
+                                    <th>专业</th>
+                                    <th>所获学历</th>
+                                </tr>
+                                <tr>
+                                    <td>2013/9-2018/6</td>
+                                    <td>湖南大学设计艺术学院</td>
+                                    <td>视觉传达设计</td>
+                                    <td>本科</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="detial-table work-exp">
+                            <div class="detial-title">工作经历</div>
+                            <table>
+                                <tr>
+                                    <th>起止年月</th>
+                                    <th>单位名称</th>
+                                    <th>职位</th>
+                                    <th>最后薪酬</th>
+                                    <th>证明人</th>
+                                    <th>离职原因</th>
+                                </tr>
+                                <tr>
+                                    <td>2013/9-2018/6</td>
+                                    <td>长沙公信诚丰信息技术服务…</td>
+                                    <td>UI设计师</td>
+                                    <td>6000</td>
+                                    <td>王帅</td>
+                                    <td>------</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="detial-table wish-salary">
+                            <div class="detial-title">期望待遇</div>
+                            <table>
+                                <tr>
+                                    <th>期望待遇</th>
+                                    <th>7000-8000</th>
+                                    <th>到岗日期</th>
+                                    <th>一周以内</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="detial-table emerg-contacter">
+                            <div class="detial-title">紧急联系人</div>
+                            <table>
+                                <tr>
+                                    <th>与本人的关系</th>
+                                    <th>姓名</th>
+                                    <th>联系电话</th>
+                                    <th>联系地址</th>
+                                </tr>
+                                <tr>
+                                    <td>父子</td>
+                                    <td>某某某</td>
+                                    <td>15812345678</td>
+                                    <td>锦和园小区5栋3单元606</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="detial-table other-thing">
+                            <div class="detial-title">其它情况</div>
+                            <table>
+                                <tr>
+                                    <th>情况描述</th>
+                                    <th>结果</th>
+                                    <th>详情说明</th>
+                                </tr>
+                                <tr>
+                                    <td>曾是否因行为或工作不佳而被辞退</td>
+                                    <td>否</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </mt-tab-container-item>
+                <mt-tab-container-item id="3"></mt-tab-container-item>
+            </mt-tab-container>
         </div>
+
+
     </div>
     <script>
         new Vue({
             el: "#app",
             data: function () {
                 return {
+                    selected: '1',
+                    interviewee: {
+                        education: "",
+                        eduDec: '',
+                        major: '',
+                        majorDec: "",
+                        jobAge: '',
+                        jobDec: '',
+                        wishPos: "",
+                        wishDec: '',
+                        character: '',
+                        chrtDec: '',
+                        advice: '',
+                        decision:''
+                    },
 
+                    options1: [{
+                            label: '符合',
+                            value: '0',
+                        },
+                        {
+                            label: '基本符合',
+                            value: '1',
+                        },
+                        {
+                            label: '不符合',
+                            value: '2',
+                        }
+                    ],
+                    options2: [{
+                            label: '优秀',
+                            value: '0',
+                        },
+                        {
+                            label: '良好',
+                            value: '1',
+                        },
+                        {
+                            label: '差',
+                            value: '2',
+                        }
+                    ],
+                    options3: [{
+                            label: '强烈',
+                            value: '0',
+                        },
+                        {
+                            label: '一般',
+                            value: '1',
+                        },
+                        {
+                            label: '无意向',
+                            value: '2',
+                        }
+                    ],
+                    decisionOptions: [{
+                            label: '符合,建议录用',
+                            value: '0',
+                        },
+                        {
+                            label: '基本符合,备选',
+                            value: '1',
+                        },
+                        {
+                            label: '基本符合,推荐下一轮面试',
+                            value: '2',
+                        },
+                        {
+                            label: '不符合,回避',
+                            value: '3',
+                        }
+                    ]
                 }
             },
             created: function () {
 
             },
             methods: {
-                getData:function() {
-                    
+                getData: function () {
+
                 }
             }
         })

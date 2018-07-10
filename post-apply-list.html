@@ -18,12 +18,15 @@
             margin: 0;
             padding: 0;
         }
+
         body {
             background: #F5F7FA;
         }
+
         li {
             list-style: none;
         }
+
         .title {
             height: 22pt;
             padding: 3pt 0;
@@ -32,6 +35,7 @@
             font-size: 20pt;
             background: #ccc;
         }
+
         .table-list li {
             height: 67pt;
             width: 100%;
@@ -108,16 +112,34 @@
             height: 22pt;
             right: -32pt;
         }
+
         .msg .name {
             width: 50pt;
+            position: relative;
             font-size: 15pt;
+        }
+        .msg .name .man {
+            position: absolute;
+            width: 20pt;
+            height: 20pt;
+            left: 50pt;
+            background: url("./images/boy.png");
+            background-size: 100% 100%;
+        }
+        .msg .name .woman {
+            position: absolute;
+            width: 20pt;
+            height: 20pt;
+            left: 50pt;
+            background: url("./images/girl.png");
+            background-size: 100% 100%;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <div class="title">职位申请列表</div>
+        <div class="title">当前面试人员列表</div>
         <div class="contanier">
             <ul class="table-list">
                 <li @click="toDetial">
@@ -125,7 +147,7 @@
                         <img src="./images/avater.jpg" alt="">
                     </div>
                     <div class="msg">
-                        <p class="name">某先生</p>
+                        <p class="name">某先生<i class="man"></i></p>
                         <p class="desc">
                             UI设计师 | 29岁 | 15800001236 | 未婚 | 本科
                         </p>

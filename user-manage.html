@@ -91,7 +91,7 @@
             <i></i>
             <li>
                 <img src="./images/nav6.png" alt="">
-                <a href="#">
+                <a href="./statistical-analysis.html">
                     统计分析
                 </a>
                 <ul></ul>
@@ -146,6 +146,8 @@
                 </p>
                 <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @select="handleSelection" @selection-change="handleSelectionChange"
                     @row-dblclick="gotoDetail">
+                    <el-table-column type="index" width="30">
+                    </el-table-column>
                     <el-table-column label="ID" prop="postName" width="180">
                     </el-table-column>
                     <el-table-column label="姓名" prop="postLevel">
@@ -159,7 +161,7 @@
                     </el-table-column>
                     <el-table-column label="操作" width="200">
                         <template slot-scope="scope">
-                            <el-button class="mm-edit" type="text" size="small" @click="edit(scope.row)" icon="el-icon-edit">编辑</el-button>
+                            <el-button class="mm-edit" type="text" size="small" icon="el-icon-edit">编辑</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -172,5 +174,5 @@
         </div>
     </div>
 </body>
-
+statistical-analysis
 </html>

@@ -7,7 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>完善信息</title>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js"></script>
+    <script src="./js/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="./js/mintui.js"></script>
     <script src="./js/rem.js"></script>
     <style>
         * {
@@ -439,9 +443,6 @@
             </div>
         </div>
     </div>
-    <script src="./js/vue.js"></script>
-    <!-- 引入组件库 -->
-    <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
     <script>
         function formatDate(date, fmt) {
             if (/(y+)/.test(fmt)) {

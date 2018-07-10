@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>新建模板</title>
+    <title>系统配置</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/template-new.css">
+    <link rel="stylesheet" href="./css/system-setting.css">
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
-    <script src="./js/template-new.js"></script>
+    <script src="./js/system-setting.js"></script>
 </head>
 
 <body>
@@ -50,14 +50,14 @@
                     <li class="active">
                         <a href="./template-list.html">系统设置</a>
                         <ul>
-                            <li class="sel">
-                                <a href="#">模版管理</a>
+                            <li>
+                                <a href="./template-new.html">模版管理</a>
                             </li>
                             <li>
                                 <a href="./user-manage.html">用户管理</a>
                             </li>
-                            <li>
-                                <a href="./system-setting.html">系统配置</a>
+                            <li class="sel">
+                                <a href="#">系统配置</a>
                             </li>
                         </ul>
                     </li>
@@ -100,7 +100,7 @@
     </div>
     <div id="right-container">
         <div id="right-top">
-            <span class="right-title">新建模板</span>
+            <span class="right-title">系统配置</span>
             <div class="right-box">
                 <div class="search">
                     <i class="search-icon"></i>
@@ -115,48 +115,49 @@
             </div>
             <div class="mian-content">
                 <div class="mm-content">
-                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-                        <el-row :gutter="60">
-                            <el-col :span="12">
-                                <el-form-item label="模板类型" prop="type">
-                                    <el-select v-model="ruleForm.type" placeholder="选择类型">
-                                        <el-option v-for="item in typeList" :key="item.value" :label="item.label" :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="12">
-                                <el-form-item label="模板名称" prop="name">
-                                    <el-input v-model="ruleForm.name" placeholder="输入模板名称"></el-input>
+                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
+                        <el-row :gutter="50">
+                            <el-col :span="9">
+                                <el-form-item label="短信接口地址" prop="name">
+                                    <el-input v-model="ruleForm.name" placeholder="输入短信接口地址"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
-
-                        <el-row :gutter="60">
-                            <el-col :span="12">
-                                <el-form-item label="状态" prop="state">
-                                    <el-select v-model="ruleForm.state" placeholder="默认开启状态">
-                                        <el-option v-for="item in stateList" :key="item.value" :label="item.label" :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="12">
-                                <el-form-item label="模板用途" prop="used">
-                                    <el-input v-model="ruleForm.used"></el-input>
+                        <el-row :gutter="50">
+                            <el-col :span="9">
+                                <el-form-item label="邮件发件邮箱" prop="name">
+                                    <el-input v-model="ruleForm.name"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <el-form-item label="邮件内容" prop="content">
-                            <el-input type="textarea" v-model="ruleForm.content"></el-input>
-                        </el-form-item>
-                        <template prop="default">
-                            <el-checkbox v-model="ruleForm.default">设为默认模版</el-checkbox>
-                        </template>
-                        <el-form-item>
-                            <el-button @click="resetForm('ruleForm')">清空</el-button>
-                            <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
-                        </el-form-item>
+                        <el-row :gutter="50">
+                            <el-col :span="9">
+                                <el-form-item label="密码" prop="name">
+                                    <el-input v-model="ruleForm.name" type="password"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="50">
+                            <el-col :span="9">
+                                <el-form-item label="SMTP服务器地址" prop="name">
+                                    <el-input v-model="ruleForm.name"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="50">
+                            <el-col :span="9">
+                                <el-form-item label="SMTP服务器端口" prop="name">
+                                    <el-input v-model="ruleForm.name"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="50">
+                            <el-col :span="9">
+                                <el-form-item>
+                                    <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
                     </el-form>
                 </div>
             </div>

@@ -1,0 +1,10 @@
+#right-content .condition-filter{
+    background: transparent;
+}
+.mm-content{
+   padding-top: 7%;
+}
+
+.mm-content .el-button--primary{
+    width: 100%;
+}
