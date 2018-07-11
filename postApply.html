@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
     <title>完善信息</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="./css/style.css">
@@ -132,15 +133,17 @@
             color: #333333 !important;
             font-size: 0.4rem !important;
         }
-        .footer-notice{
+
+        .footer-notice {
             padding: 0.2rem 0.3rem
         }
+
         .footer-notice span {
             width: 100%;
             display: block;
             margin-top: 10pt;
             color: #666666;
-            word-wrap:break-word; 
+            word-wrap: break-word;
         }
     </style>
 </head>
@@ -160,30 +163,21 @@
             </div>
             <div class="apply-form">
                 <mt-field label="姓名" placeholder="请输入姓名" v-model="form.username"></mt-field>
-                <mt-field label="性别" placeholder="--请选择--" v-model="form.sex" readonly disable-clear @click.native.capture="sexHandler"></mt-field>
-                <mt-popup v-model="sexVisible" position="bottom">
-                    <mt-picker :slots="sexSlots" @change="sexValuesChange"></mt-picker>
-                </mt-popup>
+                <mt-field label="性别" placeholder="--请选择--" v-model="form.sex" readonly disable-clear @click.native.capture="Handler('sex')"></mt-field>
                 <mt-field label="身份证" placeholder="请输入身份证" :attr="{ maxlength: 18 }" v-model="form.IDcard" @blur.native.capture="IDfomatter"></mt-field>
-                <mt-field label="手机号" placeholder="请输入手机号"  type="tel" :attr="{ maxlength: 11 }" v-model="form.mobile" ></mt-field>
+                <mt-field label="手机号" placeholder="请输入手机号" type="tel" :attr="{ maxlength: 11 }" v-model="form.mobile"></mt-field>
                 <mt-field label="年龄" placeholder="自动获取年龄" readonly disable-clear v-model="form.age"></mt-field>
-                <mt-field label="婚否" placeholder="--请选择--" v-model="form.marry" readonly disable-clear @click.native.capture="marryHandler"></mt-field>
-                <mt-popup v-model="marryVisible" position="bottom">
-                    <mt-picker :slots="marrySlots" @change="marryValuesChange"></mt-picker>
-                </mt-popup>
+                <mt-field label="婚否" placeholder="--请选择--" v-model="form.marry" readonly disable-clear @click.native.capture="Handler('marry')"></mt-field>
                 <mt-field label="现居地址" placeholder="街道，楼牌号" v-model="form.address"></mt-field>
-                <mt-field label="申请职位" placeholder="--请选择--" v-model="form.marry" readonly disable-clear @click.native.capture="marryHandler"></mt-field>
-                <mt-popup v-model="marryVisible" position="bottom">
-                    <mt-picker :slots="marrySlots" @change="marryValuesChange"></mt-picker>
-                </mt-popup>
-                <mt-field label="最高学历" placeholder="--请选择--" v-model="form.marry" readonly disable-clear @click.native.capture="marryHandler"></mt-field>
-                <mt-popup v-model="marryVisible" position="bottom">
-                    <mt-picker :slots="marrySlots" @change="marryValuesChange"></mt-picker>
-                </mt-popup>
+                <mt-field label="申请职位" placeholder="--请选择--" v-model="form.interJob" readonly disable-clear @click.native.capture="Handler('pos')"></mt-field>
+                <mt-field label="最高学历" placeholder="--请选择--" v-model="form.education" readonly disable-clear @click.native.capture="Handler('edu')"></mt-field>
             </div>
             <div class="next-step">
-                <mt-button type="primary">下一步</mt-button>
+                <mt-button type="primary" @click="goNext('1')">下一步</mt-button>
             </div>
+            <mt-popup v-model="selectVisible" ref="select" position="bottom">
+                <mt-picker :slots="dataSlots" @change="selectChange"></mt-picker>
+            </mt-popup>
         </div>
         <!-- 第二步 -->
         <div v-show="step==2" class="step second-step">
@@ -475,9 +469,11 @@
                         username: '',
                         sex: "",
                         IDcard: '',
-                        mobile:'',
+                        mobile: '',
                         age: "",
                         marry: "",
+                        interJob:'',
+                        education:'',
                         address: "",
                         eduExp1: {
                             startTime: "",
@@ -545,9 +541,9 @@
                         }
                     },
                     type: "",
+                    selectType: '',
                     step: 1,
-                    sexVisible: false,
-                    marryVisible: false,
+                    selectVisible: false,
                     sheetVisible: false,
                     startDate: new Date("1995-01-01"),
                     target: "",
@@ -558,40 +554,76 @@
                         name: '从相册中选择',
                         method: this.selectConfirm
                     }],
-                    sexSlots: [{
+                    sexSlots:[{
                         values: ["", '男', "女"],
                         textAlign: 'center'
                     }],
                     marrySlots: [{
                         values: ["", "是", "否"],
                         textAlign: 'center'
-                    }]
+                    }],
+                    posSlots:[{
+                        values: ["", "前端", "后端"],
+                        textAlign: 'center'
+                    }],
+                    eduSlots:[{
+                        values: ["", "本科", "专科"],
+                        textAlign: 'center'
+                    }],
+                    dataSlots: [],
                 }
             },
             methods: {
-                sexHandler: function () {
-                    this.sexVisible = true;
+                //pop打开
+                Handler: function (select) {
+                    var that = this;
+                    that.selectType = select;
+                    that.$refs.select.open();
+                    switch (select) {
+                        case "sex":
+                            that.dataSlots = that.sexSlots;
+                            break;
+                        case "marry":
+                            that.dataSlots = that.marrySlots;
+                            break;
+                        case "pos":                         
+                            that.dataSlots = that.posSlots;
+                            break;
+                        case "edu":
+                            that.dataSlots = that.eduSlots;
+                            break;
+                        default:
+                            break;
+                    }
                 },
-                marryHandler: function () {
-                    this.marryVisible = true;
+                //pop确认
+                selectChange:function(parma,value) {
+                    var that = this;
+                    if (that.selectType == 'sex') {
+                        that.form.sex =  value[0];
+                    } else if (that.selectType == 'marry') {
+                        that.form.marry =  value[0];
+                    } else if (that.selectType == 'pos') {
+                        that.form.interJob =  value[0];
+                    } else if(that.selectType == 'edu') {
+                        that.form.education =  value[0];                      
+                    }
                 },
-                sexValuesChange: function (picker, values) {
-                    this.form.sex = values[0];
-                },
-                marryValuesChange: function (picker, values) {
-                    this.form.marry = values[0];
-                },
+                // 自动获取年龄
                 IDfomatter: function () {
                     console.log(this.form.IDcard);
                 },
+                //打开时间插件
                 openPick: function (type) {
                     this.type = type;
                     this.$refs.picker.open();
                 },
+                //打开action
                 openSelect: function (target) {
                     this.sheetVisible = true
                     this.target = target;
                 },
+                //action确认
                 selectConfirm: function (parma) {
                     if (this.target == "eduExp1") {
                         this.form.eduExp1.eduction = parma.name;
@@ -599,6 +631,7 @@
                         this.form.eduExp2.eduction = parma.name;
                     }
                 },
+                //时间确认
                 handleConfirm: function (date) {
                     let newDate = formatDate(date, "yyyy/MM/dd")
                     if (this.type == 'marjor1Start') {

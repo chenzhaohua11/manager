@@ -1,0 +1,51 @@
+.tabel-changge{
+    margin: auto;
+    margin-top: 2%;
+    width: 96%;
+    height: 4%;
+}
+.tabel-changge .el-radio-button__inner {
+    padding: 8px 20px !important;
+    margin-left: 20px !important;
+    border: 1px solid transparent;
+    border-radius:25px !important;
+}
+.tabel-changge .el-radio-button:first-child .el-radio-button__inner {
+    border-left: 1px solid transparent;
+}
+.tabel-changge .el-date-editor.el-input {  
+    margin-left: 20px;
+}
+.tabel-changge .el-input__inner{
+    height: 36px;
+    line-height: 36px;
+}
+.tabel-changge .el-input__icon{
+    line-height: 36px;
+}
+.tabel-contant {
+    width: 96%;
+    height: 86%;
+    margin: auto;
+    margin-top: 2%;
+}
+.tabel-contant table tr th,.tabel-contant table tr td{
+    text-align: center;
+}
+.tabel-changge>span {
+    margin-left: 30px;
+    position: relative;
+    top: 2px;
+    margin-right: 10px;
+    color: #9A9FAC;
+}
+.tabel-changge .el-switch {
+    position: relative;
+    top: 1px;
+}
+.el-button  {
+    padding: 8px 18px !important;
+}
+#right-content .pagination {
+    margin-left: -3% !important;
+}

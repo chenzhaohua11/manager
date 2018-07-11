@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
     <title>用户管理</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/user-manage.css">
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
@@ -37,9 +39,9 @@
                     <li>
                         <a href="./candidate.html">招聘管理</a>
                     </li>
-                    <li >
+                    <li>
                         <a href="./post-manage.html">招聘任务</a>
-                        <ul>                        
+                        <ul>
                         </ul>
                     </li>
                     <li>
@@ -161,7 +163,7 @@
                     </el-table-column>
                     <el-table-column label="操作" width="200">
                         <template slot-scope="scope">
-                            <el-button class="mm-edit" type="text" size="small" icon="el-icon-edit">编辑</el-button>
+                            <el-button class="mm-edit" type="text" size="small" icon="el-icon-edit" @click="centerDialogVisible = true">编辑</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -170,9 +172,31 @@
                         @current-change="currentChange">
                     </el-pagination>
                 </div>
+                <!-- 弹窗 -->
+                <el-dialog title="编辑" :visible.sync="centerDialogVisible" width="30%" center>
+                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="60px" class="demo-ruleForm">
+                        <el-form-item label="角色" prop="region">
+                            <el-select v-model="ruleForm.region" placeholder="请选择角色">
+                                <el-option label="超级管理员" value="shanghai"></el-option>
+                                <el-option label="管理员" value="beijing"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="状态" prop="region">
+                            <el-select v-model="ruleForm.region" placeholder="请选择状态">
+                                <el-option label="开启" value="shanghai"></el-option>
+                                <el-option label="关闭" value="beijing"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="submitForm('ruleForm')">确认</el-button>
+                            <el-button @click="centerDialogVisible = false">取消</el-button>
+                        </el-form-item>
+                    </el-form>
+                    
+                </el-dialog>
             </div>
         </div>
     </div>
 </body>
-statistical-analysis
+
 </html>

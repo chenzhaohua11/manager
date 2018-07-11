@@ -150,7 +150,7 @@ function postManageInit() {
                 postLevel: '01',
                 postType: "销售",
                 deptName: "微博业务中心",
-                recruitNum: "30",
+                recruitNum: "紧急",
                 chargePerson: "王帅",
                 preinterviewer: "某某某",
                 reinterviewer: '某某某'
@@ -160,7 +160,7 @@ function postManageInit() {
                 postLevel: '02',
                 postType: "销售",
                 deptName: "微博业务中心",
-                recruitNum: "30",
+                recruitNum: "紧急",
                 chargePerson: "王帅",
                 preinterviewer: "某某某",
                 reinterviewer: '某某某'

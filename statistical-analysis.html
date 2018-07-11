@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
     <title>统计分析</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/waitInterview.css">
+    <link rel="stylesheet" href="./css/statistical-analysis.css">
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
@@ -35,37 +36,6 @@
                 <a href="./index.html">
                     人才招聘管理
                 </a>
-                <ul>
-                    <li class="active">
-                        <a href="./candidate.html">招聘管理</a>
-                        <ul>
-                            <li>
-                                <a href="./postList.html">职位申请列表</a>
-                            </li>
-                            <li>
-                                <a href="./waitInterview.html">待面试</a>
-                            </li>
-                            <li>
-                                <a href="./sendOffer.html">待入职</a>
-                            </li>
-                            <li class="sel">
-                                <a href="#">已入职</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="./post-manage.html">招聘任务</a>
-                    </li>
-                    <li>
-                        <a href="./resume-manage.html">简历管理</a>
-                    </li>
-                    <li>
-                        <a href="./school-cooperation.html">校企合作</a>
-                    </li>
-                    <li>
-                        <a href="./template-list.html">系统设置</a>
-                    </li>
-                </ul>
             </li>
             <i></i>
             <li>
@@ -93,8 +63,8 @@
             </li>
             <i></i>
             <li>
-                <img src="./images/nav6.png" alt="">
-                <a href="#">
+                <img src="./images/nav6-on.png" alt="">
+                <a href="#" class="active">
                     统计分析
                 </a>
                 <ul></ul>
@@ -112,7 +82,7 @@
                     <el-radio-button label="本月"></el-radio-button>
                     <el-radio-button label="本周"></el-radio-button>
                     <el-radio-button label="年"></el-radio-button>
-                    <el-date-picker v-model="value5" type="year" placeholder="选择年">
+                    <el-date-picker v-model="value5" type="year" placeholder="选择时间段">
                     </el-date-picker>
                 </el-radio-group>
             </div>

@@ -1,0 +1,19 @@
+/* 预览 */
+.mian-content .el-dialog {
+    padding: 20px !important;
+    border-radius: 12px !important;
+}
+.mian-content .el-dialog__header{
+    border-bottom: 1px solid #E2E7EA;
+}
+.mian-content .el-dialog__body {
+    width: 60% !important;
+    margin: auto;
+}
+.mian-content .el-dialog .el-button{
+    margin-top: 30px;
+    padding: 10px 32px;
+}
+.el-form-item__content .el-select {
+    width: 100% !important;
+}

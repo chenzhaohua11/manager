@@ -61,39 +61,17 @@
 .wait-work {
     background: #148DFE
 }
-/* 天气 */
 .weather {
-    color: #5D6266;
+    width:16%;
+    border-radius: 14px;
+    position: relative;
+    left: 60px;
     border: 1px solid #ccc;
 }
-.weather .showWeather {
-    margin: auto;
+.index-header iframe {
     position: relative;
-    width: 60%;
-    height: 50%;
+    left: 70px;
 }
-.showWeather img {
-    display: inline-block;
-    height: 100%;
-    width: 40%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.showWeather span {
-    display: inline-block;
-    position: absolute;
-    line-height: 190%;
-    color: #5D6266;
-    height: 100%;
-    width: 50%;
-    top: 0;
-    right: 0;
-    font-size: 40px;
-}
-
-
-
 #msg-chart {
     height: 100%;
 }
@@ -117,98 +95,56 @@
 }
 
 /* 首页底部 */
-
-.index-footer .msgbox {
-    padding: 3% 3% 0 3%;
+.index-footer .msg-header {
+    padding: 3% 0;
+    background: #D8DCE5;
+    color: #737980;
+    position: relative;
 }
-
-.index-footer .msgbox>p {
-    color: #000;
-    font-size: 16px;
-    height: 10%;
-    text-align: left
+.msg-header span {
+    position: relative;
+    top: -8px;
 }
-
-.index-footer .msgbox>p.msg-title::before {
-    content: "";
+.msg-header span:first-of-type{
+    font-size: 20px;
+    margin-right: 10px;
+    color: #45494D
+}
+.msg-header i {
     display: inline-block;
-    position: relative;
-    top: 2px;
-    background: red;
-    width: 3px;
-    height: 42%;
-    margin-right: 3px;
-}
-/* 内方块 */
-.index-footer .msgbox>.el-row {
-    height: 30% !important;
-    width: 100% !important;
-    margin: auto !important;
-    margin-bottom: 20px !important;
-}
-.index-footer .msgbox>.el-row>.el-col {
-    background: #EFF6FC !important;
-    color: #666 !important ;
-    border-radius: 10px !important;
-}
-.inner-msgbox {
-    height: 100%;
-    text-align: center;
-    position: relative;
-}
-.inner-msgbox>p:first-child {
-    margin-top: 8%;
-}
-.inner-msgbox>p:last-child {
-    color: #1E9AEC;
-    font-size: 30px;
-    margin-top: 3%;
-}
-/* 新增岗位 */
-.inner-msgbox>i {
-    display: block;
-    width: 14%;
-    height: 40%;
-    position: absolute;
-    background: url("../images/add.png");
+    width: 32px;
+    height: 32px;
+    margin-left: 20px;
     background-size: 100% 100%;
-    background-position: center center;
-    cursor: pointer;
-    top:50%;
-    left: 30%;
-    margin-top: -5%;
 }
-.inner-msgbox>span {
-    position: absolute;
-    height: 50%;
-    top:50%;
-    line-height: 287%;
-    margin-top: -6%;
-    left: 50%;
+.msg-header i.ii-ap {
+    background: url()
 }
-
+.msg-header i.ii-zp {
+    background: url()
+}
+.msgbox .table-header {
+   padding: 2%;
+   color: #000;
+}
 .index-footer .msgbox .scroll-wrap {
-    height: 40%;
+    height: 60%;
     overflow: hidden;
     position: relative;
 }
 .marquee_top{transition: top 0.5s ;}/*关键样式*/
 .donate_bar {
-    padding: 0;
+    padding: 0 2%;
     height: 100%;
-    width: 100%;
-    margin-top: 10px;
+    width: 96%;
     position: absolute;
 }
 
 .donate_bar li {
-    height: 36%;
+    height: 42px;
+    line-height: 42px;
     list-style: none;
     margin: 0;
-    padding: 0;
     color: #5D6266;
     cursor: pointer;
-}
-.donate_bar .el-row .el-col:last-child {
-    text-align: right !important;
 }

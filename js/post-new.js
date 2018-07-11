@@ -120,7 +120,8 @@ function tempNewInit() {
                 wagesMin: '',
                 wagesMax: '',
                 content: '',
-                interviewAddress:''
+                interviewAddress:'',
+                delivery: true
             },
             apiUrl: "http://172.16.1.79:8080/HRM2018",
             rules: {

@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
     <title>人力资源管理系统-首页</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="./css/base.css">
@@ -16,6 +17,7 @@
     <script src="./common/commData.js"></script>
     <script src="./js/index.js"></script>
 </head>
+
 <body>
     <div id="left-nav">
         <div id="gxcf-title">
@@ -133,16 +135,7 @@
                             <a href="./waitCome.html">查看详情 &gt; </a>
                         </div>
                     </el-col>
-                    <el-col :span="6">
-                        <!-- <div class="msgbox weather">
-                            <div class="msg-head">
-                                <span>今天  ({{new Date().getMonth() + 1}}月{{new Date().getDate()}}日)</span>
-                            </div>
-                            <div class="showWeather">
-                                <img src="./images/2.png" alt="">
-                                <span>{{wendu}}℃</span>
-                            </div>
-                        </div> -->
+                    <el-col :span="6" class="weather">
                         <iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=112" width="100%" height="100%" frameborder="0" marginwidth="0"
                             marginheight="0" scrolling="no"></iframe>
                     </el-col>
@@ -155,9 +148,9 @@
                         <div class="msgbox">
                             <div class="chart-control">
                                 <el-radio-group v-model="radio3" @change="shiftValue">
-                                    <el-radio-button label="入职"></el-radio-button>
+                                    <el-radio-button label="已入职"></el-radio-button>
                                     <el-radio-button label="待面试"></el-radio-button>
-                                    <el-radio-button label="已发offer"></el-radio-button>
+                                    <el-radio-button label="待入职"></el-radio-button>
                                 </el-radio-group>
                             </div>
                             <div id="msg-chart"></div>
@@ -170,30 +163,27 @@
                 <el-row :gutter="30">
                     <el-col :span="12">
                         <div class="msgbox">
-                            <p class="msg-title">岗位管理</p>
-                            <el-row>
-                                <el-col :span="11">
-                                    <div class="inner-msgbox">
-                                        <p>在招岗位数</p>
-                                        <p>{{jobNum}}</p>
-                                    </div>
-                                </el-col>
-                                <el-col :span="11" :offset="2">
-                                    <div class="inner-msgbox">
-                                        <i @click="goAddPos"></i>
-                                        <span>添加新岗位</span>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <p class="new-msg-title">最新招聘岗位</p>
+                            <div class="msg-header">
+                                <i class="ii-ap"></i>
+                                <span>今日面试安排</span>
+                                <span>共{{newRegList.length}}个面试</span>
+                            </div>
+                            <div class="table-header">
+                                <el-row>
+                                    <el-col :span="6">面试时间</el-col>
+                                    <el-col :span="6">面试官</el-col>
+                                    <el-col :span="6">应聘人</el-col>
+                                    <el-col :span="6">申请职位</el-col>
+                                </el-row>
+                            </div>
                             <div class="scroll-wrap">
-                                <ul class="donate_bar" :style="{ top: -posNum + '%'}" :class="{marquee_top:posNum}" @mouseleave="Scroll(posNum,'pos')" @mouseenter="clearInterval('pos')">
-                                    <li v-for="(item, index) in newPosList" :key="index">
+                                <ul class="donate_bar" :style="{ top: -regNum + '%'}" :class="{marquee_top:regNum}" @mouseleave="Scroll(regNum,'pos')" @mouseenter="clearInterval('reg')">
+                                    <li v-for="(item, index) in newRegList" :key="index">
                                         <el-row>
-                                            <el-col :span="6">{{item.postName}}</el-col>
-                                            <el-col :span="6">{{item.recruitNum}}人</el-col>
-                                            <el-col :span="6">{{item.interviewAddress}}</el-col>
-                                            <el-col :span="6">{{item.updTime}}</el-col>
+                                            <el-col :span="6">{{item.insTime}}</el-col>
+                                            <el-col :span="6">{{item.dutyname}}</el-col>
+                                            <el-col :span="6">{{item.name}}</el-col>
+                                            <el-col :span="6">{{item.intentJob}}</el-col>
                                         </el-row>
                                     </li>
                                 </ul>
@@ -202,25 +192,22 @@
                     </el-col>
                     <el-col :span="12">
                         <div class="msgbox">
-                            <p class="msg-title">招聘管理</p>
-                            <el-row>
-                                <el-col :span="11">
-                                    <div class="inner-msgbox">
-                                        <p>面试保温期</p>
-                                        <p>{{interviewNum}}</p>
-                                    </div>
-                                </el-col>
-                                <el-col :span="11" :offset="2">
-                                    <div class="inner-msgbox">
-                                        <p>offer保温期</p>
-                                        <p>{{offerNum}}</p>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <p class="new-msg-title">今日安排面试</p>
+                            <div class="msg-header">
+                                <i class="ii-zp"></i>
+                                <span>最新招聘岗位</span>
+                                <span>共{{newPosList.length}}个的在招岗位数</span>
+                            </div>
+                            <div class="table-header">
+                                <el-row>
+                                    <el-col :span="5">岗位名称</el-col>
+                                    <el-col :span="5">招聘人数</el-col>
+                                    <el-col :span="6">紧急程度</el-col>
+                                    <el-col :span="6">发布日期</el-col>
+                                </el-row>
+                            </div>
                             <div class="scroll-wrap">
-                                <ul class="donate_bar" :style="{ top: -regNum + '%'}" :class="{marquee_top:regNum}" @mouseleave="Scroll(regNum,'reg')" @mouseenter="clearInterval('reg')">
-                                    <li v-for="(item, index) in newRegList" :key="index">
+                                <ul class="donate_bar" :style="{ top: -posNum + '%'}" :class="{marquee_top:posNum}" @mouseleave="Scroll(posNum,'reg')" @mouseenter="clearInterval('pos')">
+                                    <li v-for="(item, index) in newPosList" :key="index">
                                         <el-row>
                                             <!-- <el-col :span="6">{{item.name}}</el-col>
                                             <el-col :span="6">{{item.pos}}</el-col>

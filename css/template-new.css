@@ -14,9 +14,15 @@
     width: 94.2%;
     height: 350px;
 }
-.mm-content .el-form-item__content{
+.mm-content .el-form-item__content:last-child{
     text-align: center
 }
 .mm-content .el-checkbox{
     margin-left: 8.8%;
+}
+.mm-content .el-date-editor.el-input{
+    width: 100%;
+}
+.mm-content .el-button{
+    padding: 12px 46px;
 }

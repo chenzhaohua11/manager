@@ -7,7 +7,7 @@ function init() {
         el: "#right-container",
         data: {
             apiUrl: commData.baseUrl,
-            radio3: '入职', //状态对应7
+            radio3: '已入职', //状态对应7
             posTime: "",
             regTime: '',
             posNum: 0,
@@ -19,18 +19,38 @@ function init() {
             offerNum: 0,
             jobNum: 0,
             state: 7,
-            wendu: "30",
             x: [],
             y: [],
-            newPosList: [],
-            newRegList: []
+            newPosList: [],//岗位
+            newRegList: [
+                {
+                    insTime: "15:15",
+                    dutyname: "王帅",
+                    name: "张三",
+                    intentJob: "JAVA开发"
+                },
+                {
+                    insTime: "15:15",
+                    dutyname: "王帅",
+                    name: "张三",
+                    intentJob: "JAVA开发"
+                }, {
+                    insTime: "15:15",
+                    dutyname: "王帅",
+                    name: "张三",
+                    intentJob: "JAVA开发"
+                }, {
+                    insTime: "15:15",
+                    dutyname: "王帅",
+                    name: "张三",
+                    intentJob: "JAVA开发"
+                },
+            ]//面试
         },
         created: function () {
             this.GetNeedNum();
             this.GetRequestData();
-            this.GetJobMsg();
-            this.Scroll(this.posNum, "pos");
-            this.Scroll(this.regNum, "reg");
+            // this.GetJobMsg();
             this.GetTodayInterviewee();
         },
         mounted: function () {},
@@ -44,35 +64,11 @@ function init() {
                     url: that.apiUrl + '/queryResumeCountByDate',
                     data: {
                         date: date,
-                        state: "0"
+                        interview: 2
                     },
-                    dataType: 'text',
+                    dataType: 'json',
                     success: function (res) {
-                        res = JSON.parse(res);
-                        res = JSON.parse(res.body);
-                        that.$data.needNum = res;
-                    }
-                });
-                //获取面试保温期
-                commMethod.ajax(this.apiUrl + "/queryResumeBwqCountByState", {
-                    state: "1"
-                }, function (res) {
-                    res = JSON.parse(res);
-                    res = JSON.parse(res.body);
-                    that.$data.interviewNum = res;
-                });
-                //获取offer保温期
-                $.ajax({
-                    type: 'POST',
-                    url: that.apiUrl + '/queryResumeBwqCountByState',
-                    data: {
-                        state: "6"
-                    },
-                    dataType: 'text',
-                    success: function (res) {
-                        res = JSON.parse(res);
-                        res = JSON.parse(res.body);
-                        that.$data.offerNum = res;
+                        that.$data.needNum = res.body;
                     }
                 });
                 //获取已发offer人数
@@ -81,28 +77,24 @@ function init() {
                     url: that.apiUrl + '/queryResumeCountByDate',
                     data: {
                         date: date,
-                        state: "6"
+                        interview: "6"
                     },
-                    dataType: 'text',
+                    dataType: 'json',
                     success: function (res) {
-                        res = JSON.parse(res);
-                        res = JSON.parse(res.body);
-                        that.$data.sendOfferNum = res;
+                        that.$data.sendOfferNum = res.body;
                     }
                 });
-                //获取待入职人数
+                //获取入职人数
                 $.ajax({
                     type: 'POST',
                     url: that.apiUrl + '/queryResumeCountByDate',
                     data: {
                         date: date,
-                        state: "7"
+                        interview: "7"
                     },
-                    dataType: 'text',
+                    dataType: 'json',
                     success: function (res) {
-                        res = JSON.parse(res);
-                        res = JSON.parse(res.body);
-                        that.$data.RzNum = res;
+                        that.$data.RzNum = res.body;
                     }
                 });
             },
@@ -115,29 +107,11 @@ function init() {
                     data: {},
                     dataType: 'text',
                     success: function (res) {
-                        res = JSON.parse(res);
-                        res = res.body;
-                        that.$data.jobNum = res.total;
-                        that.newPosList = res.data;
+                        console.log(res);
+                        that.Scroll(that.$data.posNum, "pos");
                     }
                 });
             },
-            // //获取天气
-            // GetWeather:function() {
-            //     var that = this;
-            //     $.ajax({
-            //         type:'POST',
-            //         url:'http://wthrcdn.etouch.cn/weather_mini',
-            //         data:{
-            //             city:"长沙"
-            //         },
-            //         dataType:"jsonp",
-            //         success:function (res) { 
-            //            that.$data.wendu = res.data.wendu;
-            //            console.log(res);
-            //          }
-            //     })
-            // },
             // 获取图表数据
             GetRequestData: function () {
                 var that = this;
@@ -145,11 +119,10 @@ function init() {
                     type: 'POST',
                     url: that.apiUrl + '/homeChartData',
                     data: {
-                        state: that.state
+                        interview: that.state
                     },
-                    dataType: 'text',
+                    dataType: 'json',
                     success: function (res) {
-                        res = JSON.parse(res);
                         res = res.body;
                         that.x = res.labare;
                         that.y = res.chaj;
@@ -160,33 +133,32 @@ function init() {
                 });
             },
             //获取今日面试
-            GetTodayInterviewee:function () {
+            GetTodayInterviewee: function () {
                 var that = this;
                 $.ajax({
                     type: 'POST',
-                    url: that.apiUrl + '/queryResumeList',
-                    data: {
-                        arriveTime: "1"
-                    },
+                    url: that.apiUrl + '/queryIviewByToday',
+                    data: {},
                     dataType: 'text',
                     success: function (res) {
-                        res = JSON.parse(res);
-                        res = JSON.parse(res.body);
-                        console.log(res);                    
+                        res = JSON.parse(res)
+                        res = res.body;
+                        that.newRegList = res;
+                        that.Scroll(that.$data.regNum, "reg");
                     }
                 });
             },
             //切换条件 
             shiftValue: function (val) {
                 switch (val) {
-                    case "入职":
+                    case "已入职":
                         this.state = 7;
                         break;
-                    case "已发offer":
+                    case "待入职":
                         this.state = 6;
                         break;
                     case "待面试":
-                        this.state = 1;
+                        this.state = 2;
                         break;
                     default:
                         break;
@@ -235,35 +207,35 @@ function init() {
             Scroll: function (num, value) {
                 var that = this;
                 if (num != 0) {
-                    num = num / 36;
+                    num = num / 42;
                     switch (value) {
                         case "pos":
                             let posMax = that.newPosList.length;
                             let posNum = num;
-                            if (posMax < 3) {
+                            if (posMax < 4) {
                                 that.clearInterval(that.posTime)
                             } else {
                                 that.posTime = setInterval(function () {
                                     posNum++;
-                                    if (posNum > posMax - 2) {
+                                    if (posNum > posMax - 3) {
                                         posNum = 0;
                                     }
-                                    that.posNum = posNum * 36;
+                                    that.posNum = posNum * 42;
                                 }, 2000);
                             }
                             break;
                         case "reg":
-                            var regMax = that.newPosList.length;
+                            let regMax = that.newRegList.length;
                             let regNum = num;
-                            if (regMax < 3) {
+                            if (regMax < 4) {
                                 that.clearInterval(that.regTime)
                             } else {
                                 that.regTime = setInterval(function () {
                                     regNum++;
-                                    if (regNum > regMax - 2) {
+                                    if (regNum > regMax - 3) {
                                         regNum = 0;
                                     }
-                                    that.regNum = regNum * 36;
+                                    that.regNum = regNum *42;
                                 }, 2000);
                             }
 
@@ -273,33 +245,33 @@ function init() {
                     }
                 } else {
                     switch (value) {
-                        case "pos":
+                        case "pos":   
                             let posMax = that.newPosList.length;
                             let posNum = num;
-                            if (posMax < 3) {
+                            if (posMax < 4) {
                                 that.clearInterval(that.posTime)
                             } else {
                                 that.posTime = setInterval(function () {
                                     posNum++;
-                                    if (posNum > posMax - 2) {
+                                    if (posNum > posMax - 3) {
                                         posNum = 0;
                                     }
-                                    that.posNum = posNum * 36;
+                                    that.posNum = posNum * 42;
                                 }, 2000);
                             }
                             break;
-                        case "reg":
-                            var regMax = that.newPosList.length;
+                        case "reg":                 
+                            let regMax = that.newRegList.length;
                             let regNum = num;
-                            if (regMax < 3) {
+                            if (regMax < 4) {
                                 that.clearInterval(that.regTime)
                             } else {
                                 that.regTime = setInterval(function () {
                                     regNum++;
-                                    if (regNum > regMax - 2) {
+                                    if (regNum > regMax - 3) {
                                         regNum = 0;
                                     }
-                                    that.regNum = regNum * 36;
+                                    that.regNum = regNum * 42;
                                 }, 2000);
                             }
                             break;
@@ -320,9 +292,6 @@ function init() {
                     default:
                         break;
                 }
-            },
-            goAddPos: function () {
-                window.location.href = "./post-new.html";
             }
         }
     });
