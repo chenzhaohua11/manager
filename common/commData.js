@@ -57,7 +57,7 @@ var commData = {
         value: '前端工程师',
         label: '前端工程师'
     }],
-    baseUrl: "http://172.16.1.101:8080/HRM2018", //接口地址
+    baseUrl: "http://172.16.1.79:8080/HRM2018", //接口地址
 };
 
 var commMethod = {

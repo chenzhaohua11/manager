@@ -23,34 +23,13 @@ function init() {
             y: [],
             newPosList: [],//岗位
             newRegList: [
-                {
-                    insTime: "15:15",
-                    dutyname: "王帅",
-                    name: "张三",
-                    intentJob: "JAVA开发"
-                },
-                {
-                    insTime: "15:15",
-                    dutyname: "王帅",
-                    name: "张三",
-                    intentJob: "JAVA开发"
-                }, {
-                    insTime: "15:15",
-                    dutyname: "王帅",
-                    name: "张三",
-                    intentJob: "JAVA开发"
-                }, {
-                    insTime: "15:15",
-                    dutyname: "王帅",
-                    name: "张三",
-                    intentJob: "JAVA开发"
-                },
-            ]//面试
+               
+]//面试
         },
         created: function () {
             this.GetNeedNum();
             this.GetRequestData();
-            // this.GetJobMsg();
+            this.GetJobMsg();
             this.GetTodayInterviewee();
         },
         mounted: function () {},
@@ -103,11 +82,14 @@ function init() {
                 var that = this;
                 $.ajax({
                     type: 'POST',
-                    url: that.apiUrl + '/queryPostByState',
-                    data: {},
-                    dataType: 'text',
+                    url: that.apiUrl + '/queryRecruitaskHomePage',
+                    data: {
+                       
+                    },
+                    dataType: 'json',
                     success: function (res) {
-                        console.log(res);
+                        res = res.body;
+                        that.newPosList = JSON.parse(res); 
                         that.Scroll(that.$data.posNum, "pos");
                     }
                 });
@@ -139,9 +121,8 @@ function init() {
                     type: 'POST',
                     url: that.apiUrl + '/queryIviewByToday',
                     data: {},
-                    dataType: 'text',
-                    success: function (res) {
-                        res = JSON.parse(res)
+                    dataType: 'json',
+                    success: function (res) {  
                         res = res.body;
                         that.newRegList = res;
                         that.Scroll(that.$data.regNum, "reg");

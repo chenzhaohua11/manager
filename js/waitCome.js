@@ -6,7 +6,6 @@ function init() {
     new Vue({
         el: "#right-container",
         data: {
-            radio3: '今天',
             apiUrl: commData.baseUrl,
             tableData: [{
                 name: 'alex',
@@ -21,7 +20,6 @@ function init() {
                 manager: 'jade',
                 iscome: '0'
             }],
-            sjd: "1",
             //分页控制
             crrentPage: 1,
             pageCount: 1,
@@ -39,38 +37,19 @@ function init() {
                     type: 'POST',
                     url: that.apiUrl + '/queryResumeList',
                     data: {
-                        state: "7",
-                        sjd: that.sjd
+                        interview: "7"
                     },
                     dataType: 'text',
                     success: function (res) {
-                        res = JSON.parse(res);
-                        res = JSON.parse(res.body);
+                        console.log(res);
                         that.tableData = res.rows;
                         that.$data.loading = false;
                     }
                 });
             },
-            change: function (value) {
-                switch (value) {
-                    case "今天":
-                        this.sjd = "1";
-                        break;
-                    case "明天":
-                        this.sjd = "2";
-                        break;
-                    case "最近一周":
-                        this.sjd = "3";
-                        break;
-
-                    default:
-                        break;
-                }
-                this.getResData();
-            },
             //分页
             currentChange: function (val) {
-                console.log(val)
+                console.log(val);
             },
         }
     })

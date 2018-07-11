@@ -37,16 +37,17 @@ function init() {
             apiUrl: commData.baseUrl,
             //删选字段
             searchValue: {
-                postId: '',
-                reason: '',
+                positionId: '',
+                insreason: '',
                 jobAge: "",
-                state: '',
+                interview: '',
                 education: '',
                 sex: '',
-                hrname: '',
+                dutyid: '',
                 source: '',
                 age1: '',
                 age2: '',
+                sjd:'',
                 crrentPage: 1,
             },
             //table数据
@@ -81,9 +82,9 @@ function init() {
             loading: true
         },
         created: function () {
-            this.GetResData();
-            this.GetXLList();
-            this.GetWorkEduList();
+            // this.GetResData();
+            // this.GetXLList();
+            // this.GetWorkEduList();
         },
         methods: {
             //获取简历列表

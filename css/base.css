@@ -377,7 +377,7 @@ select {
 }
 
 .filter-item .el-date-editor {
-    width: 93% !important;
+    width: 100% !important;
 }
 
 .el-row {

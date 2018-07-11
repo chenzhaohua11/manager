@@ -124,14 +124,14 @@
                     <p class="group-title">应聘信息</p>
                     <div class="filter-item">
                         <p class="item-title">应聘职位</p>
-                        <el-select clearable v-model="searchValue.postId" placeholder="请选择">
+                        <el-select clearable v-model="searchValue.positionId" placeholder="请选择">
                             <el-option v-for="item in positionList" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">原因</p>
-                        <el-select clearable v-model="searchValue.reason" placeholder="请选择">
+                        <el-select clearable v-model="searchValue.insreason" placeholder="请选择">
                             <el-option v-for="item in reasonList" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                         </el-select>
@@ -148,7 +148,7 @@
                     </div>
                     <div class="filter-item">
                         <p class="item-title">当前状态</p>
-                        <el-select clearable v-model="searchValue.state" placeholder="请选择">
+                        <el-select clearable v-model="searchValue.interview" placeholder="请选择">
                             <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                         </el-select>
@@ -175,7 +175,7 @@
                     </div>
                     <div class="filter-item">
                         <p class="item-title">人事负责人</p>
-                        <el-select clearable v-model="searchValue.hrname" placeholder="请选择">
+                        <el-select clearable v-model="searchValue.dutyid" placeholder="请选择">
                             <el-option v-for="item in RsHandlerList" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                         </el-select>

@@ -209,10 +209,10 @@
                                 <ul class="donate_bar" :style="{ top: -posNum + '%'}" :class="{marquee_top:posNum}" @mouseleave="Scroll(posNum,'reg')" @mouseenter="clearInterval('pos')">
                                     <li v-for="(item, index) in newPosList" :key="index">
                                         <el-row>
-                                            <!-- <el-col :span="6">{{item.name}}</el-col>
-                                            <el-col :span="6">{{item.pos}}</el-col>
-                                            <el-col :span="6">{{item.date}}</el-col>
-                                            <el-col :span="6">{{item.tel}}</el-col> -->
+                                            <el-col :span="6">{{item.positionName}}</el-col>
+                                            <el-col :span="6">{{item.planNumber}}</el-col>
+                                            <el-col :span="6">{{item.urgencyDesc}}</el-col>
+                                            <el-col :span="6">{{item.updTime}}</el-col>
                                         </el-row>
                                     </li>
                                 </ul>

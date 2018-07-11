@@ -22,7 +22,6 @@
     color: #fff;
     position: relative;
     overflow: hidden;
-    border: 1px solid #ccc;
     box-shadow: 0px 0px 10px #ccc;
     border-radius: 10px;
 }
@@ -65,12 +64,12 @@
     width:16%;
     border-radius: 14px;
     position: relative;
-    left: 60px;
+    left: 50px;
     border: 1px solid #ccc;
 }
 .index-header iframe {
     position: relative;
-    left: 70px;
+    left: 60px;
 }
 #msg-chart {
     height: 100%;
@@ -115,13 +114,15 @@
     width: 32px;
     height: 32px;
     margin-left: 20px;
-    background-size: 100% 100%;
 }
 .msg-header i.ii-ap {
-    background: url()
+    background: url('../images/ap.png');
+    background-size: 100% 100%;
+
 }
 .msg-header i.ii-zp {
-    background: url()
+    background: url('../images/zp.png');
+    background-size: 100% 100%;
 }
 .msgbox .table-header {
    padding: 2%;

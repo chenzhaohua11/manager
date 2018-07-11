@@ -27,14 +27,11 @@ function init() {
                     type: 'POST',
                     url: that.apiUrl + '/queryResumeList',
                     data: {
-                        state: "1",
+                        interview: "2",
                         sjd: that.sjd
                     },
                     dataType: 'text',
                     success: function (res) {
-                        res = JSON.parse(res);
-                        res = JSON.parse(res.body);
-                        that.tableData = res.rows;
                         console.log(res);
                         that.$data.loading = false;
                     }
