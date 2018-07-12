@@ -18,21 +18,21 @@ function init() {
             //简历导入弹框
             addRegVisible: false,
             //岗位列表
-            positionList: commData.positionList,
+            positionList:[],
             //原因列表
-            reasonList: commData.reasonList,
+            reasonList:[],
             //工作经历列表
             workExpList: [],
             //状态列表
-            statusList: commData.statusList,
+            statusList: [],
             //学历列表
             eduBackgroundList: [],
             //性别列表
-            sexList: commData.sexList,
+            sexList: [],
             //认识负责人列表
-            RsHandlerList: commData.RsHandlerList,
+            RsHandlerList: [],
             //渠道列表
-            newsChannelList: commData.newsChannelList,
+            newsChannelList: [],
             //api地址
             apiUrl: commData.baseUrl,
             //删选字段
@@ -83,8 +83,9 @@ function init() {
         },
         created: function () {
             // this.GetResData();
-            // this.GetXLList();
-            // this.GetWorkEduList();
+            this.GetPosList();
+            this.GetXLList();
+            this.GetWorkEduList();
         },
         methods: {
             //获取简历列表
@@ -95,7 +96,7 @@ function init() {
                     type: 'POST',
                     url: that.apiUrl + '/queryResumeList',
                     data: data,
-                    dataType: 'text',
+                    dataType: 'json',
                     success: function (res) {
                         that.$data.loading = false;
                         res = JSON.parse(res);
@@ -115,13 +116,26 @@ function init() {
                     type: 'POST',
                     url: that.apiUrl + '/queryDictsByItemType',
                     data: {
-                        itemtype: "XL"
+                        type: "education"
                     },
-                    dataType: 'text',
+                    dataType: 'json',
                     success: function (res) {
-                        res = JSON.parse(res)
                         res = JSON.parse(res.body);
-                        that.$data.eduBackgroundList = res;
+                        that.eduBackgroundList = res;
+                    }
+                });
+            },
+            //获取岗位信息
+            GetPosList:function() {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryPositionSelect  ',
+                    data: {
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                         that.positionList = res.body ;
                     }
                 });
             },
@@ -132,13 +146,12 @@ function init() {
                     type: 'POST',
                     url: that.apiUrl + '/queryDictsByItemType',
                     data: {
-                        itemtype: "GZJY"
+                        type: "GZJY"
                     },
-                    dataType: 'text',
+                    dataType: 'json',
                     success: function (res) {
-                        res = JSON.parse(res)
-                        res = JSON.parse(res.body)
-                        that.$data.workExpList = res;
+                        res = JSON.parse(res.body);
+                        that.workExpList = res;
                     }
                 });
             },

@@ -32,14 +32,18 @@
             font-size: 0.4rem !important;
         }
 
-        .app-container {
-            margin-top: 3pt;
+        .mint-tab-item {
+            border-bottom: 3px solid #E2E2E2;
+        }
+
+        .mint-navbar .mint-tab-item.is-selected {
+            margin-bottom: 0;
         }
 
         /* 面试记录 */
+
         .record {
             width: 100%;
-            margin-top: 3pt;
             background: #E9EDF0;
         }
 
@@ -69,6 +73,12 @@
             text-align: center;
         }
 
+        .record table td:nth-child(2),
+        .record table td:nth-child(3) {
+            font-size: 10px;
+            color: #5C6266;
+        }
+
         .record table tr th:first-child,
         .record table tr td:first-child {
             text-align: left;
@@ -82,23 +92,31 @@
         }
 
         td.record-advice p {
-            padding: 3pt 0;
+            padding: 30pt 0 0 0;
             text-align: right;
         }
+
         td.record-advice textarea {
-            width: 90% ;
+            width: 90%;
             border: none;
             outline: none;
         }
+
         td.record-advice p span {
             margin-left: 20pt;
             margin-right: 20pt;
         }
+
         /* 面试评估 */
+
         .record .check-radio .mint-cell {
-            width: 33% !important;
+            width: 36% !important;
             float: left;
             min-height: 20px !important;
+        }
+
+        .record .check-radio .mint-cell:first-of-type {
+            width: 27% !important
         }
 
         .record .desc-input .mint-cell {
@@ -118,29 +136,35 @@
             border: none !important;
             background-size: 100% 0 !important;
             box-sizing: content-box !important;
-            font-size: 8px !important;
+            font-size: 10px !important;
             padding: 0;
         }
 
         .record .check-radio .mint-cell .mint-radiolist-label {
             width: 90%;
         }
+
         .record .check-radio .mint-cell .mint-cell-title {
             text-align: left;
         }
+
         .record .decison-radio .mint-cell {
             width: 50% !important;
             float: left;
         }
+
         /* 提交 */
+
         .submit {
             padding: 10pt 0;
         }
+
         .submit .mint-button {
             display: block;
             width: 96%;
             margin: auto;
         }
+
         /* 职位申请表 */
 
         .apply-header {
@@ -234,7 +258,8 @@
             text-align: center;
             font-size: 12pt;
             color: #2E3133;
-            border-bottom: 1px solid #DAE0E6;
+            border: 1px solid #DAE0E6;
+            border-bottom: 0;
         }
 
         .detial-table table {
@@ -242,13 +267,34 @@
             margin-bottom: 2%;
         }
 
+        .detial-table table tr td:first-child,
+        .wish-salary table tr th:first-child {
+            width: 25%;
+        }
+
+        .wish-salary table tr th:nth-child(2n) {
+            color: #5C6266;
+            font-weight: 500;
+        }
+        .detial-table.other-thing table tr td:first-child {
+            width: 50%;
+        }
         .detial-table table,
         .detial-table table th,
         .detial-table table td {
-            border: 1px solid #DAE0E6;
+            border: 1px solid #D8DCE6;
             text-align: center;
-            color: #5C6266;
-            padding: 10pt 0;
+            color: #2E3133;
+            font-size: 10px;
+            padding: 10pt 5pt;
+        }
+
+        .detial-table table td {
+            max-width: 50px;
+            color:#5C6266;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     </style>
 </head>
@@ -386,7 +432,7 @@
                                 <tr>
                                     <td>面试意见</td>
                                     <td class="record-advice" colspan="4">
-                                        <textarea rows="4" placeholder="请填写意见" v-model="interviewee.advice" ></textarea>
+                                        <textarea rows="4" placeholder="请填写意见" v-model="interviewee.advice"></textarea>
                                         <p>
                                             <span>
                                                 面试官:岑凯路
@@ -444,7 +490,7 @@
                                 </tr>
                                 <tr>
                                     <td>2013/9-2018/6</td>
-                                    <td>湖南大学设计艺术学院</td>
+                                    <td>湖南大学设计艺术</td>
                                     <td>视觉传达设计</td>
                                     <td>本科</td>
                                 </tr>
@@ -540,7 +586,7 @@
                         character: '',
                         chrtDec: '',
                         advice: '',
-                        decision:''
+                        decision: ''
                     },
 
                     options1: [{

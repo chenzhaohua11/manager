@@ -52,6 +52,12 @@
     border-top: 2px solid #ccc !important;
 
 }
+.add-reg .el-form-item__label {
+    width: 93px !important;
+}
+.add-reg .el-form-item__content {
+    margin-left: 93px !important;
+}
 .el-form-item__content .el-select {
     width: 100% !important;
 }

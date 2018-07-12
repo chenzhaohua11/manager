@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -123,16 +124,16 @@
                 <div class="filter-group">
                     <p class="group-title">应聘信息</p>
                     <div class="filter-item">
-                        <p class="item-title">应聘职位</p>
+                        <p class="item-title">应聘岗位</p>
                         <el-select clearable v-model="searchValue.positionId" placeholder="请选择">
-                            <el-option v-for="item in positionList" :key="item.value" :label="item.label" :value="item.value">
+                            <el-option v-for="item in positionList" :key="item.id" :label="item.name" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">原因</p>
                         <el-select clearable v-model="searchValue.insreason" placeholder="请选择">
-                            <el-option v-for="item in reasonList" :key="item.value" :label="item.label" :value="item.value">
+                            <el-option v-for="item in reasonList" :key="item.id" :label="item.value" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
@@ -142,28 +143,28 @@
                     <div class="filter-item">
                         <p class="item-title">工作经验</p>
                         <el-select clearable v-model="searchValue.jobAge" placeholder="请选择">
-                            <el-option v-for="item in workExpList" :key="item.itemId" :label="item.itemValue" :value="item.itemValue">
+                            <el-option v-for="item in workExpList" :key="item.id" :label="item.value" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">当前状态</p>
                         <el-select clearable v-model="searchValue.interview" placeholder="请选择">
-                            <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
+                            <el-option v-for="item in statusList" :key="item.id" :label="item.value" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">学历</p>
                         <el-select clearable v-model="searchValue.education" placeholder="请选择">
-                            <el-option v-for="item in eduBackgroundList" :key="item.itemId" :label="item.itemValue" :value="item.itemId">
+                            <el-option v-for="item in eduBackgroundList" :key="item.id" :label="item.value" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item sex-choice">
                         <p class="item-title">性别及年龄</p>
                         <el-select clearable v-model="searchValue.sex" size="mini" placeholder="请选择">
-                            <el-option v-for="item in sexList" :key="item.itemId" :label="item.itemValue" :value="item.itemId">
+                            <el-option v-for="item in sexList" :key="item.id" :label="item.value" :value="item.id">
                             </el-option>
                         </el-select>
                         <div class="age-choice">
@@ -176,14 +177,14 @@
                     <div class="filter-item">
                         <p class="item-title">人事负责人</p>
                         <el-select clearable v-model="searchValue.dutyid" placeholder="请选择">
-                            <el-option v-for="item in RsHandlerList" :key="item.value" :label="item.label" :value="item.value">
+                            <el-option v-for="item in RsHandlerList" :key="item.id" :label="item.value" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">渠道来源</p>
                         <el-select clearable v-model="searchValue.source" placeholder="请选择">
-                            <el-option v-for="item in newsChannelList" :key="item.value" :label="item.label" :value="item.value">
+                            <el-option v-for="item in newsChannelList" :key="item.id" :label="item.value" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
@@ -204,22 +205,25 @@
                     <el-button type="primary" circle plain @click="moveToOwn">移入内部人才库</el-button>
                 </div>
                 <!-- 导入简历 -->
-                <el-dialog title="简历导入" :visible.sync="addRegVisible" width="40%" @close="fileList = []" center>
+                <el-dialog title="简历导入" :visible.sync="addRegVisible" width="40%" @close="fileList = []" center class="add-reg">
                     <el-form ref="regForm" :model="regForm" label-width="80px" :rules="rules">
-                        <el-form-item label="关联职位" prop="postId">
-                            <el-select clearable v-model="regForm.postId" placeholder="请选择关联职位">
+                        <el-form-item label="招聘任务" prop="postId">
+                            <el-select clearable v-model="regForm.postId" placeholder="请选择应聘职位">
                                 <el-option v-for="item in positionList" :key="item.value" :label="item.label" :value="item.value">
                                 </el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="招聘渠道" prop="source">
-                            <el-select clearable v-model="regForm.source" placeholder="请选择活动区域">
+                            <el-select clearable v-model="regForm.source" placeholder="请选择渠道">
                                 <el-option v-for="item in newsChannelList" :key="item.value" :label="item.label" :value="item.value">
                                 </el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="简历来源" prop="channel">
-                            <el-input v-model="regForm.channel" placeholder="例如 王帅"></el-input>
+                        <el-form-item label="人事负责人" prop="channel">
+                            <el-select clearable v-model="regForm.channel" placeholder="默认当前账号">
+                                <el-option v-for="item in newsChannelList" :key="item.value" :label="item.label" :value="item.value">
+                                </el-option>
+                            </el-select>
                         </el-form-item>
                         <el-form-item label="文件上传" prop="fileList">
                             <el-upload class="upload-demo" multiple :file-list="fileList" ref="uploadfile" action="https://jsonplaceholder.typicode.com/posts/"

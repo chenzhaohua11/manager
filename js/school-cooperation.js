@@ -160,11 +160,11 @@ function schoolCoopInit() {
                     }
                 });
             },
-            //下载
+            //编辑
             down() {
                 this.hasSelected();
                 if (this.flag) {
-                    console.log("有选中")
+                    console.log("有选中");
                 } else {
                     this.$message({
                         showClose: true,

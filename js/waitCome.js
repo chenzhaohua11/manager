@@ -28,7 +28,7 @@ function init() {
             loading: true
         },
         created: function () {
-            this.getResData();
+            // this.getResData();
         },
         methods: {
             getResData: function () {

@@ -178,97 +178,10 @@ function init() {
                     { required: true, message: '请填写内容', trigger: 'blur' }
                 ]
             }
-
-
-            //初试字段
-            // preJudge: {
-            //     eduFit: "1", //学历符合
-            //     major: '1', //专业技能
-            //     workExp: '1', //工作经历
-            //     posWish: '1', //工位愿望,
-            //     posFit: '1',
-            //     // 对应描述
-            //     eduDes: '',
-            //     majorDes: '',
-            //     posWishDes: '',
-            //     workExpDes: '',
-            //     preAdvice: '',
-            // },
-            // // 复试字段
-            // secJudge: {
-            //     major: '1', //专业技能
-            //     workExp: '1', //工作经历
-            //     posWish: '1', //工位愿望,
-            //     posFit: '1',
-            //     // 对应描述
-            //     eduDes: '',
-            //     majorDes: '',
-            //     posWishDes: '',
-            //     workExpDes: '',
-            //     preAdvice1: '',
-            //     preAdvice2: '',
-            //     backgroundCheck: ''
-            // },
-            // // 录用申请字段
-            // employApply: {
-            //     probationSalary: '',
-            //     dept: '',
-            //     startTime: "",
-            //     endTime: '',
-            //     comeTime: '',
-            //     realSalary: '',
-            //     subsidy: '',
-            //     posLevel: '',
-            //     leader: '',
-            //     mark: ''
-            // },
-            // // 录用审批字段
-            // employConsider: {
-            //     zfConsider: 1,
-            //     managerConsider: 1,
-            //     bossConsider: 1,
-            //     step: 1,
-            //     zfAdvice: '',
-            //     managerAdvice: '',
-            //     bossAdvice: ''
-            // },
-            // //通知面试提交的信息
-            // interviewValue: {
-            //     type: '', //面试类型
-            //     noticeType: '', //通知方式
-            //     time: "", //时间
-            //     pos: '', //职位
-            //     interviewer: '', //面试官
-            //     temp: '', //模板
-            //     secInterviewer1: '', //复试官1
-            //     secInterviewer2: '' //复试官2
-            // },
-            // //发送offer字段 ;
-            // sendOffer: {
-            //     type: '1',
-            //     module: '1'
-            // },
-            // moduleList: [{
-            //         value: '1',
-            //         label: '模板1'
-            //     },
-            //     {
-            //         value: '2',
-            //         label: '模板2'
-            //     }
-            // ],
-            // needNext: true, //是否需要下一次复试
-            // typeList: commData.positionList,
-            // noticeTypeList: commData.reasonList,
-            // posList: commData.workExpList,
-            // interviewerList: commData.statusList,
-            // tempList: commData.eduBackgroundList,
-            // status:6, //面试人的状态,
-            // resumeID: ""
         },
         created: function () {
             this.resumeID = commMethod.getCookie("resumeId");
-            this.GetResume();
+            // this.GetResume();
         },
         methods: {
             //获取简历信息

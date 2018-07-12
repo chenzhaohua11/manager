@@ -1,16 +1,16 @@
 var resumeManageData = {
     jobAgeList: [{
         value: '1',
-        label: '前端工程师'
+        label: '5'
     }, {
         value: '2',
-        label: '催收'
+        label: '2'
     }, {
         value: '3',
-        label: '微博销售'
+        label: '1'
     }, {
         value: '4',
-        label: '微信认证'
+        label: '3'
     }],
     educationList: [{
         value: '1',
@@ -47,10 +47,17 @@ var resumeManageData = {
     }],
     stateList: [{
         value: '1',
-        label: '面试'
+        label: '开启'
     }, {
         value: '2',
-        label: '复试'
+        label: '禁止'
+    }],
+    intentJobList: [{
+        value: '1',
+        label: '前端工程师'
+    }, {
+        value: '2',
+        label: 'Java工程师'
     }],
     baseUrl: "http://172.16.1.101:8080/HRM2018",//接口地址
 };
@@ -101,12 +108,14 @@ function tempListInit() {
             insTimeList: resumeManageData.insTimeList,
             sexList: resumeManageData.sexList,
             stateList: resumeManageData.stateList,
+            intentJobList:resumeManageData.intentJobList,
             searchValue: {
                 jobAge: '',
                 education: '',
                 insTime: '',
                 sex: '',
-                state: ''
+                state: '',
+                intentJob:''
             },
             tableData3: [{
                 id: 1,
@@ -153,22 +162,21 @@ function tempListInit() {
                 console.log(val)
             },
             //table修改
-            valueChange(val) {
+            valueChange:function(val) {
                 console.log(val)
             },
             //全选
-            handleSelectionChange(val) {
+            handleSelectionChange:function(val) {
                 this.multipleSelection = val;
             },
-            handleSelection(selection) {
+            handleSelection:function(selection) {
                 this.multipleSelection = selection;
             },
             //筛选条件变化
-            searchValueChange() {
+            searchValueChange:function() {
                 this.tableData3.forEach(element => {
                     element.mobile = parseInt(element.mobile) + 1
                 });
-
             },
             //删除
             removeList: function (val) {
@@ -180,11 +188,11 @@ function tempListInit() {
                 })
             },
             //详情页
-            gotoDetail(row, ev) {
+            gotoDetail:function(row, ev) {
                 console.log(row)
                 // window.location.href = "./interview.html?id=" + row.id ;
             },
-            edit(val) {
+            edit:function(val) {
                 window.location.href = "./post-new.html?id=" + val.id
             },
             find:function(val) {

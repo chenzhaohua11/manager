@@ -13,6 +13,7 @@
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
     <script src="./js/user-manage.js"></script>
 </head>
 
@@ -119,22 +120,19 @@
                     <p class="group-title">筛选</p>
                     <div class="filter-item">
                         <p class="item-title">部门</p>
-                        <el-select v-model="searchValue.postLevel" placeholder="默认显示所有">
-                            <el-option v-for="item in postLevelList" :key="item.value" :label="item.label" :value="item.value">
+                        <el-select clearable v-model="searchValue.deptid" placeholder="默认显示所有">
+                            <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">姓名</p>
-                        <el-select v-model="searchValue.deptName" placeholder="默认显示所有">
-                            <el-option v-for="item in deptNameList" :key="item.value" :label="item.label" :value="item.value">
-                            </el-option>
-                        </el-select>
+                        <el-input clearable v-model="searchValue.username"></el-input>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">角色</p>
-                        <el-select v-model="searchValue.recruitNum" placeholder="选择角色">
-                            <el-option v-for="item in recruitNumList" :key="item.value" :label="item.label" :value="item.value">
+                        <el-select clearable v-model="searchValue.roleid" placeholder="选择角色">
+                            <el-option v-for="item in roleList" :key="item.value" :label="item.value" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
@@ -144,47 +142,46 @@
             <div class="mian-content">
                 <p class="content-title">列表信息</p>
                 <p class="content-dec">显示已禁止的角色
-                    <el-switch v-model="value2" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
+                    <el-switch v-model="searchValue.userStat" @change="searchValueChange" active-value="1" inactive-value="0"
+                    active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
                 </p>
-                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @select="handleSelection" @selection-change="handleSelectionChange"
-                    @row-dblclick="gotoDetail">
+                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" v-loading="loading">
                     <el-table-column type="index" width="30">
                     </el-table-column>
-                    <el-table-column label="ID" prop="postName" width="180">
+                    <el-table-column label="ID" prop="id" width="180">
                     </el-table-column>
-                    <el-table-column label="姓名" prop="postLevel">
+                    <el-table-column label="姓名" prop="name">
                     </el-table-column>
-                    <el-table-column label="角色" prop="postType">
+                    <el-table-column label="角色" prop="roleName">
                     </el-table-column>
                     <el-table-column label="部门" prop="deptName">
                     </el-table-column>
-                    <el-table-column label="状态" prop="reinterviewer">
-                        <el-switch v-model="value2" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
+                    <el-table-column label="状态" prop="statDesc">
                     </el-table-column>
                     <el-table-column label="操作" width="200">
                         <template slot-scope="scope">
-                            <el-button class="mm-edit" type="text" size="small" icon="el-icon-edit" @click="centerDialogVisible = true">编辑</el-button>
+                            <el-button class="mm-edit" type="text" size="small" icon="el-icon-edit" @click="edit(scope.row)">编辑</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
                 <div class="pagination">
-                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="searchValue.crrentPage"
+                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="searchValue.page"
                         @current-change="currentChange">
                     </el-pagination>
                 </div>
                 <!-- 弹窗 -->
                 <el-dialog title="编辑" :visible.sync="centerDialogVisible" width="30%" center>
-                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="60px" class="demo-ruleForm">
-                        <el-form-item label="角色" prop="region">
-                            <el-select v-model="ruleForm.region" placeholder="请选择角色">
-                                <el-option label="超级管理员" value="shanghai"></el-option>
-                                <el-option label="管理员" value="beijing"></el-option>
+                    <el-form :model="ruleForm" ref="ruleForm" label-width="60px" class="demo-ruleForm">
+                        <el-form-item label="角色" prop="roleid">
+                            <el-select v-model="ruleForm.roleid">
+                                <el-option v-for="item in roleList" :key="item.value" :label="item.value" :value="item.id">
+                                </el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="状态" prop="region">
-                            <el-select v-model="ruleForm.region" placeholder="请选择状态">
-                                <el-option label="开启" value="shanghai"></el-option>
-                                <el-option label="关闭" value="beijing"></el-option>
+                        <el-form-item label="状态" prop = "userStat">
+                            <el-select v-model="ruleForm.userStat">
+                                <el-option label="启用" value="0"></el-option>
+                                <el-option label="禁用" value="1"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item>
@@ -192,7 +189,7 @@
                             <el-button @click="centerDialogVisible = false">取消</el-button>
                         </el-form-item>
                     </el-form>
-                    
+
                 </el-dialog>
             </div>
         </div>

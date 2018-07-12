@@ -120,10 +120,6 @@
                         <p class="item-title">简历导入时间</p>
                         <el-date-picker v-model="searchValue.insTime" type="date"  placeholder="选择日期">
                         </el-date-picker>
-                        <!-- <el-select v-model="searchValue.insTime" placeholder="选择时间">
-                            <el-option v-for="item in insTimeList" :key="item.value" :label="item.label" :value="item.value">
-                            </el-option>
-                        </el-select> -->
                     </div>
                     <div class="filter-item">
                         <p class="item-title">性别</p>
@@ -141,8 +137,8 @@
                     </div>
                     <div class="filter-item">
                         <p class="item-title">应聘职位</p>
-                        <el-select v-model="searchValue.state" placeholder="选择应聘职位">
-                            <el-option v-for="item in stateList" :key="item.value" :label="item.label" :value="item.value">
+                        <el-select v-model="searchValue.intentJob" placeholder="选择应聘职位">
+                            <el-option v-for="item in intentJobList" :key="item.value" :label="item.label" :value="item.value">
                             </el-option>
                         </el-select>
                     </div>

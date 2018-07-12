@@ -119,36 +119,36 @@
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
                         <el-row :gutter="50">
                             <el-col :span="9">
-                                <el-form-item label="短信接口地址" prop="name">
-                                    <el-input v-model="ruleForm.name" placeholder="输入短信接口地址"></el-input>
+                                <el-form-item label="短信接口地址" prop="dxjkdz">
+                                    <el-input v-model="ruleForm.dxjkdz" placeholder="输入短信接口地址"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row :gutter="50">
                             <el-col :span="9">
-                                <el-form-item label="邮件发件邮箱" prop="name">
-                                    <el-input v-model="ruleForm.name"></el-input>
+                                <el-form-item label="邮件发件邮箱" prop="yjfsryx">
+                                    <el-input v-model="ruleForm.yjfsryx"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row :gutter="50">
                             <el-col :span="9">
-                                <el-form-item label="密码" prop="name">
-                                    <el-input v-model="ruleForm.name" type="password"></el-input>
+                                <el-form-item label="密码" prop="defaultpwd">
+                                    <el-input v-model="ruleForm.defaultpwd" type="password"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row :gutter="50">
                             <el-col :span="9">
-                                <el-form-item label="SMTP服务器地址" prop="name">
-                                    <el-input v-model="ruleForm.name"></el-input>
+                                <el-form-item label="SMTP服务器地址" prop="smtpurl">
+                                    <el-input v-model="ruleForm.smtpurl"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row :gutter="50">
                             <el-col :span="9">
-                                <el-form-item label="SMTP服务器端口" prop="name">
-                                    <el-input v-model="ruleForm.name"></el-input>
+                                <el-form-item label="SMTP服务器端口" prop="smtpport">
+                                    <el-input v-model="ruleForm.smtpport"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -165,5 +165,4 @@
         </div>
     </div>
 </body>
-
 </html>
