@@ -1,97 +1,3 @@
-var postNewList = {
-    postNameList: [{
-        value: '1',
-        label: '前端工程师'
-    }, {
-        value: '2',
-        label: '催收'
-    }, {
-        value: '3',
-        label: '微博销售'
-    }, {
-        value: '4',
-        label: '微信认证'
-    }],
-    postLevelList: [{
-        value: '1',
-        label: 'p1'
-    }, {
-        value: '2',
-        label: 'p2'
-    }, {
-        value: '3',
-        label: 's1'
-    }, {
-        value: '4',
-        label: 's2'
-    }],
-    chargePersonList: [{
-        value: '1',
-        label: '王帅'
-    }, {
-        value: '1',
-        label: '王帅'
-    }],
-    deptNameList: [{
-        value: '1',
-        label: '催收'
-    }, {
-        value: '2',
-        label: '技术'
-    }, {
-        value: '3',
-        label: '微博'
-    }, {
-        value: '4',
-        label: '微信'
-    }],
-    postTypeList: [{
-        value: '1',
-        label: '销售'
-    }, {
-        value: '2',
-        label: '销售'
-    }],
-    recruitNumList: [{
-        value: '1',
-        label: '1'
-    }, {
-        value: '2',
-        label: '5'
-    }, {
-        value: '3',
-        label: '10'
-    }, {
-        value: '4',
-        label: '15'
-    }],
-    interviewerList: [{
-        value: '1',
-        label: '某某某'
-    }, {
-        value: '2',
-        label: '啦啦啦'
-    }],
-    postreinterviewerList: [{
-        value: '1',
-        label: '某某某'
-    }, {
-        value: '2',
-        label: '啦啦啦'
-    }],
-    interviewAddressList: [{
-        value: '1',
-        label: '麓谷企业广场'
-    }, {
-        value: '2',
-        label: '王府井'
-    }, {
-        value: '3',
-        label: '荣泰广场'
-    }],
-    baseUrl: "http://172.16.1.101:8080/HRM2018",//接口地址
-};
-
 $(function () {
     tempNewInit()
 })
@@ -99,89 +5,145 @@ function tempNewInit() {
     new Vue({
         el: "#right-container",
         data: {
-            postNameList: postNewList.postNameList,
-            postLevelList: postNewList.postLevelList,
-            chargePersonList: postNewList.chargePersonList,
-            deptNameList: postNewList.deptNameList,
-            postTypeList: postNewList.postTypeList,
-            interviewerList: postNewList.interviewerList,
-            postreinterviewerList: postNewList.postreinterviewerList,
-            interviewAddressList: postNewList.interviewAddressList,
+            apiUrl:commData.baseUrl,
+            postNameList:[],
+            deptNameList: [],
+            postTypeList:[],
+            urgencyList:[],
             //删选字段
             ruleForm: {
+                title:'',
                 postName: '',
-                postLevel: '',
-                chargePerson: '',
                 deptName: '',
                 recruitNum: '',
+                urgency:'',
                 postType: '',
-                interviewer: '',
-                postreinterviewer: '',
-                wagesMin: '',
-                wagesMax: '',
                 content: '',
-                interviewAddress:'',
-                delivery: true
+                postreinterviewer:'',
+                delivery: "0"
             },
-            apiUrl: "http://172.16.1.79:8080/HRM2018",
             rules: {
+                title:[
+                    { required: true, message: '请输入任务名称', trigger: 'blur' }
+                ],
+                urgency:[
+                    { required: true, message: '请选择紧急程度', trigger: 'change' }
+                ],
                 postName: [
-                    { required: true, message: '请输入岗位名称', trigger: 'blur' }
-                ],
-                postLevel: [
-                    { required: true, message: '请输入职位级别', trigger: 'blur' }
-                ],
-                chargePerson: [
-                    { required: true, message: '请输入人事负责人', trigger: 'blur' }
+                    { required: true, message: '请选择岗位名称', trigger: 'change' }
                 ],
                 deptName: [
-                    { required: false, message: '请输入所属部门', trigger: 'blur' }
+                    { required: true, message: '请选择所属部门', trigger: 'change' }
                 ],
                 recruitNum: [
                     { required: true, message: '请输入招聘人数', trigger: 'blur' },
                     { pattern: /^\+?[1-9][0-9]*$/, message: '只能输入非零正整数', trigger: 'blur' }
                 ],
                 postType: [
-                    { required: false, message: '请输入岗位类型', trigger: 'blur' }
-                ],
-                interviewer: [
-                    { required: true, message: '请输入初试面试官', trigger: 'blur' }
-                ],
-                postreinterviewer: [
-                    { required: false, message: '请输入复试面试官', trigger: 'blur' }
-                ],
-                wagesMin: [
-                    { required: true, message: '请选择最低工作薪水', trigger: 'blur' },
-                    { pattern: /^([1-9][0-9]*)+(.[0-9]{1,2})?$/, message: '只能输入最多带两位小数的数字', trigger: 'blur' }
-                ],
-                wagesMax: [
-                    { required: true, message: '请选择最高工作薪水', trigger: 'blur' },
-                    { pattern: /^([1-9][0-9]*)+(.[0-9]{1,2})?$/, message: '只能输入最多带两位小数的数字', trigger: 'blur' }
+                    { required: true, message: '请选择岗位类型', trigger: 'change' }
                 ],
                 content: [
                     { required: true, message: '请填写内容', trigger: 'blur' }
                 ]
             }
         },
+        created:function() {
+            this.GetPosType();
+            this.GetPosList();
+            this.GetUrgency();
+            this.GetDeptList();
+        },
         methods: {
-            submitForm(formName) {
+            //获取岗位类型
+            GetPosType:function() {
                 var that = this;
-                this.$refs[formName].validate(function (valid) {
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryDictsByItemType',
+                    data: {
+                        type:'jobcategory'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                       res = JSON.parse(res.body);
+                       that.postTypeList = res;
+                    }
+                });
+            },
+            //获取岗位列表
+            GetPosList:function() {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryPositionSelect  ',
+                    data: {
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                         that.postNameList = res.body ;
+                    }
+                });
+            },
+             //获取部门列表
+             GetDeptList:function() {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/getDeptSelect  ',
+                    data: {
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                         that.deptNameList = res.body ;
+                    }
+                });
+            },
+            //获取紧急程度
+            GetUrgency:function () {  
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryDictsByItemType  ',
+                    data: {
+                        type:'urgency'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                         res = JSON.parse(res.body);
+                         that.urgencyList = res;
+                    }
+                });
+            },
+            submitForm:function(formName) {
+                var that = this;
+                that.$refs[formName].validate(function (valid) {
+                    var model = that.$refs[formName].model;
+                    model.postreinterviewer=commMethod.formatTimeArr(model.postreinterviewer);
                     if (valid) {
-                        that.ruleForm.interviewer += "," + that.ruleForm.postreinterviewer;
-                        delete that.ruleForm.postreinterviewer;
                         $.ajax({
                             type: 'POST',
-                            url: that.apiUrl + '/insertPost',
-                            data: that.ruleForm,
-                            dataType: 'text',
+                            url: that.apiUrl + '/createRczpRecruitask',
+                            data:{
+                                title:model.title,
+                                planNumber:model.recruitNum,
+                                jcid:model.postType,
+                                positionId:model.postName,
+                                deptId:model.deptName,
+                                urgency:model.urgency,
+                                taskstat:model.delivery,
+                                stopTime:model.postreinterviewer,
+                                jobContent:model.content
+
+                            },
+                            dataType: 'json',
                             success: function (res) {
-                                res = JSON.parse(res);
+                                console.log(res);
                                 that.$message({
                                     type: "success",
                                     message: res.body
                                 });
-                                // window.location.href="./post-manage.html"
+                                that.resetForm(formName);
+                                window.location.href="./post-manage.html"
                             }
                         });
 
@@ -191,7 +153,7 @@ function tempNewInit() {
                     }
                 });
             },
-            resetForm(formName) {
+            resetForm:function(formName) {
                 this.$refs[formName].resetFields();
             }
         }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <script src="./js/vue.js"></script>
+    <script src="./js/ele-index.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="app-header">
+            丰策人力资源后台管理系统
+        </div>
+        <div class="app-content">
+            <div class="login">
+                <div class="logimg">
+                    <img src="./images/logImg.jpg" alt="">
+                </div>
+                <div class="logcont">
+                    <div class="logo"></div>
+                    <div class="login-form">
+                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-position="left" label-width="0px" class="login-container">
+                            <p class="title">用户名</p>
+                            <el-form-item prop="account">
+                                <el-input type="text" v-model="ruleForm.account" clearable placeholder="请输入用户名"></el-input>
+                            </el-form-item>
+                            <p class="title">登录密码</p>
+                            <el-form-item prop="checkPass">
+                                <el-input type="password" v-model="ruleForm.checkPass" clearable placeholder="请输入密码" @keyup.enter.native="handleSubmit2"></el-input>
+                            </el-form-item>
+                            <el-checkbox v-model="remember" class="remember">记住密码</el-checkbox>                         
+                            <el-form-item>
+                                <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </div>
+                </div>
+            </div>
+            <p class="ftCon">版权所有：长沙公信诚丰信息技术服务有限公司</p>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    ruleForm: {
+                        account: '',
+                        checkPass: ''
+                    },
+                    rules: {
+                        account: [{
+                            required: true,
+                            message: '请输入账号',
+                            trigger: 'blur'
+                        }, ],
+                        checkPass: [{
+                            required: true,
+                            message: '请输入密码',
+                            trigger: 'blur'
+                        }, ]
+                    },
+                    logining: false,
+                    remember:true
+                }
+            },
+            created:function() {
+                if (commMethod.getCookie("user")) {                 
+                    this.ruleForm.account = commMethod.getCookie("user");
+                    this.ruleForm.checkPass = commMethod.getCookie("password");
+                } else {
+                    this.$message({
+                        message:"账户信息已经过期",
+                        type: 'warning'
+                    })
+                }
+            },
+            methods: {
+                handleSubmit2:function() {
+                    var that = this;
+                    that.$refs["ruleForm"].validate((valid) => {
+                        if (valid) {
+                            let model = that.$refs["ruleForm"].model;
+                            if (that.remember) {
+                                commMethod.setCookie("user",model.account,11)
+                                commMethod.setCookie("password",model.account,11)
+                            } else {
+                                
+                            }
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

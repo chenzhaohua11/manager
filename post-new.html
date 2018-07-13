@@ -13,6 +13,7 @@
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
     <script src="./js/post-new.js"></script>
 </head>
 
@@ -113,11 +114,8 @@
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                         <el-row :gutter="60">
                             <el-col :span="12">
-                                <el-form-item label="岗位类型" prop="postType">
-                                    <el-select v-model="ruleForm.postType" placeholder="请选择岗位类型">
-                                        <el-option v-for="item in postTypeList" :key="item.value" :label="item.label" :value="item.value">
-                                        </el-option>
-                                    </el-select>
+                                <el-form-item label="任务名称" prop="title">
+                                    <el-input v-model="ruleForm.title"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
@@ -129,28 +127,44 @@
 
                         <el-row :gutter="60">
                             <el-col :span="12">
-                                <el-form-item label="岗位名称" prop="postName">
-                                    <el-select v-model="ruleForm.postName" placeholder="请选择岗位名称">
-                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                <el-form-item label="岗位类型" prop="postType">
+                                    <el-select v-model="ruleForm.postType" placeholder="请选择岗位类型">
+                                        <el-option v-for="item in postTypeList" :key="item.id" :label="item.value" :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
-                                <el-form-item label="所属部门" prop="deptName">
-                                    <el-select v-model="ruleForm.deptName" placeholder="请选择所属部门">
-                                        <el-option v-for="item in deptNameList" :key="item.value" :label="item.label" :value="item.value">
+                                <el-form-item label="岗位名称" prop="postName">
+                                    <el-select v-model="ruleForm.postName" placeholder="请选择岗位名称">
+                                        <el-option v-for="item in postNameList" :key="item.id" :label="item.name" :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
+
                         </el-row>
                         <el-row :gutter="60">
                             <el-col :span="12">
-                                <el-form-item label="紧急程度" prop="recruitNum">
-                                    <el-input v-model="ruleForm.recruitNum"></el-input>
+                                <el-form-item label="所属部门" prop="deptName">
+                                    <el-select v-model="ruleForm.deptName" placeholder="请选择所属部门">
+                                        <el-option v-for="item in deptNameList" :key="item.id" :label="item.name" :value="item.id">
+                                        </el-option>
+                                    </el-select>
                                 </el-form-item>
                             </el-col>
+                            <el-col :span="12">
+                                <el-form-item label="紧急程度" prop="urgency">
+                                    <el-select v-model="ruleForm.urgency" placeholder="选择紧急程度">
+                                        <el-option v-for="item in urgencyList" :key="item.id" :label="item.value" :value="item.id">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+
+                        </el-row>
+
+                        <el-row :gutter="60">
                             <el-col :span="12">
                                 <el-form-item label="任务有效期" prop="postreinterviewer">
                                     <el-date-picker v-model="ruleForm.postreinterviewer" type="date" placeholder="请选择">
@@ -158,15 +172,13 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-
                         <el-row :gutter="60">
                             <el-col :span="2">
                                 <el-form-item label="状态">
-                                    <el-switch v-model="ruleForm.delivery" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
+                                    <el-switch v-model="ruleForm.delivery" active-value="0" inactive-value="1" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
                                 </el-form-item>
                             </el-col>
                         </el-row>
-
                         <el-form-item label="职位要求" prop="content">
                             <el-input type="textarea" v-model="ruleForm.content"></el-input>
                         </el-form-item>

@@ -148,8 +148,7 @@
                 <div class="handler-button">
                     <el-button type="primary" icon="el-icon-plus" circle plain @click="newPost">发布任务</el-button>
                 </div>
-                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @select="handleSelection" @selection-change="handleSelectionChange"
-                    @row-dblclick="gotoDetail">
+                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @select="handleSelection" @selection-change="handleSelectionChange">
                     <el-table-column label="岗位名称" prop="postName" width="180">
                     </el-table-column>
                     <el-table-column label="需招人数" prop="postLevel">
