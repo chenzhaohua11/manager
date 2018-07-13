@@ -13,6 +13,7 @@
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
     <script src="./js/post-manage.js"></script>
 </head>
 
@@ -111,29 +112,29 @@
                     <p class="group-title">筛选</p>
                     <div class="filter-item">
                         <p class="item-title">岗位类型</p>
-                        <el-select v-model="searchValue.postName" placeholder="选择岗位类型">
-                            <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                        <el-select v-model="searchValue.jcid" clearable placeholder="选择岗位类型">
+                            <el-option v-for="item in postTypeList" :key="item.id" :label="item.value" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">所属部门</p>
-                        <el-select v-model="searchValue.postLevel" placeholder="选择所属部门">
-                            <el-option v-for="item in postLevelList" :key="item.value" :label="item.label" :value="item.value">
+                        <el-select v-model="searchValue.deptid" clearable placeholder="选择所属部门">
+                            <el-option v-for="item in deptNameList" :key="item.id" :label="item.name" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">岗位名称</p>
-                        <el-select v-model="searchValue.deptName" placeholder="选择岗位名称">
-                            <el-option v-for="item in deptNameList" :key="item.value" :label="item.label" :value="item.value">
+                        <el-select v-model="searchValue.positionid" clearable placeholder="选择岗位名称">
+                            <el-option v-for="item in postNameList" :key="item.id" :label="item.name" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">紧急程度</p>
-                        <el-select v-model="searchValue.recruitNum" placeholder="选择紧急程度">
-                            <el-option v-for="item in recruitNumList" :key="item.value" :label="item.label" :value="item.value">
+                        <el-select v-model="searchValue.urgency" clearable placeholder="选择紧急程度">
+                            <el-option v-for="item in urgencyList" :key="item.id" :label="item.value" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
@@ -143,34 +144,35 @@
             <div class="mian-content">
                 <p class="content-title">全部岗位</p>
                 <p class="content-dec">显示已关闭的岗位
-                    <el-switch v-model="value2" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
+                    <el-switch v-model="searchValue.taskstat" active-value="1" inactive-value="0" active-color="#13ce66" inactive-color="#bdc2c7"
+                        @change="searchValueChange"></el-switch>
                 </p>
                 <div class="handler-button">
                     <el-button type="primary" icon="el-icon-plus" circle plain @click="newPost">发布任务</el-button>
                 </div>
-                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @select="handleSelection" @selection-change="handleSelectionChange">
-                    <el-table-column label="岗位名称" prop="postName" width="180">
+                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table">
+                    <el-table-column label="岗位名称" prop="positionName" width="180">
                     </el-table-column>
-                    <el-table-column label="需招人数" prop="postLevel">
+                    <el-table-column label="需招人数" prop="planNumber">
                     </el-table-column>
-                    <el-table-column label="已招人数" prop="postType">
+                    <el-table-column label="已招人数" prop="doneNumber">
                     </el-table-column>
                     <el-table-column label="所属部门" prop="deptName">
                     </el-table-column>
-                    <el-table-column label="紧急程度" prop="recruitNum">
+                    <el-table-column label="紧急程度" prop="urgencyDesc">
                     </el-table-column>
-                    <el-table-column label="人事负责人" prop="chargePerson">
+                    <el-table-column label="发布人" prop="userName">
                     </el-table-column>
-                    <el-table-column label="发布时间" prop="preinterviewer">
+                    <el-table-column label="发布时间" prop="updTime">
                     </el-table-column>
-                    <el-table-column label="状态" prop="reinterviewer">
+                    <el-table-column label="状态" prop="taskstat">
                         <template slot-scope="scope">
-                        <el-switch v-model="value2" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
+                            <el-switch v-model="scope.row.taskstat" :active-value="1" :inactive-value="0" active-color="#bdc2c7" inactive-color="#13ce66"></el-switch>
                         </template>
                     </el-table-column>
                     <el-table-column label="操作" width="200">
                         <template slot-scope="scope">
-                            <el-button class="mm-see" type="text" size="small" icon="el-icon-view" @click="centerDialogVisible = true">查看详情</el-button>
+                            <el-button class="mm-see" type="text" size="small" icon="el-icon-view" @click="showDetial(scope.row.id)">查看详情</el-button>
                             <el-button class="mm-delete" type="text" size="small" icon="el-icon-delete" @click="removeList(scope.row)">删除</el-button>
                             <el-button class="mm-edit" type="text" size="small" @click="edit(scope.row)" icon="el-icon-edit">编辑</el-button>
                         </template>
@@ -178,63 +180,63 @@
                 </el-table>
                 <!-- 查看详情 -->
                 <el-dialog title="查看详情" :visible.sync="centerDialogVisible" width="40%" center>
-                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+                    <el-form :model="ruleForm" ref="ruleForm" class="demo-ruleForm">
                         <table>
                             <tr>
                                 <td>岗位类型</td>
                                 <td colspan="5">
-                                    <el-form-item prop="school">
-                                        <el-input v-model="ruleForm.school"></el-input>
+                                    <el-form-item prop="postType">
+                                        <el-input v-model="ruleForm.postType" disabled></el-input>
                                     </el-form-item>
-                                </td>                               
+                                </td>
                             </tr>
                             <tr>
                                 <td>招聘人数</td>
-                                <td colspan="5" prop="name">
+                                <td colspan="5" prop="planNumber">
                                     <el-form-item>
-                                        <el-input v-model="ruleForm.name"></el-input>
+                                        <el-input v-model="ruleForm.planNumber" disabled></el-input>
                                     </el-form-item>
-                                </td>                               
+                                </td>
                             </tr>
                             <tr>
                                 <td>岗位名称</td>
                                 <td colspan="5">
-                                    <el-form-item prop="name">
-                                        <el-input v-model="ruleForm.name"></el-input>
+                                    <el-form-item prop="postName">
+                                        <el-input v-model="ruleForm.postName" disabled> </el-input>
                                     </el-form-item>
-                                </td>                       
+                                </td>
                             </tr>
                             <tr>
                                 <td>紧急程度</td>
-                                <td colspan="5" prop="name">
+                                <td colspan="5" prop="urgencyDesc">
                                     <el-form-item>
-                                        <el-input v-model="ruleForm.name"></el-input>
+                                        <el-input v-model="ruleForm.urgencyDesc" disabled></el-input>
                                     </el-form-item>
-                                </td>                               
+                                </td>
                             </tr>
                             <tr>
                                 <td>任务有效期</td>
-                                <td colspan="5" prop="name">
+                                <td colspan="5" prop="postreinterviewer">
                                     <el-form-item>
-                                        <el-input v-model="ruleForm.name"></el-input>
+                                        <el-input v-model="ruleForm.postreinterviewer" disabled></el-input>
                                     </el-form-item>
-                                </td>                               
+                                </td>
                             </tr>
                             <tr>
                                 <td>状态</td>
                                 <td colspan="5">
-                                    <el-form-item prop="name">
-                                        <el-input v-model="ruleForm.name"></el-input>
+                                    <el-form-item prop="delivery">
+                                        <el-input v-model="ruleForm.delivery" disabled></el-input>
                                     </el-form-item>
-                                </td>                                
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="6">职位要求</td>
                             </tr>
                             <tr>
                                 <td colspan="6">
-                                    <el-form-item prop="name">
-                                        <el-input type="textarea" :rows="5" placeholder="请输入" v-model="ruleForm.name"></el-input>
+                                    <el-form-item prop="content">
+                                        <el-input type="textarea" :rows="5"  disabled v-model="ruleForm.content"></el-input>
                                     </el-form-item>
                                 </td>
                             </tr>
@@ -246,7 +248,7 @@
 
                 </el-dialog>
                 <div class="pagination">
-                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="searchValue.crrentPage"
+                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="searchValue.page"
                         @current-change="currentChange">
                     </el-pagination>
                 </div>

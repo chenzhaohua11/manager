@@ -119,24 +119,24 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
-                                <el-form-item label="招聘人数" prop="recruitNum">
-                                    <el-input v-model="ruleForm.recruitNum"></el-input>
+                                <el-form-item label="招聘人数" prop="planNumber">
+                                    <el-input v-model="ruleForm.planNumber"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
 
                         <el-row :gutter="60">
                             <el-col :span="12">
-                                <el-form-item label="岗位类型" prop="postType">
-                                    <el-select v-model="ruleForm.postType" placeholder="请选择岗位类型">
+                                <el-form-item label="岗位类型" prop="jcid">
+                                    <el-select v-model="ruleForm.jcid" placeholder="请选择岗位类型">
                                         <el-option v-for="item in postTypeList" :key="item.id" :label="item.value" :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
-                                <el-form-item label="岗位名称" prop="postName">
-                                    <el-select v-model="ruleForm.postName" placeholder="请选择岗位名称">
+                                <el-form-item label="岗位名称" prop="positionId">
+                                    <el-select v-model="ruleForm.positionId" placeholder="请选择岗位名称">
                                         <el-option v-for="item in postNameList" :key="item.id" :label="item.name" :value="item.id">
                                         </el-option>
                                     </el-select>
@@ -146,8 +146,8 @@
                         </el-row>
                         <el-row :gutter="60">
                             <el-col :span="12">
-                                <el-form-item label="所属部门" prop="deptName">
-                                    <el-select v-model="ruleForm.deptName" placeholder="请选择所属部门">
+                                <el-form-item label="所属部门" prop="deptId">
+                                    <el-select v-model="ruleForm.deptId" placeholder="请选择所属部门">
                                         <el-option v-for="item in deptNameList" :key="item.id" :label="item.name" :value="item.id">
                                         </el-option>
                                     </el-select>
@@ -166,8 +166,8 @@
 
                         <el-row :gutter="60">
                             <el-col :span="12">
-                                <el-form-item label="任务有效期" prop="postreinterviewer">
-                                    <el-date-picker v-model="ruleForm.postreinterviewer" type="date" placeholder="请选择">
+                                <el-form-item label="任务有效期" prop="stopTime">
+                                    <el-date-picker v-model="ruleForm.stopTime" type="date" placeholder="请选择">
                                     </el-date-picker>
                                 </el-form-item>
                             </el-col>
@@ -175,12 +175,12 @@
                         <el-row :gutter="60">
                             <el-col :span="2">
                                 <el-form-item label="状态">
-                                    <el-switch v-model="ruleForm.delivery" active-value="0" inactive-value="1" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
+                                    <el-switch v-model="ruleForm.taskstat" :active-value="0" :inactive-value="1" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <el-form-item label="职位要求" prop="content">
-                            <el-input type="textarea" v-model="ruleForm.content"></el-input>
+                        <el-form-item label="职位要求" prop="jobContent">
+                            <el-input type="textarea" v-model="ruleForm.jobContent"></el-input>
                         </el-form-item>
 
                         <el-form-item>

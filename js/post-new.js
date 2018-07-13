@@ -1,149 +1,192 @@
 $(function () {
     tempNewInit()
 })
+
 function tempNewInit() {
     new Vue({
         el: "#right-container",
         data: {
-            apiUrl:commData.baseUrl,
-            postNameList:[],
+            apiUrl: commData.baseUrl,
+            flag:'1',
+            workId:"",
+            postNameList: [],
             deptNameList: [],
-            postTypeList:[],
-            urgencyList:[],
+            postTypeList: [],
+            urgencyList: [],
             //删选字段
             ruleForm: {
-                title:'',
-                postName: '',
-                deptName: '',
-                recruitNum: '',
-                urgency:'',
-                postType: '',
-                content: '',
-                postreinterviewer:'',
-                delivery: "0"
+                title: '',
+                positionId: '',
+                deptId: '',
+                planNumber: '',
+                urgency: '',
+                jcid: '',
+                jobContent: '',
+                stopTime: '',
+                taskstat: 0
             },
             rules: {
-                title:[
-                    { required: true, message: '请输入任务名称', trigger: 'blur' }
+                title: [{
+                    required: true,
+                    message: '请输入任务名称',
+                    trigger: 'blur'
+                }],
+                urgency: [{
+                    required: true,
+                    message: '请选择紧急程度',
+                    trigger: 'change'
+                }],
+                positionId: [{
+                    required: true,
+                    message: '请选择岗位名称',
+                    trigger: 'change'
+                }],
+                deptId: [{
+                    required: true,
+                    message: '请选择所属部门',
+                    trigger: 'change'
+                }],
+                planNumber: [{
+                        required: true,
+                        message: '请输入招聘人数',
+                        trigger: 'blur'
+                    },
+                    {
+                        pattern: /^\+?[1-9][0-9]*$/,
+                        message: '只能输入非零正整数',
+                        trigger: 'blur'
+                    }
                 ],
-                urgency:[
-                    { required: true, message: '请选择紧急程度', trigger: 'change' }
-                ],
-                postName: [
-                    { required: true, message: '请选择岗位名称', trigger: 'change' }
-                ],
-                deptName: [
-                    { required: true, message: '请选择所属部门', trigger: 'change' }
-                ],
-                recruitNum: [
-                    { required: true, message: '请输入招聘人数', trigger: 'blur' },
-                    { pattern: /^\+?[1-9][0-9]*$/, message: '只能输入非零正整数', trigger: 'blur' }
-                ],
-                postType: [
-                    { required: true, message: '请选择岗位类型', trigger: 'change' }
-                ],
-                content: [
-                    { required: true, message: '请填写内容', trigger: 'blur' }
-                ]
+                jcid: [{
+                    required: true,
+                    message: '请选择岗位类型',
+                    trigger: 'change'
+                }],
+                jobContent: [{
+                    required: true,
+                    message: '请填写内容',
+                    trigger: 'blur'
+                }]
             }
         },
-        created:function() {
+        created: function () {
             this.GetPosType();
             this.GetPosList();
             this.GetUrgency();
             this.GetDeptList();
+            this.workId = GetSearchArgs().id;
+            if (this.workId) {
+               this.flag = "2";
+                this.GetWoekDetial(this.workId);
+            }
         },
         methods: {
+            //获取任务详情
+            GetWoekDetial: function (param) {
+                console.log(param);
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryRecruitaskById  ',
+                    data: {
+                        id: param
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = res.body;
+                        that.ruleForm = res;
+                        // that.ruleForm.taskstat += "";
+                    }
+                });
+            },
             //获取岗位类型
-            GetPosType:function() {
+            GetPosType: function () {
                 var that = this;
                 $.ajax({
                     type: 'POST',
                     url: that.apiUrl + '/queryDictsByItemType',
                     data: {
-                        type:'jobcategory'
+                        type: 'jobcategory'
                     },
                     dataType: 'json',
                     success: function (res) {
-                       res = JSON.parse(res.body);
-                       that.postTypeList = res;
+                        res = JSON.parse(res.body);
+                        that.postTypeList = res;
                     }
                 });
             },
             //获取岗位列表
-            GetPosList:function() {
+            GetPosList: function () {
                 var that = this;
                 $.ajax({
                     type: 'POST',
                     url: that.apiUrl + '/queryPositionSelect  ',
-                    data: {
-                    },
+                    data: {},
                     dataType: 'json',
                     success: function (res) {
-                         that.postNameList = res.body ;
+                        that.postNameList = res.body;
                     }
                 });
             },
-             //获取部门列表
-             GetDeptList:function() {
+            //获取部门列表
+            GetDeptList: function () {
                 var that = this;
                 $.ajax({
                     type: 'POST',
                     url: that.apiUrl + '/getDeptSelect  ',
-                    data: {
-                    },
+                    data: {},
                     dataType: 'json',
                     success: function (res) {
-                         that.deptNameList = res.body ;
+                        that.deptNameList = res.body;
                     }
                 });
             },
             //获取紧急程度
-            GetUrgency:function () {  
+            GetUrgency: function () {
                 var that = this;
                 $.ajax({
                     type: 'POST',
                     url: that.apiUrl + '/queryDictsByItemType  ',
                     data: {
-                        type:'urgency'
+                        type: 'urgency'
                     },
                     dataType: 'json',
                     success: function (res) {
-                         res = JSON.parse(res.body);
-                         that.urgencyList = res;
+                        res = JSON.parse(res.body);
+                        that.urgencyList = res;
                     }
                 });
             },
-            submitForm:function(formName) {
+            submitForm: function (formName) {
                 var that = this;
                 that.$refs[formName].validate(function (valid) {
                     var model = that.$refs[formName].model;
-                    model.postreinterviewer=commMethod.formatTimeArr(model.postreinterviewer);
+                    model.stopTime = commMethod.formatTimeArr(model.stopTime);
                     if (valid) {
                         $.ajax({
                             type: 'POST',
                             url: that.apiUrl + '/createRczpRecruitask',
-                            data:{
-                                title:model.title,
-                                planNumber:model.recruitNum,
-                                jcid:model.postType,
-                                positionId:model.postName,
-                                deptId:model.deptName,
-                                urgency:model.urgency,
-                                taskstat:model.delivery,
-                                stopTime:model.postreinterviewer,
-                                jobContent:model.content
-
+                            data: {
+                                title: model.title,
+                                planNumber: model.planNumber,
+                                jcid: model.jcid,
+                                positionId: model.positionId,
+                                deptId: model.deptId,
+                                urgency: model.urgency,
+                                taskstat: model.taskstat,
+                                stopTime: model.stopTime,
+                                jobContent: model.jobContent,
+                                flag:that.flag,
+                                id:that.flag == 2 ? that.workId : ''
                             },
                             dataType: 'json',
                             success: function (res) {
-                                console.log(res);
                                 that.$message({
                                     type: "success",
                                     message: res.body
                                 });
                                 that.resetForm(formName);
-                                window.location.href="./post-manage.html"
+                                window.location.href = "./post-manage.html"
                             }
                         });
 
@@ -153,9 +196,27 @@ function tempNewInit() {
                     }
                 });
             },
-            resetForm:function(formName) {
+            resetForm: function (formName) {
                 this.$refs[formName].resetFields();
             }
         }
-    })
+    });
+}
+
+function GetSearchArgs() {
+    let qs = (location.search.length > 0 ? location.search.substring(1) : ''),
+        args = {},
+        items = qs.length ? qs.split('&') : [],
+        item = null,
+        name = null,
+        value = null;
+    for (let index = 0; index < items.length; index++) {
+        item = items[index].split('=');
+        name = decodeURIComponent(item[0]);
+        value = decodeURIComponent(item[1]);
+        if (name.length) {
+            args[name] = value;
+        }
+    }
+    return args;
 }
