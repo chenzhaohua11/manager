@@ -5,6 +5,7 @@ function tempNewInit() {
     new Vue({
         el: "#right-container",
         data: {
+            username:"",
             //删选字段
             ruleForm: {
                 dxjkdz: '',
@@ -34,7 +35,7 @@ function tempNewInit() {
             }
         },
         created() {
-            console.log(window.location.href)
+            this.username = commMethod.getCookie("username");
         },
         methods: {
             submitForm(formName) {

@@ -22,11 +22,11 @@ function init() {
             x: [],
             y: [],
             newPosList: [],//岗位
-            newRegList: [
-               
-]//面试
+            newRegList: [],//面试
+            username:''
         },
         created: function () {
+            this.username = commMethod.getCookie("username");
             this.GetNeedNum();
             this.GetRequestData();
             this.GetJobMsg();
@@ -89,7 +89,7 @@ function init() {
                     dataType: 'json',
                     success: function (res) {
                         res = res.body;
-                        that.newPosList = JSON.parse(res); 
+                        that.newPosList = JSON.parse(res).data; 
                         that.Scroll(that.$data.posNum, "pos");
                     }
                 });
@@ -193,7 +193,7 @@ function init() {
                         case "pos":
                             let posMax = that.newPosList.length;
                             let posNum = num;
-                            if (posMax < 4) {
+                            if (posMax <= 4) {
                                 that.clearInterval(that.posTime)
                             } else {
                                 that.posTime = setInterval(function () {
@@ -208,7 +208,7 @@ function init() {
                         case "reg":
                             let regMax = that.newRegList.length;
                             let regNum = num;
-                            if (regMax < 4) {
+                            if (regMax <= 4) {
                                 that.clearInterval(that.regTime)
                             } else {
                                 that.regTime = setInterval(function () {
@@ -229,7 +229,7 @@ function init() {
                         case "pos":   
                             let posMax = that.newPosList.length;
                             let posNum = num;
-                            if (posMax < 4) {
+                            if (posMax <= 4) {
                                 that.clearInterval(that.posTime)
                             } else {
                                 that.posTime = setInterval(function () {
@@ -244,7 +244,7 @@ function init() {
                         case "reg":                 
                             let regMax = that.newRegList.length;
                             let regNum = num;
-                            if (regMax < 4) {
+                            if (regMax <= 4) {
                                 that.clearInterval(that.regTime)
                             } else {
                                 that.regTime = setInterval(function () {

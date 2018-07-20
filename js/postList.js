@@ -5,6 +5,7 @@ function init() {
     new Vue({
         el: "#right-container",
         data: {
+            username:'',
             //岗位列表
             positionList: commData.positionList,
             //工作经历列表
@@ -49,6 +50,7 @@ function init() {
             loading: true
         },
         created: function () {
+            this.username = commMethod.getCookie("username");
             // this.GetResData();
             // this.GetXLList();
             // this.GetWorkEduList();

@@ -6,6 +6,7 @@ function init() {
     new Vue({
         el: "#right-container",
         data: {
+            username:"",
             radio3: '本月',
             value5: '',
             apiUrl: commData.baseUrl,
@@ -31,6 +32,7 @@ function init() {
             loading: true
         },
         created: function () {
+            this.username = commMethod.getCookie("username");
             this.getResData();
         },
         methods: {

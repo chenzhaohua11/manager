@@ -1,101 +1,3 @@
-var resumeManageData = {
-    jobAgeList: [{
-        value: '1',
-        label: '5'
-    }, {
-        value: '2',
-        label: '2'
-    }, {
-        value: '3',
-        label: '1'
-    }, {
-        value: '4',
-        label: '3'
-    }],
-    educationList: [{
-        value: '1',
-        label: '大专'
-    }, {
-        value: '2',
-        label: '本科'
-    }, {
-        value: '3',
-        label: '硕士'
-    }, {
-        value: '4',
-        label: '博士'
-    }],
-    insTimeList: [{
-        value: '1',
-        label: '2018-6-22'
-    }, {
-        value: '2',
-        label: '2018-6-22'
-    }, {
-        value: '3',
-        label: '2018-6-22'
-    }, {
-        value: '4',
-        label: '2018-6-22'
-    }],
-    sexList: [{
-        value: '1',
-        itemValue: '男'
-    }, {
-        value: '2',
-        itemValue: '女'
-    }],
-    stateList: [{
-        value: '1',
-        label: '开启'
-    }, {
-        value: '2',
-        label: '禁止'
-    }],
-    intentJobList: [{
-        value: '1',
-        label: '前端工程师'
-    }, {
-        value: '2',
-        label: 'Java工程师'
-    }],
-    baseUrl: "http://172.16.1.101:8080/HRM2018",//接口地址
-};
-// $(function () { 
-//     GetBaseList()
-//  })
-// function GetBaseList () {
-//     var  _slef = resumeManageData;
-//     $.ajax({
-//         type: 'POST',
-//         url: _slef.baseUrl + '/queryDictsByItemType',
-//         data: {
-//             itemtype:"XL"
-//         },
-//         dataType: 'text',
-//         async:false,  
-//         success: function (res) {
-//             res = JSON.parse(res)
-//             res = JSON.parse(res.body)
-//             _slef.eduBackgroundList = res;        
-//         }
-//     });
-//     $.ajax({
-//         type: 'POST',
-//         url: _slef.baseUrl + '/queryDictsByItemType',
-//         data: {
-//             itemtype:"GZJY"
-//         },
-//         dataType: 'text',
-//         async:false,  
-//         success: function (res) {
-//             res = JSON.parse(res)
-//             res = JSON.parse(res.body)
-//             _slef.workExpList = res;       
-//         }
-//     });
-// }
-
 $(function () {
     tempListInit()
 })
@@ -103,12 +5,13 @@ function tempListInit() {
     new Vue({
         el: "#right-container",
         data: {
-            jobAgeList: resumeManageData.jobAgeList,
-            educationList: resumeManageData.educationList,
-            insTimeList: resumeManageData.insTimeList,
-            sexList: resumeManageData.sexList,
-            stateList: resumeManageData.stateList,
-            intentJobList:resumeManageData.intentJobList,
+            username:'',
+            jobAgeList: [],
+            educationList: [],
+            insTimeList: [],
+            sexList: [],
+            stateList: [],
+            intentJobList:[],
             searchValue: {
                 jobAge: '',
                 education: '',
@@ -154,7 +57,7 @@ function tempListInit() {
             findValue:"1"
         },
         created:function() {
-
+            this.username = commMethod.getCookie("username");
         },
         methods: {
             //分页

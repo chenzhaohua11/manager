@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <title>通知面试</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/el-index.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/interview.css">
     <script src="./js/vue.js"></script>
@@ -93,26 +93,26 @@
     </div>
     <div id="right-container">
         <div id="right-top">
-            <span class="right-title">{{interviewee.name}} - {{interviewee.intentJob}} - {{interviewee.education}} - {{interviewee.jobAge}}工作经验</span>
+            <span class="right-title">{{interviewee.name}} - {{interviewee.positionName}} - {{interviewee.education}} - {{interviewee.jobAge}}工作经验</span>
         </div>
         <div id="right-content">
             <div class="content-header">
                 <div class="content-title">面试流程</div>
                 <ul class="content-header-body">
                     <li class="sel">
-                        <span>通知面试 </span>
+                        <a href="#">通知面试 </a>
                         <b>&Gt;</b>
                     </li>
                     <li>
-                        <span>面试记录</span>
+                        <a href="./interviewStepTwo.html">面试记录</a>
                         <b>&Gt;</b>
                     </li>
                     <li>
-                        <span>发送offer</span>
+                        <a href="./interviewStepThree.html">发送offer</a>
                         <b>&Gt;</b>
                     </li>
                     <li>
-                        <span>完成</span>
+                        <a href="./interviewStepFour.html">完成</a>
                     </li>
                 </ul>
             </div>
@@ -122,111 +122,415 @@
                     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                         <el-row :gutter="20">
                             <el-col :span="8">
-                                <el-form-item label="面试类型" prop="postName">
-                                    <el-select v-model="ruleForm.postName" placeholder="面试类型">
-                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                <el-form-item label="面试类型" prop="iviewtype">
+                                    <el-select v-model="ruleForm.iviewtype" placeholder="面试类型">
+                                        <el-option v-for="item in iviewtypeList" :key="item.value" :label="item.value" :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="通知方式" prop="postName">
-                                    <el-select v-model="ruleForm.postName" placeholder="请选择通知方式">
-                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                <el-form-item label="通知方式" prop="invitetype">
+                                    <el-select v-model="ruleForm.invitetype" placeholder="请选择通知方式" @change="getTemplate">
+                                        <el-option v-for="item in invitetypeList" :key="item.value" :label="item.value" :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="面试时间" prop="postName">
-                                    <el-select v-model="ruleForm.postName" placeholder="请选择面试时间">
-                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
-                                        </el-option>
-                                    </el-select>
+                                <el-form-item label="面试时间" prop="iviewtime">
+                                    <el-date-picker v-model="ruleForm.iviewtime" type="datetime" @change="noticeNum" placeholder="选择日期">
+                                    </el-date-picker>
                                     <span class="content-choice-person">已通知
-                                        <b>15</b>人</span>
+                                        <b>{{noticeNumer}}</b>人</span>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :span="8">
-                                <el-form-item label="面试官" prop="postName">
-                                    <el-select v-model="ruleForm.postName" placeholder="请选择面试官">
-                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                <el-form-item label="面试官" prop="iviewername">
+                                    <el-select v-model="ruleForm.iviewername" placeholder="请选择面试官">
+                                        <el-option v-for="item in iviewernameList" :key="item.value" :label="item.name" :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="人事负责人" prop="postName">
-                                    <el-select v-model="ruleForm.postName" placeholder="请选择人事负责人">
-                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                <el-form-item label="发送模板" prop="templateid">
+                                    <el-select v-model="ruleForm.templateid" placeholder="请选择模板">
+                                        <el-option v-for="item in templateidList" :key="item.name" :label="item.name" :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
+
                             <el-col :span="8">
-                                <el-form-item label="联系方式" prop="recruitNum">
-                                    <el-input v-model="ruleForm.recruitNum" placeholder="请输入人事负责人联系方式" class="content-choice-contact"></el-input>
+                                <el-form-item label="联系方式" prop="phone">
+                                    <el-input v-model="ruleForm.phone" placeholder="请输入人事负责人联系方式" class="content-choice-contact"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :span="8">
-                                <el-form-item label="发送模板" prop="postName">
-                                    <el-select v-model="ruleForm.postName" placeholder="请选择模板">
-                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                <el-form-item label="人事负责人" prop="iviewerid">
+                                    <el-select v-model="ruleForm.iviewerid" placeholder="请选择人事负责人">
+                                        <el-option v-for="item in ivieweridList" :key="item.value" :label="item.name" :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="面试地点" prop="postName">
-                                    <el-select v-model="ruleForm.postName" placeholder="请选择面试地点">
-                                        <el-option v-for="item in postNameList" :key="item.value" :label="item.label" :value="item.value">
+                                <el-form-item label="面试地点" prop="iviewaddress">
+                                    <el-select v-model="ruleForm.iviewaddress" placeholder="请选择面试地点">
+                                        <el-option v-for="item in iviewaddressList" :key="item.value" :label="item.value" :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
                                 <el-form-item>
-                                    <el-button type="primary" @click="submitForm('ruleForm')">发送</el-button>
+                                    <el-button type="primary" @click="showApply('ruleForm')">预览</el-button>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                     </el-form>
+
                 </div>
+                <!--条件筛选弹窗 -->
+                <el-dialog title="条件筛选预览" :visible.sync="centerDialogVisible" width="52%" center>
+                    <table>
+                        <tr>
+                            <td>面试类型</td>
+                            <td colspan="3">
+                                    {{dialogMsg.iviewtype}}
+                            </td>
+                            <td>通知方式</td>
+                            <td colspan="3">
+                                    {{dialogMsg.invitetype}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>面试时间</td>
+                            <td colspan="3">
+                                    {{dialogMsg.iviewtime}}
+                            </td>
+                            <td>面试官</td>
+                            <td colspan="3">
+                                    {{dialogMsg.iviewername}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>人事负责人</td>
+                            <td colspan="3" prop="iviewerid">
+                                    {{dialogMsg.iviewerid}}
+                            </td>
+                            <td>联系方式</td>
+                            <td colspan="3">
+                                    {{dialogMsg.phone}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>发送模板</td>
+                            <td colspan="3">
+                                    {{dialogMsg.templateid}}
+                            </td>
+                            <td>面试地点</td>
+                            <td colspan="3">
+                                    {{dialogMsg.iviewaddress}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="8">
+                                <el-input type="textarea" :rows="8"   v-model="dialogMsg.content"></el-input>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="text-align: center">
+                        <el-button @click="centerDialogVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="submitForm">发送</el-button>
+                    </div>
+                </el-dialog>
             </div>
             <div class="content-message">
                 <div class="content-title">基本信息</div>
                 <div class="content-message-body">
                     <div class="content-message-introduce">
                         <div>
-                            <b>♂格瑞特</b>&nbsp;
-                            <span>UI设计师</span>&nbsp;|&nbsp;
-                            <span>8岁</span>&nbsp;|&nbsp;
-                            <span>132000000000</span>&nbsp;|&nbsp;
-                            <span>本科</span>&nbsp;|&nbsp;
-                            <span>湖南大学</span>
+                            <b>{{interviewee.name}}</b>&nbsp;
+                            <span>{{interviewee.positionName}}</span>&nbsp;|&nbsp;
+                            <span>{{interviewee.age}}岁</span>&nbsp;|&nbsp;
+                            <span>{{interviewee.phone}}</span>&nbsp;|&nbsp;
+                            <span>{{interviewee.education}}</span>&nbsp;|&nbsp;
+                            <span>{{interviewee.school}}</span>
                         </div>
-                        <p>个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简介个人简</p>
                     </div>
                     <div class="content-message-btn">
                         <el-row>
-                            <el-button type="primary" plain>职位申请表</el-button>
-                            <el-button type="primary" plain>个人简历</el-button>
+                            <el-button type="primary" plain @click="dialogTableVisible = true">职位申请表</el-button>
+                            <el-button type="primary" plain @click="dialogFormVisible = true">个人简历</el-button>
                         </el-row>
                     </div>
                 </div>
+                <!--职位申请表 -->
+                <el-dialog title="职位申请表" :visible.sync="dialogTableVisible" width="55%">
+                    <div class="position-message clearfix">
+                        <div class="position-message-img">
+                            <img src="./images/avater.jpg" alt="">
+                        </div>
+                        <div class="position-message-content">
+                            <p>某先生</p>
+                            <p>
+                                <span>UI设计师</span>&nbsp;|&nbsp;
+                                <span>8岁</span>&nbsp;|&nbsp;
+                                <span>132000000000</span>&nbsp;|&nbsp;
+                                <span>未婚</span>&nbsp;|&nbsp;
+                                <span>本科</span>
+                            </p>
+                            <p>
+                                <span>身份证号：
+                                    <i>430626199001011236</i>
+                                </span>
+                                <span>现居地址：
+                                    <i>长沙市岳麓区麓谷企业广场F4栋14楼</i>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <table>
+                        <tr class="position-message-title">
+                            <th colspan="5">教育及培训经历</th>
+                        </tr>
+                        <tr>
+                            <th>起止年月</th>
+                            <th colspan="2">
+                                学校名称
+                            </th>
+                            <th>专业</th>
+                            <th>所获学历</th>
+                        </tr>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr class="position-message-title">
+                            <th colspan="7">教育及培训经历</th>
+                        </tr>
+                        <tr>
+                            <th>起止年月</th>
+                            <th colspan="2">
+                                单位名称
+                            </th>
+                            <th>职位</th>
+                            <th>最后薪酬</th>
+                            <th>证明人</th>
+                            <th>离职原因</th>
+                        </tr>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr class="position-message-title">
+                            <th colspan="6">教育及培训经历</th>
+                        </tr>
+
+                        <tr>
+                            <td>期望待遇</td>
+                            <td colspan="2">
+
+                            </td>
+                            <td>到岗日期</td>
+                            <td colspan="2">
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <table>
+                        <tr class="position-message-title">
+                            <th colspan="6">其他情况</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3">情况描述</th>
+                            <th>结果</th>
+                            <th colspan="2">详情说明</th>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+                            </td>
+                        </tr>
+                    </table>
+                    <el-button type="primary" @click="dialogTableVisible = false">返回</el-button>
+                </el-dialog>
+
+                <!-- 个人简历 -->
+                <el-dialog title="个人简历" :visible.sync="dialogFormVisible" width="65%">
+                    <div style="width: 100%; overflow: auto;">
+                        <iframe width="100%" height="100%"  frameborder="no" scrolling="no" :src="resumeUrl"></iframe>
+                    </div>
+                </el-dialog>
             </div>
             <div class="content-main">
                 <div class="content-title">信息记录</div>
                 <div class="content-step">
-                    <el-steps direction="vertical" :active="1">
-                        <el-step title="步骤 1"></el-step>
-                        <el-step title="步骤 2"></el-step>
-                        <el-step title="步骤 3" description="我是小可爱"></el-step>
-                        <el-step title="步骤 4" description="我们一起学猫叫"></el-step>
+                    <el-steps direction="vertical">
+                        <el-step>
+
+                        </el-step>
+                        <el-step >2</el-step>
+                        <el-step description="我是小可爱">3</el-step>
+                        <el-step description="我们一起学猫叫"></el-step>
                     </el-steps>
                 </div>
             </div>

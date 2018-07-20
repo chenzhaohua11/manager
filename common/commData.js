@@ -1,62 +1,4 @@
 var commData = {
-    positionList: [{
-        value: '1',
-        label: '前端工程师'
-    }, {
-        value: '2',
-        label: '催收'
-    }, {
-        value: '3',
-        label: '微博销售'
-    }, {
-        value: '4',
-        label: '微信认证'
-    }],
-    statusList: [{
-        value: '1',
-        label: '未接通电话'
-    }, {
-        value: '2',
-        label: '同意面试'
-    }, {
-        value: '3',
-        label: '进入复试'
-    }, {
-        value: '4',
-        label: '入职'
-    }],
-    sexList: [{
-        itemId: '男',
-        itemValue: '男'
-    }, {
-        itemId: '女',
-        itemValue: '女'
-    }],
-    reasonList: [{
-        value: '1',
-        label: '未接通电话'
-    }, {
-        value: '2',
-        label: '接受面试'
-    }],
-    RsHandlerList: [{
-        value: '王帅',
-        label: '王帅'
-    }, {
-        value: '王帅',
-        label: '王帅'
-    }],
-    newsChannelList: [{
-        value: '前程无忧',
-        label: '前程无忧'
-    }, {
-        value: '猎聘',
-        label: '猎聘'
-    }],
-    markList: [{
-        value: '前端工程师',
-        label: '前端工程师'
-    }],
     baseUrl: "http://172.16.1.79:8080/HRM2018", //接口地址
 };
 
@@ -65,7 +7,7 @@ var commMethod = {
         var d = new Date(),
             year = d.getFullYear(),
             month = d.getMonth() + 1,
-            day = d.getDate()
+            day = d.getDate();
 
         if (month < 10) {
             month = '0' + month;
@@ -89,7 +31,7 @@ var commMethod = {
             if (day < 10) {
                 day = '0' + day;
             }
-            time1 = year + '-' + month + '-' + day;
+            time1 = year + '-' + month + '-' + day + '' ;
             return time1;
         }
     },
@@ -97,20 +39,31 @@ var commMethod = {
     formatTimeYearMonth: function (date) {
         if (date) {
             var d = new Date(date),
-                year = d.getFullYear(),
-                month = d.getMonth() + 1,
-                time1 = '';
-            if (month < 10) {
-                month = '0' + month;
-            }
-
-            time1 = year + '-' + month;
-            return time1;
+            year = d.getFullYear(),
+            month = d.getMonth() + 1,
+            day = d.getDate(),
+            h = d.getHours(),
+            m = d.getMinutes(),
+            time1 = '';
+        if (month < 10) {
+            month = '0' + month;
+        }
+        if (day < 10) {
+            day = '0' + day;
+        };
+        if (h < 10) {
+            h = '0' + h;
+        }
+        if (m < 10) {
+            m = '0' + m;
+        }
+        time1 = year + '-' + month + '-' + day + '  ' + h + ":"+ m +":00";
+        return time1;
         }
     },
     //设置cookie
     setCookie: function (name, value, days) {
-        var d = new Date;
+        var d = new Date();
         d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
         window.document.cookie = name + "=" + escape(value) + ";path=/;expires=" + d.toGMTString();
     },
@@ -122,7 +75,7 @@ var commMethod = {
     },
     //清除cookiie
     deleteCookie: function (name, value, days) {
-        var d = new Date;
+        var d = new Date();
         d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
         window.document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
     },
@@ -133,6 +86,23 @@ var commMethod = {
             data:data,
             dataType:"text",
             success:cb
-        })
-     }
+        });
+     },
+     GetSearchArgs() {
+        let qs = (location.search.length > 0 ? location.search.substring(1) : ''),
+            args = {},
+            items = qs.length ? qs.split('&') : [],
+            item = null,
+            name = null,
+            value = null;
+        for (let index = 0; index < items.length; index++) {
+            item = items[index].split('=');
+            name = decodeURIComponent(item[0]);
+            value = decodeURIComponent(item[1]);
+            if (name.length) {
+                args[name] = value;
+            }
+        }
+        return args;
+    }
 };

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <title>招聘任务</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/el-index.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/template-list.css">
     <script src="./js/vue.js"></script>
@@ -102,7 +102,7 @@
                     <i class="search-icon"></i>
                     <input type="text" class="search-input">
                 </div>
-                <span class="user-name">Hello,Na</span>
+                <span class="user-name">Hello,{{username}}</span>
                 <span class="exit"></span>
             </div>
         </div>
@@ -143,14 +143,14 @@
             </div>
             <div class="mian-content">
                 <p class="content-title">全部岗位</p>
-                <p class="content-dec">显示已关闭的岗位
-                    <el-switch v-model="searchValue.taskstat" active-value="1" inactive-value="0" active-color="#13ce66" inactive-color="#bdc2c7"
-                        @change="searchValueChange"></el-switch>
+                <p class="content-dec">显示已<span>{{ taskstat == 0 ? '禁用' : '启用' }} </span>的岗位
+                    <el-switch v-model="taskstat" :active-value="1" :inactive-value="0" active-color="#bdc2c7" inactive-color="#13ce66"
+                        @change="swichChange"></el-switch>
                 </p>
                 <div class="handler-button">
                     <el-button type="primary" icon="el-icon-plus" circle plain @click="newPost">发布任务</el-button>
                 </div>
-                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table">
+                <el-table :data="tableData3" border tooltip-effect="dark"  v-loading="loading" class="candidate-table">
                     <el-table-column label="岗位名称" prop="positionName" width="180">
                     </el-table-column>
                     <el-table-column label="需招人数" prop="planNumber">
@@ -167,7 +167,7 @@
                     </el-table-column>
                     <el-table-column label="状态" prop="taskstat">
                         <template slot-scope="scope">
-                            <el-switch v-model="scope.row.taskstat" :active-value="1" :inactive-value="0" active-color="#bdc2c7" inactive-color="#13ce66"></el-switch>
+                            <el-switch v-model="scope.row.taskstat" :active-value="1" :inactive-value="0" active-color="#bdc2c7" inactive-color="#13ce66"  @change="changeTaskstat(scope.row)"></el-switch>
                         </template>
                     </el-table-column>
                     <el-table-column label="操作" width="200">
@@ -208,25 +208,25 @@
                             </tr>
                             <tr>
                                 <td>紧急程度</td>
-                                <td colspan="5" prop="urgencyDesc">
+                                <td colspan="5" prop="urgency">
                                     <el-form-item>
-                                        <el-input v-model="ruleForm.urgencyDesc" disabled></el-input>
+                                        <el-input v-model="ruleForm.urgency" disabled></el-input>
                                     </el-form-item>
                                 </td>
                             </tr>
                             <tr>
                                 <td>任务有效期</td>
-                                <td colspan="5" prop="postreinterviewer">
+                                <td colspan="5" prop="stopTime">
                                     <el-form-item>
-                                        <el-input v-model="ruleForm.postreinterviewer" disabled></el-input>
+                                        <el-input v-model="ruleForm.stopTime" disabled></el-input>
                                     </el-form-item>
                                 </td>
                             </tr>
                             <tr>
                                 <td>状态</td>
                                 <td colspan="5">
-                                    <el-form-item prop="delivery">
-                                        <el-input v-model="ruleForm.delivery" disabled></el-input>
+                                    <el-form-item prop="taskstat">
+                                        <el-input v-model="ruleForm.taskstat" disabled></el-input>
                                     </el-form-item>
                                 </td>
                             </tr>
@@ -235,8 +235,8 @@
                             </tr>
                             <tr>
                                 <td colspan="6">
-                                    <el-form-item prop="content">
-                                        <el-input type="textarea" :rows="5"  disabled v-model="ruleForm.content"></el-input>
+                                    <el-form-item prop="jobContent">
+                                        <el-input type="textarea" :rows="6"  v-model="ruleForm.jobContent"></el-input>
                                     </el-form-item>
                                 </td>
                             </tr>

@@ -6,6 +6,7 @@ function postManageInit() {
     new Vue({
         el: "#right-container",
         data: {
+            username:'',
             apiUrl:commData.baseUrl,
             roleList:[],//角色列表
             deptList:[],//部门列表
@@ -33,6 +34,7 @@ function postManageInit() {
             centerDialogVisible: false
         },
         created:function() {
+            this.username = commMethod.getCookie("username");
             this.GetUserList(this.searchValue);
             this.GetRoleList();
             this.GetDeptList();

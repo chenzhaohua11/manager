@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>登录</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/el-index.css">
     <link rel="stylesheet" href="./css/login.css">
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
@@ -36,7 +36,7 @@
                             <el-form-item prop="checkPass">
                                 <el-input type="password" v-model="ruleForm.checkPass" clearable placeholder="请输入密码" @keyup.enter.native="handleSubmit2"></el-input>
                             </el-form-item>
-                            <el-checkbox v-model="remember" class="remember">记住密码</el-checkbox>                         
+                            <el-checkbox v-model="remember" class="remember">记住密码</el-checkbox>
                             <el-form-item>
                                 <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
                             </el-form-item>
@@ -52,6 +52,7 @@
             el: "#app",
             data: function () {
                 return {
+                    apiUrl:commData.baseUrl,
                     ruleForm: {
                         account: '',
                         checkPass: ''
@@ -69,32 +70,57 @@
                         }, ]
                     },
                     logining: false,
-                    remember:true
+                    remember: true
                 }
             },
-            created:function() {
-                if (commMethod.getCookie("user")) {                 
-                    this.ruleForm.account = commMethod.getCookie("user");
+            created: function () {
+                if (commMethod.getCookie("user")) {
+                    this.ruleForm.account = commMethod.getCookie("userid");
                     this.ruleForm.checkPass = commMethod.getCookie("password");
                 } else {
                     this.$message({
-                        message:"账户信息已经过期",
+                        message: "账户信息已经过期",
                         type: 'warning'
                     })
                 }
             },
             methods: {
-                handleSubmit2:function() {
+                handleSubmit2: function () {
                     var that = this;
                     that.$refs["ruleForm"].validate((valid) => {
                         if (valid) {
                             let model = that.$refs["ruleForm"].model;
-                            if (that.remember) {
-                                commMethod.setCookie("user",model.account,11)
-                                commMethod.setCookie("password",model.account,11)
-                            } else {
-                                
-                            }
+                            $.ajax({
+                                type: 'POST',
+                                url: that.apiUrl + '/loginVerify',
+                                data: {
+                                    username: model.account.trim(),
+                                    password: model.checkPass.trim(),
+                                },
+                                dataType: 'json',
+                                success: function (res) {
+                                    if(res.code > 0) {
+                                        if (that.remember) {
+                                            commMethod.setCookie("password", model.checkPass,11);
+                                            commMethod.setCookie("userid", res.body.id,11);
+                                            commMethod.setCookie("username", res.body.name,11);
+                                            commMethod.setCookie("roleId", res.body.roleId,11);
+                                            commMethod.setCookie("userObj",JSON.stringify(res.body),11);
+                                        } else {
+                                            commMethod.setCookie("userid", res.body.id,11);
+                                            commMethod.setCookie("username", res.body.name,11);
+                                            commMethod.setCookie("roleId", res.body.roleId,11);
+                                            commMethod.setCookie("userObj",JSON.stringify(res.body),11);
+                                        }                                  
+                                        window.location.href = "./index.html";
+                                    } else {
+                                        that.$refs["ruleForm"].resetFields();
+                                        that.$message.error({
+                                            message:res.body
+                                        })
+                                    }
+                                }
+                            });
                         }
                     })
                 }

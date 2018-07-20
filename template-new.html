@@ -7,12 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <title>新建模板</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/el-index.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/template-new.css">
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
     <script src="./js/template-new.js"></script>
 </head>
 
@@ -107,7 +108,7 @@
                     <i class="search-icon"></i>
                     <input type="text" class="search-input">
                 </div>
-                <span class="user-name">Hello,Na</span>
+                <span class="user-name">Hello,{{username}}</span>
                 <span class="exit"></span>
             </div>
         </div>
@@ -121,7 +122,7 @@
                             <el-col :span="12">
                                 <el-form-item label="模板类型" prop="type">
                                     <el-select v-model="ruleForm.type" placeholder="选择类型">
-                                        <el-option v-for="item in typeList" :key="item.value" :label="item.label" :value="item.value">
+                                        <el-option v-for="item in typeList" :key="item.id" :label="item.value" :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
@@ -135,25 +136,22 @@
 
                         <el-row :gutter="60">
                             <el-col :span="12">
-                                <el-form-item label="状态" prop="state">
-                                    <el-select v-model="ruleForm.state" placeholder="默认开启状态">
-                                        <el-option v-for="item in stateList" :key="item.value" :label="item.label" :value="item.value">
+                                <el-form-item label="状态" prop="stat">
+                                    <el-select v-model="ruleForm.stat" placeholder="默认开启状态">
+                                        <el-option v-for="item in stateList" :key="item.id" :label="item.value" :value="item.id">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
                             <el-col :span="12">
-                                <el-form-item label="模板用途" prop="used">
-                                    <el-input v-model="ruleForm.used"></el-input>
+                                <el-form-item label="模板用途" prop="tdesc">
+                                    <el-input v-model="ruleForm.tdesc"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-form-item label="邮件内容" prop="content">
                             <el-input type="textarea" v-model="ruleForm.content"></el-input>
                         </el-form-item>
-                        <template prop="default">
-                            <el-checkbox v-model="ruleForm.default">设为默认模版</el-checkbox>
-                        </template>
                         <el-form-item>
                             <el-button @click="resetForm('ruleForm')">清空</el-button>
                             <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>

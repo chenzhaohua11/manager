@@ -37,3 +37,6 @@
     margin-top: 30px;
     padding: 10px 30px;
 }
+.el-input.is-disabled .el-input__inner , .el-textarea.is-disabled .el-textarea__inner {
+    background: #fff !important;
+}

@@ -1,70 +1,3 @@
-var systemTempData = {
-    tempNameList: [{
-        value: '1',
-        label: '前端工程师-面试邀请'
-    }, {
-        value: '2',
-        label: '催收-复试邀请'
-    }, {
-        value: '3',
-        label: '微博销售-面试邀请'
-    }, {
-        value: '4',
-        label: '微信认证-复试邀请'
-    }],
-    tempTypeList: [{
-        value: '1',
-        label: '邮件'
-    }, {
-        value: '2',
-        label: '电话'
-    }],
-    tempUsedList: [{
-        value: '1',
-        label: '发送面试邀请'
-    }, {
-        value: '2',
-        label: '邀请复试'
-    }],
-    baseUrl: "http://172.16.1.101:8080/HRM2018",//接口地址
-};
-// $(function () { 
-//     GetBaseList()
-//  })
-// function GetBaseList () {
-//     var  _slef = systemTempData;
-//     $.ajax({
-//         type: 'POST',
-//         url: _slef.baseUrl + '/queryDictsByItemType',
-//         data: {
-//             itemtype:"XL"
-//         },
-//         dataType: 'text',
-//         async:false,  
-//         success: function (res) {
-//             res = JSON.parse(res)
-//             res = JSON.parse(res.body)
-//             _slef.eduBackgroundList = res;        
-//         }
-//     });
-//     $.ajax({
-//         type: 'POST',
-//         url: _slef.baseUrl + '/queryDictsByItemType',
-//         data: {
-//             itemtype:"GZJY"
-//         },
-//         dataType: 'text',
-//         async:false,  
-//         success: function (res) {
-//             res = JSON.parse(res)
-//             res = JSON.parse(res.body)
-//             _slef.workExpList = res;       
-//         }
-//     });
-// }
-
-var candList = [];
-var pageList = {};
 $(function () {
     tempListInit()
 })
@@ -72,140 +5,127 @@ function tempListInit() {
     new Vue({
         el: "#right-container",
         data: {
-            tempNameList: systemTempData.tempNameList,
-            tempTypeList: systemTempData.tempTypeList,
-            tempUsedList: systemTempData.tempUsedList,
+            apiUrl: commData.baseUrl,
+            username:"",
+            typeList: [],
             //删选字段
             searchValue: {
                 name: '',
                 type: '',
-                used: ''
+                stat: '0',
+                page:1
             },
             ruleForm: {
-                school: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
             },
-            rules: {
-                school: [
-                    { required: true, message: '请输入活动名称', trigger: 'blur' }
-                ],
-                region: [
-                    { required: true, message: '请选择活动区域', trigger: 'change' }
-                ],
-                date1: [
-                    { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-                ],
-                date2: [
-                    { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-                ],
-                type: [
-                    { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
-                ],
-                resource: [
-                    { required: true, message: '请选择活动资源', trigger: 'change' }
-                ],
-                desc: [
-                    { required: true, message: '请填写活动形式', trigger: 'blur' }
-                ]
-            },
-            tableData3: [{
-                id: 1,
-                name: '催收岗位-面试通知',
-                type: '邮件',
-                used: "发送面试邀请",
-                state: "启用",
-                insTime: "2018-06-11",
-                insertName: "武文科"
-            },
-            {
-                id: 2,
-                name: '技术中心-UI设计复试通知',
-                type: '短信',
-                used: "邀请复试",
-                state: "禁止",
-                insTime: "2018-06-11",
-                insertName: "武文科"
-            }
-            ],
-            //多选数组
-            multipleSelection: [],
-            //选择控制
-            flag: false,
+            tableData3: [],
             //分页控制
             crrentPage: 1,
             pageCount: 1,
             size: 10,
             total: 1,
             loading: true,
-            value2: false,
              //查看详情
-             centerDialogVisible: false
+            centerDialogVisible: false
         },
-        created() {
-
+        created:function() {
+            this.username = commMethod.getCookie("username");
+            this.GetType();
+            this.getTemplateList(this.searchValue);
         },
         methods: {
+            //获取类型
+            GetType:function() {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryDictsByItemType',
+                    data: {
+                        type:"sendtype"
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = JSON.parse(res.body);
+                        that.typeList = res;   
+                    }
+                });
+            },
+            //获取模板列表
+            getTemplateList:function (param) { 
+                var that = this ;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryTemplateByPage',
+                    data: param,
+                    dataType: 'json',
+                    success: function (res) {
+                        res = JSON.parse(res.body);
+                        that.tableData3 = res.rows;
+                        that.searchValue.page = res.crrentPage;
+                        that.$data.total = res.total;
+                        that.$data.pageCount = res.pageCount;      
+                        that.$data.loading = false;
+                    }
+                });
+             },
+             //查看详情 
+             getDetialList:function (param) { 
+                var that = this ;
+                that.centerDialogVisible = true;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryOneTemplate',
+                    data: {
+                        id:param
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = JSON.parse(res.body);
+                        that.ruleForm= res;
+                    }
+                });
+             },
             //新增岗位
-            newPost() {
-                window.location.href = "./template-new.html"
+            newPost:function() {
+                window.location.href = "./template-new.html" ;
             },
             //分页
-            currentChange(val) {
-                console.log(val)
-            },
-            //table修改
-            valueChange(val) {
-                console.log(val)
-            },
-            //全选
-            handleSelectionChange(val) {
-                this.multipleSelection = val;
-            },
-            handleSelection(selection) {
-                this.multipleSelection = selection;
+            currentChange:function(val) {
+               var that = this;
+               that.searchValue.page  =  val;
+               that.$data.loading = true;
+               that.getTemplateList(that.searchValue);
             },
             //筛选条件变化
-            searchValueChange() {
-                this.tableData3.forEach(element => {
-                    element.insTime = parseInt(element.insTime) + 1
-                });
-
+            searchValueChange:function() {
+                var that = this;
+                that.$data.loading = true;
+                that.getTemplateList(that.searchValue);
             },
             //删除
             removeList: function (val) {
                 var that = this;
-                this.tableData3.forEach(function(item,index){
-                    if (item.id == val.id) {
-                        that.tableData3.splice(index,1)
-                    }
-                })
+                this.$confirm('是否删除任务?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: that.apiUrl + '/deleteTemplateById',
+                        data: {
+                            id:val
+                        },
+                        dataType: 'json',
+                        success: function (res) {
+                            that.$data.loading = true;
+                            that.getTemplateList(that.searchValue);
+                        }
+                    });
+                });
               },
-            //详情页
-            gotoDetail(row, ev) {
-                console.log(row)
-                // window.location.href = "./interview.html?id=" + row.id ;
-            },
-            edit(val) {
+            edit: function(val) {
                 window.location.href = "./template-new.html?id=" + val.id
             },
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        alert('submit!');
-                        this.centerDialogVisible = false;
-                        this.$refs[formName].resetFields();
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
-            }
         }
-    })
+    });
 }

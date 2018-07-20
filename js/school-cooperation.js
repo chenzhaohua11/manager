@@ -1,64 +1,3 @@
-var schoolCoopData = {
-    schoolList: [{
-        value: '1',
-        label: '长沙涉外经济学院'
-    }, {
-        value: '2',
-        label: '湖南师范大学'
-    }],
-    isSignList: [{
-        value: '1',
-        label: '是'
-    }, {
-        value: '2',
-        label: '否'
-    }],
-    businessPersonList: [{
-        value: '1',
-        label: '啦啦啦'
-    }, {
-        value: '2',
-        label: '京津冀'
-    }],
-    baseUrl: "http://172.16.1.101:8080/HRM2018",//接口地址
-};
-// $(function () { 
-//     GetBaseList()
-//  })
-// function GetBaseList () {
-//     var  _slef = schoolCoopData;
-//     $.ajax({
-//         type: 'POST',
-//         url: _slef.baseUrl + '/queryDictsByItemType',
-//         data: {
-//             itemtype:"XL"
-//         },
-//         dataType: 'text',
-//         async:false,  
-//         success: function (res) {
-//             res = JSON.parse(res)
-//             res = JSON.parse(res.body)
-//             _slef.eduBackgroundList = res;        
-//         }
-//     });
-//     $.ajax({
-//         type: 'POST',
-//         url: _slef.baseUrl + '/queryDictsByItemType',
-//         data: {
-//             itemtype:"GZJY"
-//         },
-//         dataType: 'text',
-//         async:false,  
-//         success: function (res) {
-//             res = JSON.parse(res)
-//             res = JSON.parse(res.body)
-//             _slef.workExpList = res;       
-//         }
-//     });
-// }
-
-var candList = [];
-var pageList = {};
 $(function () {
     schoolCoopInit()
 })
@@ -66,9 +5,10 @@ function schoolCoopInit() {
     new Vue({
         el: "#right-container",
         data: {
-            schoolList: schoolCoopData.schoolList,
-            isSignList: schoolCoopData.isSignList,
-            businessPersonList: schoolCoopData.businessPersonList,
+            username:'',
+            schoolList: [],
+            isSignList: [],
+            businessPersonList:[],
             //删选字段
             searchValue: {
                 school: '',
@@ -148,7 +88,7 @@ function schoolCoopInit() {
             centerDialogVisible: false
         },
         created() {
-
+            this.username = commMethod.getCookie("username");
         },
         methods: {
             hasSelected() {

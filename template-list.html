@@ -7,12 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <title>模板管理</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/el-index.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/template-list.css">
     <script src="./js/vue.js"></script>
     <script src="./js/ele-index.js"></script>
     <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./common/commData.js"></script>
     <script src="./js/template-list.js"></script>
 </head>
 
@@ -110,7 +111,7 @@
                     <i class="search-icon"></i>
                     <input type="text" class="search-input">
                 </div>
-                <span class="user-name">Hello,Na</span>
+                <span class="user-name">Hello,{{username}}</span>
                 <span class="exit"></span>
             </div>
         </div>
@@ -120,92 +121,84 @@
                     <p class="group-title">筛选</p>
                     <div class="filter-item">
                         <p class="item-title">模板名称</p>
-                        <el-select v-model="searchValue.name" placeholder="选择模板名称">
-                            <el-option v-for="item in tempNameList" :key="item.value" :label="item.label" :value="item.value">
-                            </el-option>
-                        </el-select>
+                        <el-input v-model="searchValue.name" placeholder="选择模板名称"></el-input>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">类型</p>
                         <el-select v-model="searchValue.type" placeholder="默认显示所有">
-                            <el-option v-for="item in tempTypeList" :key="item.value" :label="item.label" :value="item.value">
+                            <el-option v-for="item in typeList" :key="item.id" :label="item.value" :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
                     <div class="filter-item">
                         <p class="item-title">模板用途</p>
-                        <el-select v-model="searchValue.used" placeholder="选择模板用途">
-                            <el-option v-for="item in tempUsedList" :key="item.value" :label="item.label" :value="item.value">
-                            </el-option>
-                        </el-select>
+                        <el-input v-model="searchValue.tdesc" placeholder="选择模板名称"></el-input>
                     </div>
                 </div>
                 <el-button type="primary" @click="searchValueChange">确认</el-button>
             </div>
             <div class="mian-content">
                 <p class="content-title">全部岗位</p>
-                <p class="content-dec">显示已禁止的模板
-                    <el-switch v-model="value2" active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
+                <p class="content-dec">显示已{{searchValue.stat == 0 ? "关闭":"开启"}}的模板
+                    <el-switch v-model="searchValue.stat" @change="searchValueChange"  active-value="1" inactive-value="0"  active-color="#13ce66" inactive-color="#bdc2c7"></el-switch>
                 </p>
                 <div class="handler-button">
                     <el-button type="primary" icon="el-icon-plus" circle plain @click="newPost">新增岗位</el-button>
                 </div>
-                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" @select="handleSelection" @selection-change="handleSelectionChange"
-                    @row-dblclick="gotoDetail">
-                    </el-table-column>
+                <el-table :data="tableData3" border tooltip-effect="dark" class="candidate-table" >
                     <el-table-column label="模板名称" prop="name" width="255">
                     </el-table-column>
-                    <el-table-column label="类型" prop="type">
+                    <el-table-column label="类型" prop="typeDesc">
                     </el-table-column>
-                    <el-table-column label="模板用途" prop="used">
+                    <el-table-column label="模板用途" prop="tdesc">
                     </el-table-column>
-                    <el-table-column label="状态" prop="state">
+                    <el-table-column label="状态" prop="statDesc">
                     </el-table-column>
                     <el-table-column label="创建日期" prop="insTime">
                     </el-table-column>
-                    <el-table-column label="创建人" prop="insertName">
+                    <el-table-column label="创建人" prop="userName">
                     </el-table-column>
-                    <el-table-column label="操作" prop="reason" width="225">
+                    <el-table-column label="操作"  width="225">
                         <template slot-scope="scope">
-                            <el-button class="mm-see" type="text" size="small" icon="el-icon-view" @click="centerDialogVisible = true">查看详情</el-button>
-                            <el-button class="mm-delete" type="text" size="small" icon="el-icon-delete" @click="removeList(scope.row)">删除</el-button>
+                            <el-button class="mm-see" type="text" size="small" icon="el-icon-view" @click="getDetialList(scope.row.id)">查看详情</el-button>
+                            <el-button class="mm-delete" type="text" size="small" icon="el-icon-delete" @click="removeList(scope.row.id)">删除</el-button>
                             <el-button class="mm-edit" type="text" size="small" @click="edit(scope.row)" icon="el-icon-edit">编辑</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
                 <!-- 查看详情 -->
                 <el-dialog title="查看详情" :visible.sync="centerDialogVisible" width="40%" center>
-                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+                    <el-form :model="ruleForm" ref="ruleForm" class="demo-ruleForm">
                         <table>
                             <tr>
                                 <td>模板名称</td>
                                 <td colspan="5">
-                                    <el-form-item prop="school">
-                                        <el-input v-model="ruleForm.school"></el-input>
+                                    <el-form-item prop="name">
+                                        <el-input v-model="ruleForm.name" disabled></el-input>
                                     </el-form-item>
                                 </td>
                             </tr>
                             <tr>
                                 <td>状态</td>
                                 <td colspan="5">
-                                    <el-form-item prop="name">
-                                        <el-input v-model="ruleForm.name"></el-input>
+                                    <el-form-item prop="statDesc">
+                                        <el-input v-model="ruleForm.statDesc" disabled></el-input>
                                     </el-form-item>
                                 </td>
                             </tr>
                             <tr>
                                 <td>类型</td>
-                                <td colspan="5" prop="name">
+                                <td colspan="5" prop="typeDesc">
                                     <el-form-item>
-                                        <el-input v-model="ruleForm.name"></el-input>
+                                        <el-input v-model="ruleForm.typeDesc" disabled></el-input>
                                     </el-form-item>
                                 </td>
                             </tr>
                             <tr>
                                 <td>用途</td>
                                 <td colspan="5">
-                                    <el-form-item prop="name">
-                                        <el-input v-model="ruleForm.name"></el-input>
+                                    <el-form-item prop="tdesc">
+                                        <el-input v-model="ruleForm.tdesc" disabled></el-input>
                                     </el-form-item>
                                 </td>
                             </tr>
@@ -214,8 +207,8 @@
                             </tr>
                             <tr>
                                 <td colspan="6">
-                                    <el-form-item prop="name">
-                                        <el-input type="textarea" :rows="5" placeholder="请输入" v-model="ruleForm.name"></el-input>
+                                    <el-form-item prop="content">
+                                        <el-input type="textarea" :rows="5" disabled  v-model="ruleForm.content"></el-input>
                                     </el-form-item>
                                 </td>
                             </tr>
@@ -227,7 +220,7 @@
 
                 </el-dialog>
                 <div class="pagination">
-                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="searchValue.crrentPage"
+                    <el-pagination background layout="prev, pager, next" :total="total" :page-size="size" :pager-count="8" :current-page.sync="searchValue.page"
                         @current-change="currentChange">
                     </el-pagination>
                 </div>

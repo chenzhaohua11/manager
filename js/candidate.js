@@ -1,13 +1,4 @@
-var candList = [];
-var pageList = {};
 $(function () {
-    // var parms={};
-    // $.post("../queryResumeList", parms,function(res){
-    // 	pageList=JSON.parse(res.body);
-    // 	candList=pageList.rows;
-    // 	console.log(pageList);
-    //     init()
-    // })
     init();
 })
 
@@ -18,9 +9,21 @@ function init() {
             //简历导入弹框
             addRegVisible: false,
             //岗位列表
-            positionList:[],
+            positionList: [],
             //原因列表
-            reasonList:[],
+            reasonList: [{
+                    value: "未接通电话"
+                },
+                {
+                    value: "同意面试"
+                },
+                {
+                    value: "再联系"
+                },
+                {
+                    value: "无意向"
+                }
+            ],
             //工作经历列表
             workExpList: [],
             //状态列表
@@ -28,11 +31,34 @@ function init() {
             //学历列表
             eduBackgroundList: [],
             //性别列表
-            sexList: [],
+            sexList: [{
+                    id: 0,
+                    value: "不限"
+                },
+                {
+                    id: 1,
+                    value: "男"
+                },
+                {
+                    id: 2,
+                    value: "女"
+                }
+            ],
+            //任务列表
+            workList: [],
             //认识负责人列表
             RsHandlerList: [],
             //渠道列表
-            newsChannelList: [],
+            newsChannelList: [{
+                    value: "58同城"
+                },
+                {
+                    value: "智联招聘"
+                },
+                {
+                    value: "前程无忧"
+                }
+            ],
             //api地址
             apiUrl: commData.baseUrl,
             //删选字段
@@ -40,15 +66,14 @@ function init() {
                 positionId: '',
                 insreason: '',
                 jobAge: "",
-                interview: '',
+                instate: '',
                 education: '',
                 sex: '',
                 dutyid: '',
                 source: '',
                 age1: '',
                 age2: '',
-                sjd:'',
-                crrentPage: 1,
+                page: 1,
             },
             //table数据
             tableData3: [],
@@ -62,47 +87,64 @@ function init() {
             size: 10,
             total: 1,
             //弹窗字段
+            //上传字段
+            uploadForm: new FormData(),
             regForm: {
-                postId: '',
-                source: '',
-                channel: ''
+                dutyid: '', //人事负责人
+                dutyname: "",
+                source: '', //渠道
+                taskId: '' //任务id
             },
             rules: {
-                postId: {
-                    required: true, message: '请选择岗位', trigger: 'change'
+                dutyid: {
+                    required: true,
+                    message: '请选择岗位',
+                    trigger: 'change'
                 },
                 source: {
-                    required: true, message: '请选择渠道', trigger: 'change'
+                    required: true,
+                    message: '请选择渠道',
+                    trigger: 'change'
                 },
-                channel: {
-                   required: true, message: '请选择来源', trigger: 'blur'
+                taskId: {
+                    required: true,
+                    message: '请选择来源',
+                    trigger: 'change'
                 }
             },
             fileList: [],
-            loading: true
+            loading: true,
+            username: ''
         },
         created: function () {
-            // this.GetResData();
+            this.username = commMethod.getCookie("username");
+            this.GetResData(this.searchValue);
             this.GetPosList();
             this.GetXLList();
             this.GetWorkEduList();
+            this.getWorkList();
+            this.getHrList();
+            this.getInsstateList();
         },
         methods: {
             //获取简历列表
-            GetResData: function () {
+            GetResData: function (val) {
                 var that = this;
-                data = that.searchValue;
+                if (val.age1 != "" && val.age2 != "") {
+                    if (val.age1 > val.age2) {
+                        let co = val.age2;
+                        val.age2 = val.ag1;
+                        val.age1 = co;
+                    }
+                }
                 $.ajax({
                     type: 'POST',
-                    url: that.apiUrl + '/queryResumeList',
-                    data: data,
+                    url: that.apiUrl + '/queryRczpVitaeByPage',
+                    data: val,
                     dataType: 'json',
                     success: function (res) {
                         that.$data.loading = false;
-                        res = JSON.parse(res);
-                        res = res.body;
-                        res = JSON.parse(res);
-                        console.log(res);
+                        res = JSON.parse(res.body);
                         that.tableData3 = res.rows;
                         that.$data.total = res.total;
                         that.$data.pageCount = res.pageCount;
@@ -126,16 +168,15 @@ function init() {
                 });
             },
             //获取岗位信息
-            GetPosList:function() {
+            GetPosList: function () {
                 var that = this;
                 $.ajax({
                     type: 'POST',
                     url: that.apiUrl + '/queryPositionSelect  ',
-                    data: {
-                    },
+                    data: {},
                     dataType: 'json',
                     success: function (res) {
-                         that.positionList = res.body ;
+                        that.positionList = res.body;
                     }
                 });
             },
@@ -155,26 +196,71 @@ function init() {
                     }
                 });
             },
+            //获取招聘任务列表
+            getWorkList: function () {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryRecruitaskSel',
+                    data: {},
+                    dataType: 'json',
+                    success: function (res) {
+                        res = JSON.parse(res.body);
+                        that.workList = res;
+                    }
+                });
+            },
+            //获取简历入库状态
+            getInsstateList: function () {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryDictsByItemType',
+                    data: {
+                        type: "insstate"
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = JSON.parse(res.body);
+                        that.statusList = res;
+                    }
+                });
+            },
+            //获取人事负责人
+            getHrList: function () {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryUserByRole',
+                    data: {
+                        roleid: "1"
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = res.body;
+                        that.RsHandlerList = res;
+                    }
+                });
+            },
             //下载
             down: function () {
                 var that = this;
                 var data = [];
-                that.multipleSelection.forEach(function (item) { 
-                    if(item) {           
-                        data.push(item.resumeId);
-                    }
-                 })
-                if (this.multipleSelection.length > 0) {
+                if (that.multipleSelection.length > 0) {
+                    that.multipleSelection.forEach(function (item) {
+                        if (item) {
+                            data.push(item.id);
+                        }
+                    })
                     let IForm = $("<form></form>");
-                    IForm.attr("style","display:none");
-                    IForm.attr("target","");
-                    IForm.attr("method","post");
+                    IForm.attr("style", "display:none");
+                    IForm.attr("target", "");
+                    IForm.attr("method", "post");
                     $("body").append(IForm);
-                    data.forEach(function (item) { 
-                        IForm.attr("action",that.apiUrl + '/downloadResumeFile?resumeId='+item);
+                    data.forEach(function (item) {
+                        IForm.attr("action", that.apiUrl + '/downloadResumeFile?vitaeId=' + item);
                         IForm.submit();
                     })
-                    IForm.remove();
                 } else {
                     this.$message({
                         showClose: true,
@@ -189,8 +275,25 @@ function init() {
             },
             //删除
             delate: function () {
-                if (this.multipleSelection.length > 0) {
-                    console.log(this.multipleSelection)
+                var data = [],
+                    that = this;
+                if (that.multipleSelection.length > 0) {
+                    that.multipleSelection.forEach(function (item) {
+                        if (item) {
+                            data.push(item.id);
+                        }
+                    });
+                    $.ajax({
+                        type: 'POST',
+                        url: that.apiUrl + '/deleteRczpVitaeById',
+                        data: {
+                            vitaeId: data.join(',')
+                        },
+                        dataType: 'json',
+                        success: function (res) {
+
+                        }
+                    });
                 } else {
                     this.$message({
                         showClose: true,
@@ -201,8 +304,29 @@ function init() {
             },
             //移入内部
             moveToOwn: function () {
-                if (this.multipleSelection.length > 0) {
-                    console.log("有选中")
+                var that = this;
+                var data = [];
+                if (that.multipleSelection.length > 0) {
+                    that.multipleSelection.forEach(function (item) {
+                        if (item) {
+                            data.push(item.id);
+                        }
+                    });
+                    $.ajax({
+                        type: 'POST',
+                        url: that.apiUrl + '/updateRczpVitae',
+                        data: {
+                            vitaeId: data.join(','),
+                            insstate:"1"
+                        },
+                        dataType: 'json',
+                        success: function (res) {
+                           if(res.code == 1) {
+                               that.$data.loading = true;
+                               that.GetResData(that.searchValue);
+                           }
+                        }
+                    });
                 } else {
                     this.$message({
                         showClose: true,
@@ -213,31 +337,45 @@ function init() {
             },
             //分页
             currentChange: function (val) {
-                console.log(val)
+                var that = this;
+                console.log(val);
+                that.searchValue.page = val;
+                that.loading = true;
+                that.GetResData(that.searchValue);
             },
             //格式化字段
             formatterColumn: function (row, column) {
-                switch (row.state) {
-                    case "0":
-                        return '通知面试';
-                        break;
-                    case "1":
-                        return '初试';
-                        break;
-                    case "2":
-                        return '复试';
-                        break;
-                    case "3":
-                        return '入职申请';
-                        break;
-                    default:
-                        return '未知';
-
-                }
+                return row.jobAge + '年';
             },
             //table修改
             valueChange: function (val) {
-                console.log(val)
+                var that = this;
+                console.log(val);
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/updateRczpVitae',
+                    data: {
+                        vitaeId: val.id,
+                        insreason: val.insreason
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        if (res.code == 1) {
+                            that.$message.success({
+                                message: res.body
+                            });
+
+                            that.GetResData(that.searchValue);
+                        } else {
+                            that.$message.error({
+                                message: res.body
+                            });
+                            that.GetResData(that.searchValue);
+                        }
+                    }
+                });
+
             },
             //全选
             handleSelectionChange: function (val) {
@@ -248,44 +386,69 @@ function init() {
             },
             //筛选条件变化
             searchValueChange: function () {
-                this.GetResData();
+                var that = this;
+                that.loading = true;
+                that.GetResData(that.searchValue);
             },
             //详情页
             gotoDetail: function (row, ev) {
                 window.location.href = "./interviewStepOne.html";
-                commMethod.setCookie("resumeId",row.resumeId,0.5)
+                commMethod.setCookie("resumeId", row.id, 0.5)
             },
             //弹框
+
             //文件上传
-            newFiles: function (file) {
-                if (file) {     
-                    this.fileList.push(file);
-                } else {
-                    return false;
-                }
+            beforeUpload: function (file) {
+                var that = this;
+                that.uploadForm.append("files", file);
+                return false;
             },
             //文件上传失败
             fileUploadError: function (responseFile, res, file) {
-                console.log(err, file, fileList)
+                console.log(res);
             },
             handleRemove: function (file, fileList) {
-                this.fileList.forEach(function (v, i) {
+                var that = this;
+                that.fileList.forEach(function (v, i) {
                     if (v.response == file.response) {
-                        this.fileList.splice(i, 1);
+                        that.fileList.splice(i, 1);
                     }
                 })
             },
             regAdd: function () {
-                this.$refs.regForm.validate((valid) => {
+                var that = this;
+                that.$refs.regForm.validate(function (valid) {
                     if (valid) {
-                        this.$refs.uploadfile.submit();
-                        console.log(this.fileList)
+                        var model = that.regForm;
+                        that.RsHandlerList.forEach(function (item) {
+                            if (item.id == model.dutyid) {
+                                model.dutyname = item.name;
+                            }
+                        });
+                        that.uploadForm.append('dutyid', model.dutyid);
+                        that.uploadForm.append('dutyname', model.dutyname);
+                        that.uploadForm.append('taskId', model.taskId);
+                        that.uploadForm.append('source', model.source);  
+                        let config = {              
+                            headers: {                
+                                'Content-Type': 'multipart/form-data'              
+                            }            
+                        };
+                        axios.post(that.apiUrl + "/uploadResume", that.uploadForm, config).then(function (res) {
+                            console.log(res);
+                            that.$message({
+                                message: res.data.body,
+                            });
+                            that.GetResData(that.searchValue);
+                            that.regCancel();
+                        });
+                        that.$refs.uploadfile.submit();
                     } else {
-                      console.log('error submit!!');
-                      return false;
+                        console.log('error submit!!');
+                        return false;
                     }
-                  })
-                
+                });
+
             },
             regCancel: function () {
                 this.addRegVisible = false;

@@ -1,97 +1,3 @@
-var postNewList = {
-    postNameList: [{
-        value: '1',
-        label: '前端工程师'
-    }, {
-        value: '2',
-        label: '催收'
-    }, {
-        value: '3',
-        label: '微博销售'
-    }, {
-        value: '4',
-        label: '微信认证'
-    }],
-    postLevelList: [{
-        value: '1',
-        label: 'p1'
-    }, {
-        value: '2',
-        label: 'p2'
-    }, {
-        value: '3',
-        label: 's1'
-    }, {
-        value: '4',
-        label: 's2'
-    }],
-    chargePersonList: [{
-        value: '1',
-        label: '王帅'
-    }, {
-        value: '1',
-        label: '王帅'
-    }],
-    deptNameList: [{
-        value: '1',
-        label: '催收'
-    }, {
-        value: '2',
-        label: '技术'
-    }, {
-        value: '3',
-        label: '微博'
-    }, {
-        value: '4',
-        label: '微信'
-    }],
-    postTypeList: [{
-        value: '1',
-        label: '销售'
-    }, {
-        value: '2',
-        label: '销售'
-    }],
-    recruitNumList: [{
-        value: '1',
-        label: '1'
-    }, {
-        value: '2',
-        label: '5'
-    }, {
-        value: '3',
-        label: '10'
-    }, {
-        value: '4',
-        label: '15'
-    }],
-    interviewerList: [{
-        value: '1',
-        label: '某某某'
-    }, {
-        value: '2',
-        label: '啦啦啦'
-    }],
-    postreinterviewerList: [{
-        value: '1',
-        label: '某某某'
-    }, {
-        value: '2',
-        label: '啦啦啦'
-    }],
-    interviewAddressList: [{
-        value: '1',
-        label: '麓谷企业广场'
-    }, {
-        value: '2',
-        label: '王府井'
-    }, {
-        value: '3',
-        label: '荣泰广场'
-    }],
-    baseUrl: "http://172.16.1.101:8080/HRM2018",//接口地址
-};
-
 $(function () {
     init();
 })
@@ -103,190 +9,384 @@ function init() {
             apiUrl: commData.baseUrl,
             //预览弹窗控制
             centerDialogVisible: false,
+            dialogTableVisible: false,
+            dialogFormVisible: false,
+            noticeNumer: 0,
             interviewee: {
 
             },
-            form: {
-                name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
-            },
-            postNameList: postNewList.postNameList,
-            postLevelList: postNewList.postLevelList,
-            chargePersonList: postNewList.chargePersonList,
-            deptNameList: postNewList.deptNameList,
-            postTypeList: postNewList.postTypeList,
-            interviewerList: postNewList.interviewerList,
-            postreinterviewerList: postNewList.postreinterviewerList,
-            interviewAddressList: postNewList.interviewAddressList,
+            iviewtypeList: [],
+            invitetypeList: [],
+            iviewernameList: [],
+            ivieweridList: [],
+            templateidList: [],
+            iviewaddressList: [],
+            resumeUrl:'',
             //删选字段
             ruleForm: {
-                postName: '',
-                postLevel: '',
-                chargePerson: '',
-                deptName: '',
-                recruitNum: '',
-                postType: '',
-                interviewer: '',
-                postreinterviewer: '',
-                wagesMin: '',
-                wagesMax: '',
-                content: '',
-                interviewAddress: ''
+                iviewtype: '',
+                invitetype: '',
+                iviewtime: '',
+                iviewername: '',
+                iviewerid: '',
+                phone: '',
+                templateid: '',
+                iviewaddress: ''
             },
-            apiUrl: "http://172.16.1.79:8080/HRM2018",
+            dialogMsg: {},
             rules: {
-                postName: [
-                    { required: true, message: '请输入岗位名称', trigger: 'blur' }
-                ],
-                postLevel: [
-                    { required: true, message: '请输入职位级别', trigger: 'blur' }
-                ],
-                chargePerson: [
-                    { required: true, message: '请输入人事负责人', trigger: 'blur' }
-                ],
-                deptName: [
-                    { required: false, message: '请输入所属部门', trigger: 'blur' }
-                ],
-                recruitNum: [
-                    { required: true, message: '请输入招聘人数', trigger: 'blur' },
-                    { pattern: /^\+?[1-9][0-9]*$/, message: '只能输入非零正整数', trigger: 'blur' }
-                ],
-                postType: [
-                    { required: false, message: '请输入岗位类型', trigger: 'blur' }
-                ],
-                interviewer: [
-                    { required: true, message: '请输入初试面试官', trigger: 'blur' }
-                ],
-                postreinterviewer: [
-                    { required: false, message: '请输入复试面试官', trigger: 'blur' }
-                ],
-                wagesMin: [
-                    { required: true, message: '请选择最低工作薪水', trigger: 'blur' },
-                    { pattern: /^([1-9][0-9]*)+(.[0-9]{1,2})?$/, message: '只能输入最多带两位小数的数字', trigger: 'blur' }
-                ],
-                wagesMax: [
-                    { required: true, message: '请选择最高工作薪水', trigger: 'blur' },
-                    { pattern: /^([1-9][0-9]*)+(.[0-9]{1,2})?$/, message: '只能输入最多带两位小数的数字', trigger: 'blur' }
-                ],
-                content: [
-                    { required: true, message: '请填写内容', trigger: 'blur' }
-                ]
+                iviewtype: [{
+                    required: true,
+                    message: '请选择面试类型',
+                    trigger: 'change'
+                }],
+                invitetype: [{
+                    required: true,
+                    message: '请选择通知方式',
+                    trigger: 'change'
+                }],
+                iviewtime: [{
+                    required: true,
+                    message: '请选择面试时间',
+                    trigger: 'blur'
+                }],
+                iviewername: [{
+                    required: true,
+                    message: '请选择面试官',
+                    trigger: 'change'
+                }, ],
+                iviewerid: [{
+                    required: true,
+                    message: '请选择人事负责人',
+                    trigger: 'change'
+                }],
+                phone: [{
+                    required: true,
+                    message: '请选择联系方式',
+                    trigger: 'blur'
+                }],
+                templateid: [{
+                    required: true,
+                    message: '请选择模板',
+                    trigger: 'change'
+                }],
+                iviewaddress: [{
+                    required: true,
+                    message: '请选择面试地点',
+                    trigger: 'change'
+                }],
+               
             }
+
         },
         created: function () {
             this.resumeID = commMethod.getCookie("resumeId");
-            // this.GetResume();
+            this.GetResume();
+            this.getHrList();
+            this.getInvitetypeList();
+            this.getIviewaddressList();
+            this.getIviewernameList();
+            this.getIviewtypeList();
+            this.getTemplate();
+            // this.getLogInfo();
         },
         methods: {
+            //获取面试类型列表
+            getIviewtypeList: function () {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryDictsByItemType',
+                    data: {
+                        type: 'iviewtype'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = JSON.parse(res.body);
+                        that.iviewtypeList = res;
+                    }
+                });
+            },
+            //获取通知方式列表
+            getInvitetypeList: function () {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryDictsByItemType',
+                    data: {
+                        type: 'sendtype'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = JSON.parse(res.body);
+                        that.invitetypeList = res;
+                    }
+                });
+            },
+            //获取面试官
+            getIviewernameList: function () {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryUserByRole',
+                    data: {
+                        roleid: "2"
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = res.body;
+                        that.iviewernameList = res;
+                    }
+                });
+            },
+            //获取人事负责人
+            getHrList: function () {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryUserByRole',
+                    data: {
+                        roleid: "1"
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = res.body;
+                        that.ivieweridList = res;
+                    }
+                });
+            },
+            //获取模板列表
+            getTemplate: function () {
+                var that = this;
+                that.ruleForm.templateid = "";
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryTemplateSel',
+                    data: {
+                        type: that.ruleForm.invitetype
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = JSON.parse(res.body);
+                        that.templateidList = res;
+                    }
+                });
+            },
+            //获取面试地点
+            getIviewaddressList: function (param) {
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryDictsByItemType',
+                    data: {
+                        type: 'address'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = JSON.parse(res.body);
+                        that.iviewaddressList = res;
+                    }
+                });
+            },
             //获取简历信息
             GetResume: function () {
                 var that = this;
                 $.ajax({
                     type: 'POST',
-                    url: that.apiUrl + '/searchResumeById',
+                    url: that.apiUrl + '/queryVitaeById',
                     data: {
-                        resumeId: that.resumeID
+                        vitaeId: that.resumeID
                     },
-                    dataType: 'text',
+                    dataType: 'json',
                     success: function (res) {
-                        res = JSON.parse(res);
-                        console.log(res);
                         res = res.body;
                         that.interviewee = res;
-                        that.$data.status = res.state;
+                        that.resumeUrl = that.interviewee.url.substring(0,6) + "/";
+                        that.resumeUrl += that.interviewee.url;
+                        that.resumeUrl = that.apiUrl.replace("/HRM2018","")+'/hrmfile/'+that.resumeUrl;
                     }
                 });
             },
-            submitForm(formName) {
+            //获取人数
+            noticeNum: function (val) {
+                var that = this;
+                var time = commMethod.formatTimeYearMonth(val);
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryInviteByIviewTime',
+                    data: {
+                        iviewTime: time
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = res.body;
+                        that.noticeNumer = res;
+                    }
+                });
+            },
+            //获取记录
+            getLogInfo:function () { 
+                var that = this;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryVitaeById',
+                    data: {
+                        vitaeId: that.resumeID
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                    }
+                });
+             },
+            //预览
+            showApply: function (formName) {
                 var that = this;
                 this.$refs[formName].validate(function (valid) {
                     if (valid) {
-                        that.ruleForm.interviewer += "," + that.ruleForm.postreinterviewer;
-                        delete that.ruleForm.postreinterviewer;
-                        $.ajax({
-                            type: 'POST',
-                            url: that.apiUrl + '/insertPost',
-                            data: that.ruleForm,
-                            dataType: 'text',
-                            success: function (res) {
-                                res = JSON.parse(res);
-                                that.$message({
-                                    type: "success",
-                                    message: res.body
-                                });
-                                // window.location.href="./post-manage.html"
+                        var posttime =  commMethod.formatTimeYearMonth(that.ruleForm.iviewtime),
+                        iviewerName = '',
+                        iviewAddress = '',
+                        dutyName = '';
+                        that.iviewernameList.forEach(function (element) {
+                            if (element.id = that.ruleForm.iviewername) {
+                                iviewerName = element.name;
                             }
                         });
-
+                        that.iviewaddressList.forEach(function (element) {
+                            if (element.id = that.ruleForm.iviewaddress) {
+                                iviewAddress = element.value;
+                            }
+                        });
+                        that.ivieweridList.forEach(function (element) {
+                            if (element.id = that.ruleForm.iviewerid) {
+                                dutyName = element.name;
+                            }
+                        });
+                        $.ajax({
+                            type: 'POST',
+                            url: that.apiUrl + '/previewInviteContent',
+                            data: {
+                                vitaeId:that.resumeID,
+                                name:that.interviewee.name,
+                                phone:that.interviewee.phone,
+                                inviteType:that.ruleForm.invitetype,
+                                iviewType:that.ruleForm.iviewtype,
+                                iviewerId:that.ruleForm.iviewername,
+                                iviewAddress:iviewAddress,
+                                templateId:that.ruleForm.templateid,
+                                dutyId:that.ruleForm.iviewerid,
+                                dutyPhone:that.ruleForm.phone,
+                                matterNeed:'',
+                                iviewTime:posttime,
+                                iviewerName:iviewerName,
+                                positionName:that.interviewee.positionName,
+                                dutyName:dutyName
+                            },
+                            dataType: 'json',
+                            success: function (res) {
+                                that.iviewtypeList.forEach(function (element) {
+                                    if (element.id =  that.ruleForm.iviewtype) {
+                                        that.dialogMsg.iviewtype = element.value;
+                                    }
+                                });
+                                that.invitetypeList.forEach(function (element) {
+                                    if (element.id =  that.ruleForm.invitetype) {
+                                        that.dialogMsg.invitetype = element.value;
+                                    }
+                                });
+                                that.iviewernameList.forEach(function (element) {
+                                    if (element.id =  that.ruleForm.iviewername) {
+                                        that.dialogMsg.iviewername = element.name;
+                                    }
+                                });
+                                that.ivieweridList.forEach(function (element) {
+                                    if (element.id = that.ruleForm.iviewerid) {
+                                        that.dialogMsg.iviewerid = element.name;
+                                    }
+                                });
+                                that.templateidList.forEach(function (element) {
+                                    if (element.id =  that.ruleForm.templateid) {
+                                        that.dialogMsg.templateid = element.name;
+                                    }
+                                });
+                                that.iviewaddressList.forEach(function (element) {
+                                    if (element.id =  that.ruleForm.iviewaddress) {
+                                        that.dialogMsg.iviewaddress = element.value;
+                                    }
+                                });
+                                that.dialogMsg.phone = that.ruleForm.phone;
+                                that.dialogMsg.iviewtime = commMethod.formatTimeYearMonth( that.ruleForm.iviewtime);
+                                that.dialogMsg.content = res.body;
+                                that.centerDialogVisible = true;
+                            }
+                        });                    
                     } else {
                         console.log('error submit!!');
                         return false;
                     }
                 });
             },
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
+            //发送通知
+            submitForm: function () {
+                var that = this;
+                var posttime =  commMethod.formatTimeYearMonth(that.ruleForm.iviewtime),
+                iviewerName = '',
+                iviewAddress = '',
+                dutyName = '';
+                that.iviewernameList.forEach(function (element) {
+                    if (element.id = that.ruleForm.iviewername) {
+                        iviewerName = element.name;
+                    }
+                });
+                that.iviewaddressList.forEach(function (element) {
+                    if (element.id = that.ruleForm.iviewaddress) {
+                        iviewAddress = element.value;
+                    }
+                });
+                that.ivieweridList.forEach(function (element) {
+                    if (element.id = that.ruleForm.iviewerid) {
+                        dutyName = element.name;
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/insertInvite',
+                    data: {
+                        vitaeId:that.resumeID,
+                        name:that.interviewee.name,
+                        phone:that.interviewee.phone,
+                        inviteType:that.ruleForm.invitetype,
+                        iviewType:that.ruleForm.iviewtype,
+                        iviewerId:that.ruleForm.iviewername,
+                        iviewAddress:iviewAddress,
+                        templateId:that.ruleForm.templateid,
+                        dutyId:that.ruleForm.iviewerid,
+                        dutyPhone:that.ruleForm.phone,
+                        matterNeed:'',
+                        iviewTime:posttime,
+                        iviewerName:iviewerName,
+                        positionName:that.interviewee.positionName,
+                        dutyName:dutyName,
+                        content: that.dialogMsg.content
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.code == 1) {     
+                            that.$message.success({
+                                message:res.body
+                            });
+                            that.centerDialogVisible = false;
+                            
+                        } else {
+                            that.$message.error({
+                                message:res.body
+                            });
+                            that.centerDialogVisible = false;
+                        }
+                    }
+                })
             }
-            //     // 判断是否全部选择
-            //    isAllSelected: function () {
-            //         let object = this.interviewValue
-            //         for (const key in object) {
-            //             if (object.hasOwnProperty(key)) {
-            //                 const element = object[key];
-            //                 if (element == '') {
-            //                     return false
-            //                 } else {
-            //                     return true
-            //                 }
-            //             }
-            //         }
-            //     },
-            //     // 发送通知提交
-            //     noticeSubmit: function () {
-            //         if (this.isAllSelected()) {
-            //             this.$confirm('是否发送邀请函', '提示', {
-            //                 confirmButtonText: '确定',
-            //                 cancelButtonText: '取消',
-            //                 type: 'warning'
-            //             }).then(() => {
-            //                 // $.post().then(res)
-            //                 this.$message({
-            //                     type: 'success',
-            //                     message: '发送成功!'
-            //                 });
-            //             }).catch(() => {
-            //                 this.$message({
-            //                     type: 'info',
-            //                     message: '已取消'
-            //                 });
-            //             });
-            //         } else {
-            //             this.$message({
-            //                 type: 'error',
-            //                 message: '请正确填写!'
-            //             });
-            //         }
-            //     },
-            //     // 进入初试
-            //     toPre: function () {},
-            //     //验证是否为金额
-            //     isNumber: function (ev) {
-            //         var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
-            //         let $this = ev.target;
-            //         if (!reg.test($this.value)) {
-            //             this.$message({
-            //                 type: 'error',
-            //                 message: '请正确填写金额'
-            //             });
-            //             return;
-            //         }
-            //     }
         }
     });
 }

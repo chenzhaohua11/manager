@@ -6,6 +6,7 @@ function tempNewInit() {
     new Vue({
         el: "#right-container",
         data: {
+            username:"",
             apiUrl: commData.baseUrl,
             flag:'1',
             workId:"",
@@ -70,11 +71,12 @@ function tempNewInit() {
             }
         },
         created: function () {
+            this.username = commMethod.getCookie("username");
             this.GetPosType();
             this.GetPosList();
             this.GetUrgency();
             this.GetDeptList();
-            this.workId = GetSearchArgs().id;
+            this.workId = commMethod.GetSearchArgs().id;
             if (this.workId) {
                this.flag = "2";
                 this.GetWoekDetial(this.workId);
@@ -87,7 +89,7 @@ function tempNewInit() {
                 var that = this;
                 $.ajax({
                     type: 'POST',
-                    url: that.apiUrl + '/queryRecruitaskById  ',
+                    url: that.apiUrl + '/queryRecruitaskById',
                     data: {
                         id: param
                     },
@@ -186,7 +188,7 @@ function tempNewInit() {
                                     message: res.body
                                 });
                                 that.resetForm(formName);
-                                window.location.href = "./post-manage.html"
+                                window.location.href = "./post-manage.html";
                             }
                         });
 
@@ -201,22 +203,4 @@ function tempNewInit() {
             }
         }
     });
-}
-
-function GetSearchArgs() {
-    let qs = (location.search.length > 0 ? location.search.substring(1) : ''),
-        args = {},
-        items = qs.length ? qs.split('&') : [],
-        item = null,
-        name = null,
-        value = null;
-    for (let index = 0; index < items.length; index++) {
-        item = items[index].split('=');
-        name = decodeURIComponent(item[0]);
-        value = decodeURIComponent(item[1]);
-        if (name.length) {
-            args[name] = value;
-        }
-    }
-    return args;
 }

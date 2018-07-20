@@ -140,7 +140,9 @@
     width: 96%;
     position: absolute;
 }
-
+.special {
+    text-indent: 20px !important;
+}
 .donate_bar li {
     height: 42px;
     line-height: 42px;

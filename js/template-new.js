@@ -1,26 +1,3 @@
-var tempNewList = {
-    typeList: [{
-        value: '1',
-        label: '前端工程师'
-    }, {
-        value: '2',
-        label: '催收'
-    }, {
-        value: '3',
-        label: '微博销售'
-    }, {
-        value: '4',
-        label: '微信认证'
-    }],
-    stateList: [{
-        value: '1',
-        label: '开启'
-    }, {
-        value: '2',
-        label: '关闭'
-    }],
-    baseUrl: "http://172.16.1.101:8080/HRM2018",//接口地址
-};
 $(function () {
     tempNewInit()
 })
@@ -28,66 +5,146 @@ function tempNewInit() {
     new Vue({
         el: "#right-container",
         data: {
-            typeList: tempNewList.typeList,
-            stateList: tempNewList.stateList,
+            username:'',
+            typeList:[],
+            stateList: [
+                {
+                    id:0,
+                    value:"开启"
+                },
+                {
+                    id:1,
+                    value:"关闭"
+                }
+            ],
             //删选字段
             ruleForm: {
                 name: '',
                 type: "",
-                state: "",
-                used: '',
-                content: '',
-                default:false
+                stat: "",
+                tdesc: '',
+                content: ''
             },
-            apiUrl: "http://172.16.1.79:8080/HRM2018",
+            apiUrl: commData.baseUrl,
             rules: {
                 name: [
                     { required: true, message: '请输入模板名称', trigger: 'blur' }
                 ],
                 type: [
-                    { required: false, message: '请选择类型', trigger: 'change' }
+                    { required: true, message: '请选择类型', trigger: 'change' }
                 ],
-                state: [
+                stat: [
                     { required: true, message: '请选择状态', trigger: 'change' }
                 ],
-                used: [
-                    { required: false, message: '请选择时间', trigger: 'change' }
+                tdesc: [
+                    { required: true, message: '请选择时间', trigger: 'change' }
                 ],
                 content: [
                     { required: true, message: '请填写邮件内容', trigger: 'blur' }
                 ]
-            }
+            },
+            userObj:'',
+            templateId:'',
         },
-        created() {
-            console.log(window.location.href)
+        created:function() {
+            this.username = commMethod.getCookie("username");
+            this.userObj = commMethod.getCookie("userObj");
+            this.templateId = commMethod.GetSearchArgs().id;
+            if (this.templateId) {
+                this.GetTemplateDetial(this.templateId);
+            }
+            this.GetType();
         },
         methods: {
-            submitForm(formName) {
+            //获取模板信息
+            GetTemplateDetial:function (param) { 
+                var that = this ;
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryOneTemplate',
+                    data: {
+                        id:param
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = JSON.parse(res.body);
+                        that.ruleForm= res;
+                    }
+                });
+             },
+            //获取类型列表
+            GetType:function() {
                 var that = this;
-                this.$refs[formName].validate((valid) => {
+                $.ajax({
+                    type: 'POST',
+                    url: that.apiUrl + '/queryDictsByItemType',
+                    data: {
+                        type:"sendtype"
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        res = JSON.parse(res.body);
+                        that.typeList = res;
+                
+                    }
+                });
+            },
+            submitForm:function(formName) {
+                var that = this;
+                that.$refs[formName].validate(function(valid){
                     if (valid) {
-                        $.ajax({
-                            type: 'POST',
-                            url: that.apiUrl + '/insertPost',
-                            data: that.ruleForm,
-                            dataType: 'text',
-                            success: function (res) {
-                                res = JSON.parse(res);
-                                that.$message({
-                                    type: "success",
-                                    message: res.body
+                        var model = that.$refs[formName].model;
+                        if (that.templateId) {
+                            $.ajax({
+                                type: 'POST',
+                                url: that.apiUrl + '/updateTemplateById',
+                                data: {
+                                    name:model.name,
+                                    type:model.type,
+                                    stat:model.stat,
+                                    tdesc:model.tdesc,
+                                    content:model.content,
+                                    userObj:that.userObj,
+                                    id:that.templateId
+                                },
+                                dataType: 'json',
+                                success: function (res) {
+                                    console.log(res);
+                                    that.$message.success({
+                                        message: res.body
                                 });
-                                // window.location.href="./template-list.html"
+                                window.location.href="./template-list.html";
                             }
                         });
-
+                        } else {
+                            $.ajax({
+                                type: 'POST',
+                                url: that.apiUrl + '/templateInsert',
+                                data: {
+                                    name:model.name,
+                                    type:model.type,
+                                    stat:model.stat,
+                                    tdesc:model.tdesc,
+                                    content:model.content,
+                                    userObj:that.userObj
+                                },
+                                dataType: 'json',
+                                success: function (res) {
+                                    console.log(res);
+                                    that.$message.success({
+                                        message: res.body
+                                });
+                                window.location.href="./template-list.html";
+                            }
+                        });
+                      }
                     } else {
                         console.log('error submit!!');
                         return false;
                     }
                 });
             },
-            resetForm(formName) {
+            resetForm:function(formName) {
                 this.$refs[formName].resetFields();
             }
         }
